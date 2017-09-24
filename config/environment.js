@@ -30,6 +30,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.githubApiKey = process.env.GITHUB_API_KEY;
   }
 
   if (environment === 'test') {
