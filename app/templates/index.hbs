@@ -1,28 +1,36 @@
-<h1>Overview</h1>
-<section class="projects">
-  {{#each model as |org|}}
-    <h2>{{org.login}}</h2>
-    {{#each org.githubRepositories as |project|}}
-      {{#if project.isNewThisWeek}}
-        <section class="row project-item">
-          <h3>{{project.fullName}}</h3>
-          <p class="project-item__url">
-            <a href={{project.htmlUrl}}>{{project.htmlUrl}}</a>
-          </p>
-          <p class="project-item__description">{{project.description}}</p>
-          <article class="project-item__pulls">
-            {{#each project.pulls as |pull|}}
-              {{#if pull.landedThisWeek}}
-                <p><strong><a href={{pull.htmlUrl}}>{{pull.title}}</a></strong></p>
-              {{/if}}
-              {{#if pull.isNewThisWeek}}
-                <p><a href={{pull.htmlUrl}}>{{pull.title}}</a></p>
-              {{/if}}
-            {{/each}}
-          </article>
-        </section>
-      {{/if}}
-    {{/each}}
+{{#each model as |org|}}
+  <h2 class="title mt-1"><a href={{org.htmlUrl}} target="org">{{org.login}}</a></h2>
+  {{#each org.githubRepositories as |project|}}
+    {{#if project.isNewThisWeek}}
+      <div class="card project-item">
+        <header class="card-header">
+          <p class="card-header-title"><a href={{project.htmlUrl}}>{{project.fullName}}</a></p>
+          <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-content primary-bg has-text-white">
+          <div class="content">
+            <p class="project-item__description">{{project.description}}</p>
+            <article class="project-item__pulls">
+              {{#each project.pulls as |pull|}}
+                {{#if pull.landedThisWeek}}
+                  {{news-item pull=pull repo=project highlight=true}}
+                {{/if}}
+                {{#if pull.isNewThisWeek}}
+                  {{news-item pull=pull repo=project highlight=false}}
+                {{/if}}
+              {{/each}}
+            </article>
+          </div>
+        </div>
+        <footer class="card-footer">
+
+        </footer>
+      </div>
+    {{/if}}
   {{/each}}
-</section>
+{{/each}}
 {{outlet}}

@@ -1,0 +1,16 @@
+<p><span class="icon"><i class="fa fa-plus"></i></span> <a class={{if highlight 'strong'}} href={{pull.htmlUrl}} target={{pull.title}} data-test-pull-title>{{pull.title}}</a>
+  <span class="icon load-comments" {{action 'loadComments' pull}} data-test-num-of-comments><i class="fa fa-commenting-o"></i>{{comments.length}}</span>
+  <span class="is-pulled-right">
+    {{#copy-me}}
+      <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
+    {{/copy-me}}
+  </span>
+</p>
+{{#if comments.length}}
+  {{#each comments as |comment|}}
+    <p>{{markdown-to-html comment.body}} <span class="is-pulled-right">by <a href={{comment.user.html_url}} target="review_comment">@{{comment.user.login}}</a></span></p>
+  {{/each}}
+{{/if}}
+<p data-test-pull-desc>
+  {{markdown-to-html pull.body}}
+</p>

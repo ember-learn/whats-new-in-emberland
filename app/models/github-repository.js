@@ -5,7 +5,7 @@ import moment from 'moment';
 export default GithubRepositoryModel.extend({
   startOfWeek: computed(function() {
     const currentDay = moment().day();
-    const startIndex = currentDay < 5 ? -2 : 5;
+    const startIndex = currentDay < 6 ? -2 : 5;
     return moment().day(startIndex);
   }),
   isNewThisWeek: computed('updatedAt', 'startOfWeek', function() {
