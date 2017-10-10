@@ -1,15 +1,18 @@
+import Ember from 'ember';
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import { equal } from '@ember/object/computed';
 import { isPresent } from '@ember/utils';
 
 import { task, timeout } from 'ember-concurrency';
+import moment from 'moment';
 
-const TIMEOUT_INTERVAL = 1000 * 60 * 1/2;
+const TIMEOUT_INTERVAL = Ember.testing ? 2 : 1000 * 60 * 15;
 
 export default Controller.extend({
-  async init() {
+/*  async init() {
     this._super(...arguments);
-    while(true) {
+    /*while(true) {
       try {
         await timeout(TIMEOUT_INTERVAL);
         this.get('updateModel').perform();
@@ -17,7 +20,13 @@ export default Controller.extend({
         console.log(e);
       }
     }
-  },
+  }, */
+ daysUntilPublishing: computed(function() {
+   const today = new Date();
+   return moment(today).day();
+ }),
+ isPublishingDay: equal('daysUntilPublishing', 5),
+ isDayBeforePublishing: equal('daysUntilPublishing', 4),
   updatedProjectItems: computed('repos.@each.isLoaded', function() {
     const repos = this.get('repos');
     if (isPresent(repos)) {
@@ -26,8 +35,6 @@ export default Controller.extend({
     }
   }),
   updateModel: task(function * () {
-    console.log("so");
-    console.log(this.get('model'));
     this.get('model').forEach((submodel) => {
       submodel.reload();
     });

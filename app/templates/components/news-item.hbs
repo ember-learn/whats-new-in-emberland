@@ -1,6 +1,8 @@
 <p><span class="icon"><i class="fa fa-plus"></i></span> <a class={{if highlight 'strong'}} href={{pull.htmlUrl}} target={{pull.title}} data-test-pull-title>{{pull.title}}</a>
   <span class="updated-at">{{updatedAt}}</span>
-  <span class="icon load-comments" {{action 'loadComments' pull}} data-test-num-of-comments><i class="fa fa-commenting-o"></i>{{if isLoadingComments '✨' ''}}&nbsp;<span class="has-text-grey">{{comments.length}}</span></span>
+  <span class="icon load-comments" {{action 'loadComments' pull}} data-test-load-comments><i class="fa fa-commenting-o"></i>{{if isLoadingComments '✨' ''}}&nbsp;<span class="has-text-grey" data-test-num-of-comments>{{comments.length}}</span>
+  <span data-test-times-reloaded>{{timesReloaded}}x</span>
+</span>
   <span class="is-pulled-right">
     {{#copy-me}}
       <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>

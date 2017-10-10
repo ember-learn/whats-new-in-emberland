@@ -30,6 +30,11 @@ module.exports = function(defaults) {
     type: 'test',
     using: [{ transformation: 'amd', as: 'testdouble' }],
   });
+  app.import('node_modules/lolex/lolex.js', {
+    type: 'test',
+    using: [{ transformation: 'amd', as: 'lolex' }],
+  });
+
 
   return app.toTree();
 };

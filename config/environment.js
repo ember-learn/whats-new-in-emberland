@@ -42,6 +42,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.githubApiKey = process.env.GITHUB_API_KEY;
   }
 
   if (environment === 'production') {

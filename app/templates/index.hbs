@@ -1,3 +1,11 @@
+<p class="is-pulled-right">
+{{#if isPublishingDay}}
+  <strong class="has-text-danger subtitle" data-test-is-friday-disclaimer>RELEASE DAY!</strong>
+{{/if}}
+{{#if isDayBeforePublishing}}
+  <strong class="has-text-warning subtitle" data-test-is-thursday-disclaimer>It's Thursday...😱</strong>
+{{/if}}
+</p>
 {{#each model as |org|}}
   <h2 class="title mt-1"><a href={{org.htmlUrl}} target="org">{{org.login}}</a></h2>
   {{#each org.githubRepositories as |project|}}
