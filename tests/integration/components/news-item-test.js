@@ -33,9 +33,11 @@ skip('it renders: synchronous comment loading check with async / await', async f
   assert.ok(find('[data-test-pull-title]').textContent.includes('Finally fixing Bug #1'), 'displays pull request title');
   assert.ok(find('[data-test-pull-desc]').textContent.includes('Some text for my pull request 1'), 'displays pull request description');
 
-  await click('[data-test-load-comments]'); // already returns wait helper
-
-  assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+  // await click('[data-test-load-comments]'); // already returns wait helper
+  $('[data-test-load-comments]').click();
+  return wait(() => {
+    assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+  });
 });
 
 skip('it renders: comment loading check with wait helper', async function(assert) {
@@ -80,7 +82,7 @@ skip('it renders: comment loading with concurrency task - times out', async func
   });
 });
 
-test('it renders: comment loading with concurrency task - pass w/ cancelTimers', async function(assert) {
+skip('it renders: comment loading with concurrency task - pass w/ cancelTimers', async function(assert) {
   this.set('pull', this.dummyPull);
   this.set('repo', this.dummyRepo);
 
@@ -92,7 +94,7 @@ test('it renders: comment loading with concurrency task - pass w/ cancelTimers',
 
   later(() => {
     run.cancelTimers();
-  }, 200);
+  }, 500);
 
   $.getJSON = td.function();
 
@@ -102,11 +104,9 @@ test('it renders: comment loading with concurrency task - pass w/ cancelTimers',
   assert.ok(find('[data-test-pull-title]').textContent.includes('Finally fixing Bug #1'), 'displays pull request title');
   assert.ok(find('[data-test-pull-desc]').textContent.includes('Some text for my pull request 1'), 'displays pull request description');
 
-  await this.clock.tick(200);
-
   return wait().then(() => { // will timeout without cancelled timer
     assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
-    assert.equal(find('[data-test-times-reloaded]').textContent.trim(), `7x`, 'loaded comments 10 times'); // undeterministic, might return any other number
+    // assert.equal(find('[data-test-times-reloaded]').textContent.trim(), `7x`, 'loaded comments 10 times'); // undeterministic, might return any other number
   });
 });
 
@@ -125,4 +125,116 @@ skip('it renders: comment loading with concurrency task - pass w/ with waitingHe
   click('.load-comments');
 
   assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+});
+
+skip('it renders: comment loading with concurrency task - pass w/ cancelTimers', async function(assert) {
+  this.set('pull', this.dummyPull);
+  this.set('repo', this.dummyRepo);
+
+//  run(() => {
+  /*  this.clock.setTimeout(function () {
+      run.cancelTimers();
+    }, 200); */
+//  });
+
+  later(() => {
+    run.cancelTimers();
+  }, 500);
+
+  $.getJSON = td.function();
+
+  td.when($.getJSON('https://api.github.com/repos/user1/repository/pulls/1/comments')).thenResolve(this.comments);
+
+  this.render(hbs`{{news-item pull=pull repo=repo}}`);
+  assert.ok(find('[data-test-pull-title]').textContent.includes('Finally fixing Bug #1'), 'displays pull request title');
+  assert.ok(find('[data-test-pull-desc]').textContent.includes('Some text for my pull request 1'), 'displays pull request description');
+
+  return wait().then(() => { // will timeout without cancelled timer
+    assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+    // assert.equal(find('[data-test-times-reloaded]').textContent.trim(), `7x`, 'loaded comments 10 times'); // undeterministic, might return any other number
+  });
+});
+
+skip('it renders: comment loading with concurrency task - pass w/ cancelTimers', async function(assert) {
+  this.set('pull', this.dummyPull);
+  this.set('repo', this.dummyRepo);
+
+//  run(() => {
+  /*  this.clock.setTimeout(function () {
+      run.cancelTimers();
+    }, 200); */
+//  });
+
+  later(() => {
+    run.cancelTimers();
+  }, 500);
+
+  $.getJSON = td.function();
+
+  td.when($.getJSON('https://api.github.com/repos/user1/repository/pulls/1/comments')).thenResolve(this.comments);
+
+  this.render(hbs`{{news-item pull=pull repo=repo}}`);
+  assert.ok(find('[data-test-pull-title]').textContent.includes('Finally fixing Bug #1'), 'displays pull request title');
+  assert.ok(find('[data-test-pull-desc]').textContent.includes('Some text for my pull request 1'), 'displays pull request description');
+
+  return wait().then(() => { // will timeout without cancelled timer
+    assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+    // assert.equal(find('[data-test-times-reloaded]').textContent.trim(), `7x`, 'loaded comments 10 times'); // undeterministic, might return any other number
+  });
+});
+
+skip('it renders: comment loading with concurrency task - pass w/ cancelTimers', async function(assert) {
+  this.set('pull', this.dummyPull);
+  this.set('repo', this.dummyRepo);
+
+//  run(() => {
+  /*  this.clock.setTimeout(function () {
+      run.cancelTimers();
+    }, 200); */
+//  });
+
+  later(() => {
+    run.cancelTimers();
+  }, 500);
+
+  $.getJSON = td.function();
+
+  td.when($.getJSON('https://api.github.com/repos/user1/repository/pulls/1/comments')).thenResolve(this.comments);
+
+  this.render(hbs`{{news-item pull=pull repo=repo}}`);
+  assert.ok(find('[data-test-pull-title]').textContent.includes('Finally fixing Bug #1'), 'displays pull request title');
+  assert.ok(find('[data-test-pull-desc]').textContent.includes('Some text for my pull request 1'), 'displays pull request description');
+
+  return wait().then(() => { // will timeout without cancelled timer
+    assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+    // assert.equal(find('[data-test-times-reloaded]').textContent.trim(), `7x`, 'loaded comments 10 times'); // undeterministic, might return any other number
+  });
+});
+
+skip('it renders: comment loading with concurrency task - pass w/ cancelTimers', async function(assert) {
+  this.set('pull', this.dummyPull);
+  this.set('repo', this.dummyRepo);
+
+//  run(() => {
+  /*  this.clock.setTimeout(function () {
+      run.cancelTimers();
+    }, 200); */
+//  });
+
+  later(() => {
+    run.cancelTimers();
+  }, 500);
+
+  $.getJSON = td.function();
+
+  td.when($.getJSON('https://api.github.com/repos/user1/repository/pulls/1/comments')).thenResolve(this.comments);
+
+  this.render(hbs`{{news-item pull=pull repo=repo}}`);
+  assert.ok(find('[data-test-pull-title]').textContent.includes('Finally fixing Bug #1'), 'displays pull request title');
+  assert.ok(find('[data-test-pull-desc]').textContent.includes('Some text for my pull request 1'), 'displays pull request description');
+
+  return wait().then(() => { // will timeout without cancelled timer
+    assert.equal(find('[data-test-num-of-comments]').textContent.trim(), `2`, 'displays comments');
+    // assert.equal(find('[data-test-times-reloaded]').textContent.trim(), `7x`, 'loaded comments 10 times'); // undeterministic, might return any other number
+  });
 });

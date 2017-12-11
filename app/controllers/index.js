@@ -21,6 +21,7 @@ export default Controller.extend({
       }
     }
   }, */
+isShowingUpdates: false,
  daysUntilPublishing: computed(function() {
    const today = new Date();
    return moment(today).day();
@@ -39,4 +40,9 @@ export default Controller.extend({
       submodel.reload();
     });
   }),
+  actions: {
+    toggleUpdates() {
+      this.toggleProperty('isShowingUpdates');
+    }
+  }
 });

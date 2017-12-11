@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import Component from '@ember/component';
 import { inject } from '@ember/service';
-import { later } from '@ember/runloop';
+import { debounce, later } from '@ember/runloop';
 import { computed } from '@ember/object';
 
 import { task, timeout } from 'ember-concurrency';
@@ -19,13 +19,13 @@ export default Component.extend({
   updatedAt: computed('pull.updatedAt', function() {
     return moment(this.get('pull.updatedAt')).fromNow();
   }),
-  /*async init() {
+/*  async init() {
     this._super(...arguments);
     while(true) {
       try {
-        this.get('reloadComments').perform();
-        console.log("loaded");
         await timeout(TIMEOUT_INTERVAL);
+        console.log("loaded");
+        this.get('reloadComments').perform();
       } catch(e) {
         console.log(e);
       }
@@ -56,10 +56,10 @@ export default Component.extend({
     });
   }).drop()), */
   actions: {
-    async loadComments(pull) {
+    loadComments(pull) {
       this.set('isLoadingComments', true);
-      // debounce(this, this.setLoadingIcon, pull, 800);
-      later(this, this.setLoadingIcon, pull, 2000);
+      debounce(this, this.setLoadingIcon, pull, 800);
+      // later(this, this.setLoadingIcon, pull, 800);
     },
   /*  async loadComments(pull) { // using action as concurrency task
       this.set('isLoadingComments', true);
