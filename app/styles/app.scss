@@ -18,3 +18,13 @@ body {
   margin-left: 2em;
   margin-right: 1em;
 }
+
+.news-item {
+  transition: all 0.3s ease-in;
+  &--is-done {
+    background-color: #efefef;
+    opacity: 0.5;
+    height: 60px;
+    overflow: hidden;
+  }
+}

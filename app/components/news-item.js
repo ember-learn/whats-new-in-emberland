@@ -14,8 +14,10 @@ export default Component.extend({
   store: inject(),
   tagName: 'section',
   classNames: ['news-item', 'box',],
+  classNameBindings: ['isDone:news-item--is-done'],
   isLoadingComments: false,
   timesReloaded: 0,
+  isDone: false,
   updatedAt: computed('pull.updatedAt', function() {
     return moment(this.get('pull.updatedAt')).fromNow();
   }),
