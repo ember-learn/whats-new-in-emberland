@@ -14,6 +14,10 @@ body {
   margin-top: 2em;
 }
 
+.mt-4 {
+  margin-top: 8em;
+}
+
 .updated-at {
   margin-left: 2em;
   margin-right: 1em;
@@ -27,4 +31,18 @@ body {
     height: 60px;
     overflow: hidden;
   }
+}
+
+.spinner {
+  display: block;
+  width: 20%;
+  margin: 2em auto;
+}
+
+.center, .centered {
+  text-align: center;
+}
+
+.full-height {
+  height: 100vh;
 }
