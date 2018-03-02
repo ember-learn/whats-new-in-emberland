@@ -3,6 +3,23 @@
   <strong class="has-text-danger subtitle" data-test-is-friday-disclaimer>RELEASE DAY!</strong>
 {{/if}}
 <button class="button" {{action 'toggleUpdates' bubbles=false}}>{{if isShowingUpdates 'Hide Updates' 'Show Updates'}}</button>
+<button class="button" disabled={{stillLoading}} {{action 'getContributors' bubbles=false}}>Get Contributors List</button>
+<p class="contributors">
+  <div class="hidden-list">
+    {{#each model as |org|}}
+      {{#each org.githubRepositories as |repo|}}
+        {{#each repo.pulls as |pull|}}
+          {{#if pull.landedThisWeek}}
+            {{pull.userLogin}}
+          {{/if}}
+        {{/each}}
+      {{/each}}
+    {{/each}}
+  </div>
+  {{#copy-me buttonClass="fetch-contributors"}}
+    {{conListUniq}}
+  {{/copy-me}}
+</p>
 {{#if isDayBeforePublishing}}
   <strong class="has-text-warning subtitle" data-test-is-thursday-disclaimer>It's Thursday...😱</strong>
 {{/if}}

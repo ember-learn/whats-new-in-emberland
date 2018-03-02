@@ -1,4 +1,5 @@
 import { computed } from '@ember/object';
+import { hasMany } from 'ember-data/relationships';
 import GithubRepositoryModel from 'ember-data-github/models/github-repository';
 import moment from 'moment';
 
