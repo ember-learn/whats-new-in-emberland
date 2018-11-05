@@ -1,6 +1,6 @@
-import Ember from 'ember';
+import Component from '@ember/component';
 
-export default Ember.Component.extend({
+export default Component.extend({
   selectElementContents(el) {
       var range = document.createRange();
       range.selectNodeContents(el);
@@ -12,7 +12,7 @@ export default Ember.Component.extend({
     copyText() {
       console.log(this.get('yield'));
       console.log(this);
-      const field = this.get('element').querySelector(`.copy-field`);
+	  const field = this.get('element').querySelector(`.copy-field`);
       this.selectElementContents(field);
       document.execCommand('copy');
     },

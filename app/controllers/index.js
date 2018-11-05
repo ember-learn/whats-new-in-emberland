@@ -1,3 +1,4 @@
+import { A } from '@ember/array';
 import Ember from 'ember';
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
@@ -39,7 +40,7 @@ stillLoading: not('isFinishedLoading'),
     },
     getContributors() {
       const list = document.querySelector('.contributors .hidden-list').innerHTML.split("\n");
-      const names = Ember.A(list)
+      const names = A(list)
         .map((name) => name.replace(/<!-.*>/,''))
         .map((name) => {
           return name.trim();
@@ -49,11 +50,10 @@ stillLoading: not('isFinishedLoading'),
 
       const links = names.map((contrib) => {
         const contributor = escapeExpression(contrib).trim();
-        const link = `<a href="https://github.com/${contributor}" target="gh-user">@${contributor}</a>`;
-        return htmlSafe(link);
+        return `<a href="https://github.com/${contributor}" target="gh-user">@${contributor}</a>`;
       }).join(', ');
       document.querySelector('.fetch-contributors').click();
-      this.set('conListUniq', htmlSafe(links));
+      this.set('conListUniq', links);
     },
   }
 });
