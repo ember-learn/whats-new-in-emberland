@@ -1,3 +1,4 @@
+import { A } from '@ember/array';
 import Ember from 'ember';
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
@@ -39,7 +40,7 @@ stillLoading: not('isFinishedLoading'),
     },
     getContributors() {
       const list = document.querySelector('.contributors .hidden-list').innerHTML.split("\n");
-      const names = Ember.A(list)
+      const names = A(list)
         .map((name) => name.replace(/<!-.*>/,''))
         .map((name) => {
           return name.trim();
