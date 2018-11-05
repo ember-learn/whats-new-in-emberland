@@ -50,11 +50,10 @@ stillLoading: not('isFinishedLoading'),
 
       const links = names.map((contrib) => {
         const contributor = escapeExpression(contrib).trim();
-        const link = `<a href="https://github.com/${contributor}" target="gh-user">@${contributor}</a>`;
-        return htmlSafe(link);
+        return `<a href="https://github.com/${contributor}" target="gh-user">@${contributor}</a>`;
       }).join(', ');
       document.querySelector('.fetch-contributors').click();
-      this.set('conListUniq', htmlSafe(links));
+      this.set('conListUniq', links);
     },
   }
 });
