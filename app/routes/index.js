@@ -3,29 +3,39 @@ import CONSTANTS from 'whats-new-in-emberland/constants';
 import { all, hash } from 'rsvp';
 
 export default Route.extend({
-  model() {
+  startOfWeek: "2018-11-02",
+  async model() {
     const store = this.get('store');
-    const repoFetches = CONSTANTS.REPOS.map((repo) => {
+    const startOfWeek = this.get('startOfWeek');
+    const projectFetches = CONSTANTS.REPOS.map((repo) => {
       return store.findRecord('github-organization', repo);
     });
-    return all(repoFetches).then((orgs) => orgs);
+    let orgs = await all(projectFetches).then((orgs) => orgs);
+    const repoFetches = orgs.map((org) => {
+      return org.get('githubRepositories');
+    });
+    let repos = await all(repoFetches).then((repos) => repos);
+    let allRepos = store.peekAll('githubRepository');
+    console.log({ allRepos });
+    const prFetches = allRepos.map((repo) => {
+      let repoName = repo.get('fullName');
+      console.log({ repoName });
+      return store.query('github-pull', { repo: repoName, state: 'all' });
+    });
+    let pulls = await all(prFetches).then((pulls) => pulls);
+    let mergedPulls = pulls.filter((pull) => {
+      return moment(pull.get('mergedAt')) > moment(startOfWeek);
+    });
+    let newPulls = pulls.filter((pull) => {
+      return moment(pull.get('createdAt')) > moment(startOfWeek);
+    });
+    console.log({ pulls });
+    return hash({
+      orgs,
+      repos,
+      pulls,
+      mergedPulls,
+      newPulls,
+    })
   },
-
-  async setupController(controller, model) {
-    this._super(controller, model);
-    // Implement your custom setup after
-    /* const reposPromise = model.getEach('githubRepositories');
-    const pulls = all(reposPromise)
-      .then((repos) => {
-        all(repos.map((repo) => repo.get('name'))).then((names) => { console.log(names); });
-        // all(repos.map((rep) => rep.get('name'))).then((names) => { console.log(names); });
-        return all(repos.getEach('pulls'))
-        .then((pulls) => {
-          console.log(pulls);
-          this.controllerFor('index').set('pulls', pulls);
-          return all(pulls);
-        });
-      }) */
-
-  }
 });
