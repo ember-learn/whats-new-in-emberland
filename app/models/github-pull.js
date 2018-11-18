@@ -17,4 +17,5 @@ export default GithubPullModel.extend({
   landedThisWeek: computed('mergedAt', 'startOfWeek', function() {
     return this.get('mergedAt') > this.get('startOfWeek');
   }),
+  head: DS.attr(),
 });

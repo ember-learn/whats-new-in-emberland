@@ -7,5 +7,5 @@ export default GithubPullAdapter.extend({
     delete query.pullNumber;
 
     return `${this.get('host')}/repos/${repo}/pulls/${pullNumber}`;
-  }
+  },
 });

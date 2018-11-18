@@ -1,53 +1,65 @@
-<p class="is-pulled-right">
-{{#if isPublishingDay}}
-  <strong class="has-text-danger subtitle" data-test-is-friday-disclaimer>RELEASE DAY!</strong>
-{{/if}}
-<button class="button" {{action 'toggleUpdates' bubbles=false}}>{{if isShowingUpdates 'Hide Updates' 'Show Updates'}}</button>
-<button class="button" {{action 'getContributors' bubbles=false}}>Get Contributors List</button>
-<p class="contributors">
-  {{#copy-me buttonClass="fetch-contributors"}}
-    {{conListUniq}}
-  {{/copy-me}}
-</p>
-{{#if isDayBeforePublishing}}
-  <strong class="has-text-warning subtitle" data-test-is-thursday-disclaimer>It's Thursday...😱</strong>
-{{/if}}
-</p>
-{{#each model.orgs as |org|}}
-  <h2 class="title mt-1"><a href={{org.htmlUrl}} target="org">{{org.login}}</a></h2>
-  {{#each model.repos as |project|}}
-    {{#if project.isNewThisWeek}}
-      <div class="card project-item">
-        <header class="card-header">
-          <p class="card-header-title"><a href={{project.htmlUrl}}>{{project.fullName}}</a></p>
-          <a href="#" class="card-header-icon" aria-label="more options">
-            <span class="icon">
-              <i class="fa fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </a>
-        </header>
-        <div class="card-content primary-bg has-text-white">
-          <div class="content">
-            <p class="project-item__description">{{project.description}}</p>
-            <article class="project-item__pulls">
-              {{#each project.pulls as |pull|}}
-                {{#if pull.landedThisWeek}}
-                  {{news-item pull=pull repo=project highlight=true}}
-                {{/if}}
-                {{#if isShowingUpdates}}
-                  {{#if pull.isNewThisWeek}}
-                    {{news-item pull=pull repo=project highlight=false}}
-                  {{/if}}
-                {{/if}}
-              {{/each}}
-            </article>
-          </div>
-        </div>
-        <footer class="card-footer">
-
-        </footer>
-      </div>
-    {{/if}}
-  {{/each}}
-{{/each}}
+<section>
+  {{#if isPublishingDay}}
+    <strong class="has-text-danger subtitle" data-test-is-friday-disclaimer>RELEASE DAY!</strong>
+  {{/if}}
+  <button class="button" {{action "getContributors" bubbles=false}}>Get Contributors List</button>
+  <p class="contributors">
+    {{#copy-me buttonClass="fetch-contributors"}}
+      {{conListUniq}}
+    {{/copy-me}}
+  </p>
+  {{#if isDayBeforePublishing}}
+    <strong class="has-text-warning subtitle" data-test-is-thursday-disclaimer>It's Thursday...😱</strong>
+  {{/if}}
+</section>
+<hr>
+<section>
+  <h2>New &amp; Accepted RFCs this Week</h2>
+  <ul>
+    {{#each model.newRfcs as |pull|}}
+      <li class="clearfix">
+        <i><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></i> by
+        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
+        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
+        <span class="status-badge new">New</span>
+      </li>
+    {{/each}}
+    {{#each model.mergedRfcs as |pull|}}
+      <li class="clearfix">
+        <strong><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></strong> by
+        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
+        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
+        <span class="status-badge merged">Merged</span>
+      </li>
+    {{/each}}
+  </ul>
+</section>
+<hr>
+<section>
+  <h2>Pull Requests - Landed This Week</h2>
+  <ul>
+    {{#each model.mergedPulls as |pull|}}
+      <li class="clearfix">
+        <strong><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></strong> by
+        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
+        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
+        <span class="status-badge merged">Merged</span>
+      </li>
+    {{/each}}
+  </ul>
+</section>
+<hr>
+<section>
+  <h2>Pull Requestes - Opened This Week</h2>
+  <ul>
+    {{#each model.newPulls as |pull|}}
+      <li class="clearfix">
+        <i><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></i> by
+        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
+        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
+        <span class="status-badge new">New</span>
+      </li>
+    {{/each}}
+  </ul>
+</section>
 {{outlet}}

@@ -10,9 +10,7 @@ export default Component.extend({
   },
   actions: {
     copyText() {
-      console.log(this.get('yield'));
-      console.log(this);
-	  const field = this.get('element').querySelector(`.copy-field`);
+      const field = this.get('element').querySelector(`.copy-field`);
       this.selectElementContents(field);
       document.execCommand('copy');
     },

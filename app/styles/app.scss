@@ -1,3 +1,6 @@
+$main-color: #00d1b2;
+$counter-color: #DEC0F1;
+
 body {
   background-color: #efefef;
 }
@@ -51,10 +54,46 @@ body {
   display: none;
 }
 
-/* .contributors .copy-field {
-  opacity: 0;
-  height: 1;
-  display: block;
-  width: 0;
-  overflow: hidden;
-} */
+h2 {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.status-badge {
+  position: absolute;
+  padding: 0.2em 0.4em;
+  border-radius: 2px;
+  box-shadow: 2px 2px 4px #222;
+  text-transform: uppercase;
+  color: #fff;
+  margin-right: 1em;
+  font-size: 0.7em;
+  font-weight: 600;
+  left: -0.2em;
+  width: 5em;
+  text-align: center;
+
+  &.new {
+    background-color: $main-color;
+  }
+
+  &.merged {
+    color: #222222;
+    background-color: $counter-color;
+  }
+}
+
+.clearfix {
+  &:before, &:after {
+    clear: both;
+    display: table;
+    content: "";
+  }
+}
+
+li.clearfix {
+  position: relative;
+  font-size: 1.2em;
+  margin: 0.6em 0 0.2em;
+  padding-left: 4em;
+}
