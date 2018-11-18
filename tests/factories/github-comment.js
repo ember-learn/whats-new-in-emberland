@@ -1,5 +1,4 @@
 import FactoryGuy from 'ember-data-factory-guy';
-const sampleDate = new Date().toISOString();
 
 const commentBodies = [
   'LGTM',
