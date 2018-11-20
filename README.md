@@ -1,7 +1,6 @@
 # whats-new-in-emberland
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is an overview app of Ember-related Github activity used by the investigative folks over at [The Ember Times](https://twitter.com/embertimes) to find new, relevant topics for the newsletter.
 
 ## Prerequisites
 
@@ -16,7 +15,14 @@ You will need the following things properly installed on your computer.
 
 * `git clone <repository-url>` this repository
 * `cd whats-new-in-emberland`
-* `npm install`
+* `yarn`
+* if you do not have one yet, please create a valid Github API Token [here](https://github.com/settings/tokens).
+Each token you're generating already comes with the suitable set of permissions to read all the public repository info that is required to run this app. There's no need for you to tick any of the additional permissions scope options in the token generation wizard.
+* Set your token in your `~/.bashrc` file as follows:
+```bash
+export GITHUB_API_KEY="my-key-id"
+```
+* run `source ~/.bashrc` to give your current terminal window access to the updated env variables
 
 ## Running / Development
 
