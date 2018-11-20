@@ -16,7 +16,9 @@ You will need the following things properly installed on your computer.
 * `git clone <repository-url>` this repository
 * `cd whats-new-in-emberland`
 * `yarn`
-* if you do not have one yet, please create a valid Github API Token [here](https://github.com/settings/tokens) and set it in your `~/.bashrc` file as follows:
+* if you do not have one yet, please create a valid Github API Token [here](https://github.com/settings/tokens).
+Each token you're generating already comes with the suitable set of permissions to read all the public repository info that is required to run this app. There's no need for you to tick any of the additional permissions scope options in the token generation wizard.
+* Set your token in your `~/.bashrc` file as follows:
 ```bash
 export GITHUB_API_KEY="my-key-id"
 ```
