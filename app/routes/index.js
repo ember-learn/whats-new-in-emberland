@@ -1,11 +1,14 @@
 import Route from '@ember/routing/route';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { isPresent } from '@ember/utils';
 import CONSTANTS from 'whats-new-in-emberland/constants';
 import { all, hash } from 'rsvp';
 import moment from 'moment';
+import { inject as service } from '@ember/service';
 
 export default Route.extend({
+  githubSession: service(),
+
   dateKey: null, // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
   currentDate: computed(function() {
     let dateValue = this.get('dateKey');
@@ -27,7 +30,14 @@ export default Route.extend({
     let orgs = await all(projectFetches);
 
     const repoFetches = orgs.map((org) => {
-      return org.get('githubRepositories');
+      return fetch(`https://api.github.com/search/repositories\?q\=user:${org.id}+archived:false`, {
+        mode: 'no-cors',
+        headers: {
+          'Authorization': `token ${get(this, 'githubSession.githubAccessToken')}`,
+        },
+      })
+      .then((response) => response.json())
+      .then((repos) => this.store.pushPayload('github-repository', { githubRepository: repos.data.items }));
     });
 
     await all(repoFetches);
