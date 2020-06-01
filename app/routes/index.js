@@ -31,13 +31,12 @@ export default Route.extend({
 
     const repoFetches = orgs.map((org) => {
       return fetch(`https://api.github.com/search/repositories\?q\=user:${org.id}+archived:false`, {
-        mode: 'no-cors',
         headers: {
           'Authorization': `token ${get(this, 'githubSession.githubAccessToken')}`,
         },
       })
       .then((response) => response.json())
-      .then((repos) => this.store.pushPayload('github-repository', { githubRepository: repos.data.items }));
+      .then((repos) => this.store.pushPayload('github-repository', { githubRepository: repos.items }));
     });
 
     await all(repoFetches);
