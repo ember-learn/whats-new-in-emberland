@@ -29,41 +29,30 @@ export default Route.extend({
 
     let orgs = await all(projectFetches);
 
-    const repoFetches = orgs.map((org) => {
-      return fetch(`https://api.github.com/search/repositories\?q\=user:${org.id}+archived:false`, {
+    const prFetches = orgs.map((org) => {
+      return fetch(`https://api.github.com/search/issues?q=is:pr+org:${org.id}+created:>=${moment(startOfWeek).format('YYYY-MM-DD')}`, {
         headers: {
           'Authorization': `token ${get(this, 'githubSession.githubAccessToken')}`,
         },
       })
       .then((response) => response.json())
-      .then((repos) => this.store.pushPayload('github-repository', { githubRepository: repos.items }));
-    });
-
-    await all(repoFetches);
-    let repos = store.peekAll('github-repository');
-
-    const prFetches = repos.map((repo) => {
-      let repoName = repo.get('fullName');
-      return store.query('github-pull', { repo: repoName, state: 'all' });
+      .then((pulls) => this.store.pushPayload('github-pull', { githubPull: pulls.items }));
     });
 
     const rfcFetches = ['ember-cli/rfcs', 'emberjs/rfcs'].map((repo) => {
       return store.query('github-pull', { repo, state: 'all' });
     });
 
-    let pullSets = await all(prFetches);
+    await all(prFetches);
+    let pulls = this.store.peekAll('github-pull').toArray();
     let rfcSets = await all(rfcFetches);
 
-    let mergedPulls = pullSets.map((pulls) => {
-      return pulls.filter((pull) => {
-        return moment(pull.get('mergedAt')) > moment(startOfWeek);
-      });
+    let mergedPulls = pulls.filter((pull) => {
+      return moment(pull.get('mergedAt')) > moment(startOfWeek);
     }).reduce((previousValue, item) => previousValue.concat(item), []);
 
-    let newPulls = pullSets.map((pulls) => {
-      return pulls.filter((pull) => {
-        return moment(pull.get('createdAt')) > moment(startOfWeek) && !pull.get('mergedAt');
-      });
+    let newPulls = pulls.filter((pull) => {
+      return moment(pull.get('createdAt')) > moment(startOfWeek) && !pull.get('mergedAt');
     }).reduce((previousValue, item) => previousValue.concat(item), []);
 
     let newRfcs = rfcSets.map((pulls) => {
@@ -80,7 +69,6 @@ export default Route.extend({
 
     return hash({
       orgs,
-      repos,
       mergedPulls,
       newPulls,
       mergedRfcs,
