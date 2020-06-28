@@ -20,10 +20,11 @@ export default Controller.extend({
       let users = await all(mergedPulls.map((pull) => pull.get('user')));
       let userLinks = users
         .uniq()
-        .reject((user) => user.get('login') === 'dependabot[bot]')
+        .reject((user) => user.get('login').includes('[bot]'))
         .map((user) => {
         return `<a href="${user.get('htmlUrl')}" target="gh-user">@${user.get('login')}</a>`;
       }).join(', ');
+
       document.querySelector('.fetch-contributors').click();
       this.set('conListUniq', userLinks);
     },
