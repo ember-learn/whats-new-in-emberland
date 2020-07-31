@@ -6,13 +6,17 @@ import { all } from 'rsvp';
 import moment from 'moment';
 
 export default Controller.extend({
- daysUntilPublishing: computed(function() {
-   const today = new Date();
-   return moment(today).day();
- }),
- isPublishingDay: equal('daysUntilPublishing', 5),
- isDayBeforePublishing: equal('daysUntilPublishing', 4),
+  daysUntilPublishing: computed(function() {
+    const today = new Date();
+    return moment(today).day();
+  }),
+
+  isPublishingDay: equal('daysUntilPublishing', 5),
+
+  isDayBeforePublishing: equal('daysUntilPublishing', 4),
+
   conListUniq: null,
+
   actions: {
     async getContributors() {
       let model = this.get('model');
