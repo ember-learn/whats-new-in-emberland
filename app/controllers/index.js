@@ -1,20 +1,7 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
-import { equal } from '@ember/object/computed';
 import { all } from 'rsvp';
 
-import moment from 'moment';
-
 export default Controller.extend({
-  daysUntilPublishing: computed(function() {
-    const today = new Date();
-    return moment(today).day();
-  }),
-
-  isPublishingDay: equal('daysUntilPublishing', 5),
-
-  isDayBeforePublishing: equal('daysUntilPublishing', 4),
-
   conListUniq: null,
 
   actions: {
