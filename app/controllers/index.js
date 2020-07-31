@@ -2,22 +2,51 @@ import Controller from '@ember/controller';
 import { all } from 'rsvp';
 
 export default Controller.extend({
-  conListUniq: null,
+  contributorsList: '',
 
   actions: {
     async getContributors() {
-      let model = this.get('model');
-      let mergedPulls = model.mergedPulls;
-      let users = await all(mergedPulls.map((pull) => pull.get('user')));
-      let userLinks = users
-        .uniq()
-        .reject((user) => user.get('login').includes('[bot]'))
-        .map((user) => {
-        return `<a href="${user.get('htmlUrl')}" target="gh-user">@${user.get('login')}</a>`;
-      }).join(', ');
+      const { mergedPulls } = this.model;
 
-      document.querySelector('.fetch-contributors').click();
-      this.set('conListUniq', userLinks);
-    },
+      const fetchRequests = mergedPulls.map(pull => pull.get('user'));
+      const users = await all(fetchRequests);
+
+      // Remove users that are bots or appeared more than once
+      const uniqueUsers = users
+        .reduce((accumulator, user) => {
+          const { htmlUrl, login: username, type } = user;
+
+          const isNotBot = (type === 'User');
+          const isNotDuplicate = !accumulator.has(username);
+
+          if (isNotBot && isNotDuplicate) {
+            accumulator.set(username, {
+              handle: `@${username}`,
+              profileLink: htmlUrl
+            });
+          }
+
+          return accumulator;
+
+        }, new Map());
+
+      // Sort users by handle
+      const sortedUsers = Array.from(uniqueUsers.values())
+        .sort((a, b) => {
+          if (a.handle > b.handle) return 1;
+          if (a.handle < b.handle) return -1;
+          return 0;
+        });
+
+      // Create the contributor list
+      const contributorsList = sortedUsers
+        .map(user => {
+          const { handle, profileLink } = user;
+          return `<a href="${profileLink}" target="_blank">${handle}</a>`;
+        })
+        .join(', ');
+
+      this.set('contributorsList', contributorsList);
+    }
   }
 });

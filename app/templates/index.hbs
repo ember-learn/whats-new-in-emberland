@@ -1,16 +1,19 @@
 <section class="overview-section">
   <button
     class="button"
+    type="button"
     {{action "getContributors" bubbles=false}}
   >
     Get Contributors List
   </button>
 
-  <p class="contributors">
-    {{#copy-me buttonClass="fetch-contributors"}}
-      {{conListUniq}}
-    {{/copy-me}}
-  </p>
+  {{#if this.contributorsList}}
+    <p class="contributors">
+      {{#copy-me buttonClass="fetch-contributors"}}
+        {{this.contributorsList}}
+      {{/copy-me}}
+    </p>
+  {{/if}}
 </section>
 
 <section class="overview-section">
