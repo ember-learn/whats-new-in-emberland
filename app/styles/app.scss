@@ -54,46 +54,30 @@ body {
   display: none;
 }
 
-h2 {
+h1 {
   font-size: 2.5em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.75em;
   margin-bottom: 0.5em;
 }
 
-.status-badge {
-  position: absolute;
-  padding: 0.2em 0.4em;
-  border-radius: 2px;
-  box-shadow: 2px 2px 4px #222;
-  text-transform: uppercase;
-  color: #fff;
-  margin-right: 1em;
-  font-size: 0.7em;
-  font-weight: 600;
-  left: -0.2em;
-  width: 5em;
-  text-align: center;
-
-  &.new {
-    background-color: $main-color;
-  }
-
-  &.merged {
-    color: #222222;
-    background-color: $counter-color;
-  }
-}
-
-.clearfix {
-  &:before, &:after {
-    clear: both;
-    display: table;
-    content: "";
-  }
-}
-
-li.clearfix {
-  position: relative;
+h3 {
   font-size: 1.2em;
-  margin: 0.6em 0 0.2em;
-  padding-left: 4em;
+  margin-bottom: 0.5em;
+}
+
+.overview-section {
+  margin-bottom: 2em;
+}
+
+.pr-card {
+  list-style-type: circle;
+  margin-bottom: 0.5em;
+}
+
+.pr-title {
+  font-weight: 700;
 }

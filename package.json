@@ -55,6 +55,7 @@
     "ember-source": "~3.5.0",
     "ember-test-helpers": "^0.6.3",
     "ember-test-selectors": "^2.0.0",
+    "ember-truth-helpers": "^2.1.0",
     "eslint-plugin-ember": "^5.2.0",
     "loader.js": "^4.7.0",
     "lolex": "^3.0.0",
