@@ -1,4 +1,4 @@
-<section>
+<section class="overview-section">
   {{#if isPublishingDay}}
     <strong class="has-text-danger subtitle" data-test-is-friday-disclaimer>RELEASE DAY!</strong>
   {{/if}}
@@ -12,54 +12,31 @@
     <strong class="has-text-warning subtitle" data-test-is-thursday-disclaimer>It's Thursday...😱</strong>
   {{/if}}
 </section>
-<hr>
-<section>
-  <h2>New &amp; Accepted RFCs this Week</h2>
-  <ul>
-    {{#each model.newRfcs as |pull|}}
-      <li class="clearfix">
-        <i><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></i> by
-        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
-        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
-        <span class="status-badge new">New</span>
-      </li>
-    {{/each}}
-    {{#each model.mergedRfcs as |pull|}}
-      <li class="clearfix">
-        <strong><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></strong> by
-        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
-        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
-        <span class="status-badge merged">Merged</span>
-      </li>
-    {{/each}}
-  </ul>
+
+<section class="overview-section">
+  <h2>RFCs</h2>
+
+  <h3>New This Week</h3>
+  {{pull-requests
+    pullRequests=model.newRfcs
+  }}
+
+  <h3>Accepted This Week</h3>
+  {{pull-requests
+    pullRequests=model.mergedRfcs
+  }}
 </section>
-<hr>
-<section>
-  <h2>Pull Requests - Landed This Week</h2>
-  <ul>
-    {{#each model.mergedPulls as |pull|}}
-      <li class="clearfix">
-        <strong><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></strong> by
-        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
-        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
-        <span class="status-badge merged">Merged</span>
-      </li>
-    {{/each}}
-  </ul>
+
+<section class="overview-section">
+  <h2>Pull Requests</h2>
+
+  <h3>Landed This Week</h3>
+  {{pull-requests
+    pullRequests=model.mergedPulls
+  }}
+
+  <h3>Opened This Week</h3>
+  {{pull-requests
+    pullRequests=model.newPulls
+  }}
 </section>
-<hr>
-<section>
-  <h2>Pull Requestes - Opened This Week</h2>
-  <ul>
-    {{#each model.newPulls as |pull|}}
-      <li class="clearfix">
-        <i><a href={{pull.htmlUrl}} target="pull">{{pull.title}}</a></i> by
-        <a href="https://github.com/{{pull.userLogin}}" target="gh-user">@{{pull.userLogin}}</a>
-        <span>in <a href={{pull.head.repo.html_url}} target="repo">{{pull.head.repo.name}}</a></span>
-        <span class="status-badge new">New</span>
-      </li>
-    {{/each}}
-  </ul>
-</section>
-{{outlet}}
