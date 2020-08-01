@@ -1,3 +1,4 @@
+import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
@@ -10,7 +11,7 @@ export default class IndexRoute extends Route {
   @service
   githubSession;
 
-  dateKey = null; // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
+  @tracked dateKey = null; // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
 
   @computed('dateKey')
   get currentDate() {
@@ -18,7 +19,6 @@ export default class IndexRoute extends Route {
     return isPresent(dateValue) ? moment(dateValue) : moment();
   }
 
-  @computed('currentDate')
   get startOfWeek() {
     let currentDate = this.currentDate;
     let dayIndex = currentDate.day() < 6 ? -1 : 6;
