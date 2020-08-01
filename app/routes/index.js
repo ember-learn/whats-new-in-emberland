@@ -1,24 +1,30 @@
-import Route from '@ember/routing/route';
 import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
+import Route from '@ember/routing/route';
 import { isPresent } from '@ember/utils';
 import CONSTANTS from 'whats-new-in-emberland/constants';
 import { all, hash } from 'rsvp';
 import moment from 'moment';
-import { inject as service } from '@ember/service';
 
-export default Route.extend({
-  githubSession: service(),
+export default class IndexRoute extends Route {
+  @service
+  githubSession;
 
-  dateKey: null, // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
-  currentDate: computed('dateKey', function() {
+  dateKey = null; // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
+
+  @computed('dateKey')
+  get currentDate() {
     let dateValue = this.dateKey;
     return isPresent(dateValue) ? moment(dateValue) : moment();
-  }),
-  startOfWeek: computed('currentDate', function() {
+  }
+
+  @computed('currentDate')
+  get startOfWeek() {
     let currentDate = this.currentDate;
     let dayIndex = currentDate.day() < 6 ? -1 : 6;
     return this.currentDate.day(dayIndex);
-  }),
+  }
+
   async model() {
     const store = this.store;
     const startOfWeek = this.startOfWeek;
@@ -74,5 +80,5 @@ export default Route.extend({
       mergedRfcs,
       newRfcs
     });
-  },
-});
+  }
+}

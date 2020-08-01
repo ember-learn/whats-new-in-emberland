@@ -1,11 +1,16 @@
 import Model, { attr } from '@ember-data/model';
 
-export default Model.extend({
-  number: attr('number'),
-  title: attr('string'),
-  body: attr('string'),
-//   user: DS.belongsTo('githubUser', {
-//     async: true,
-//     inverse: null
-//   })
-});
+export default class GithubComment extends Model {
+  @attr('number')
+  number;
+
+  @attr('string')
+  title;
+
+  @attr('string')
+  body;
+  //   user: DS.belongsTo('githubUser', {
+  //     async: true,
+  //     inverse: null
+  //   })
+}
