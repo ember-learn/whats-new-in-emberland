@@ -25,15 +25,6 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
   app.import('node_modules/bulma/css/bulma.css');
-  app.import('node_modules/testdouble/dist/testdouble.js', {
-    type: 'test',
-    using: [{ transformation: 'amd', as: 'testdouble' }],
-  });
-  app.import('node_modules/lolex/lolex.js', {
-    type: 'test',
-    using: [{ transformation: 'amd', as: 'lolex' }],
-  });
-
 
   return app.toTree();
 };

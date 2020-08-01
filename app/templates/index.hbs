@@ -1,15 +1,18 @@
 <section class="overview-section">
-  {{#if isPublishingDay}}
-    <strong class="has-text-danger subtitle" data-test-is-friday-disclaimer>RELEASE DAY!</strong>
-  {{/if}}
-  <button class="button" {{action "getContributors" bubbles=false}}>Get Contributors List</button>
-  <p class="contributors">
-    {{#copy-me buttonClass="fetch-contributors"}}
-      {{conListUniq}}
-    {{/copy-me}}
-  </p>
-  {{#if isDayBeforePublishing}}
-    <strong class="has-text-warning subtitle" data-test-is-thursday-disclaimer>It's Thursday...😱</strong>
+  <button
+    class="button"
+    type="button"
+    {{action "getContributors" bubbles=false}}
+  >
+    Get Contributors List
+  </button>
+
+  {{#if this.contributorsList}}
+    <p class="contributors">
+      {{#copy-me buttonClass="fetch-contributors"}}
+        {{this.contributorsList}}
+      {{/copy-me}}
+    </p>
   {{/if}}
 </section>
 
