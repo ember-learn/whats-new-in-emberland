@@ -1,4 +1,3 @@
-{{!-- TODO: Use @PR instead. --}}
 <li
   class="pr-card"
   data-test-pull-request
@@ -6,34 +5,34 @@
   <a
     class="pr-title"
     data-test-field="Title"
-    href={{PR.htmlUrl}}
+    href={{@pr.htmlUrl}}
     rel="noopener noreferrer"
     target="_blank"
   >
-    {{PR.title}}
+    {{@pr.title}}
   </a>
 
   <span>
     by
     <a
-      href="https://github.com/{{PR.userLogin}}"
+      href="https://github.com/{{@pr.userLogin}}"
       data-test-field="Author"
       rel="noopener noreferrer"
       target="_blank"
     >
-      @{{PR.userLogin}}
+      @{{@pr.userLogin}}
     </a>
   </span>
 
   <span>
     in
     <a
-      href={{PR.head.repo.html_url}}
+      href={{@pr.head.repo.html_url}}
       data-test-field="Repo"
       rel="noopener noreferrer"
       target="_blank"
     >
-      {{PR.head.repo.name}}
+      {{@pr.head.repo.name}}
     </a>
   </span>
 </li>

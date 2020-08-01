@@ -1,21 +1,32 @@
 import { computed } from '@ember/object';
+import { attr } from '@ember-data/model';
 import GithubPullModel from 'ember-data-github/models/github-pull';
 import moment from 'moment';
-import DS from 'ember-data';
 
-export default GithubPullModel.extend({
-  body: DS.attr('string'),
-  commentsUrl: DS.attr('string'),
-  startOfWeek: computed(function() {
+export default class GithubPull extends GithubPullModel {
+  @attr('string')
+  body;
+
+  @attr('string')
+  commentsUrl;
+
+  @computed
+  get startOfWeek() {
     const currentDay = moment().day();
     const startIndex = currentDay < 6 ? -2 : 5;
     return moment().day(startIndex);
-  }),
-  isNewThisWeek: computed('updatedAt', 'startOfWeek', function() {
-    return this.get('updatedAt') > this.get('startOfWeek');
-  }),
-  landedThisWeek: computed('mergedAt', 'startOfWeek', function() {
-    return this.get('mergedAt') > this.get('startOfWeek');
-  }),
-  head: DS.attr(),
-});
+  }
+
+  @computed('updatedAt', 'startOfWeek')
+  get isNewThisWeek() {
+    return this.updatedAt > this.startOfWeek;
+  }
+
+  @computed('mergedAt', 'startOfWeek')
+  get landedThisWeek() {
+    return this.mergedAt > this.startOfWeek;
+  }
+
+  @attr()
+  head;
+}

@@ -1,21 +1,21 @@
+import { action } from '@ember/object';
 import Controller from '@ember/controller';
 import { all } from 'rsvp';
 
-export default Controller.extend({
-  contributorsList: '',
+export default class IndexController extends Controller {
+  contributorsList = '';
 
-  actions: {
-    async getContributors() {
-      const { mergedPulls } = this.model;
-      const fetchRequests = mergedPulls.map(pull => pull.get('user'));
+  @action
+  async getContributors() {
+    const { mergedPulls } = this.model;
+    const fetchRequests = mergedPulls.map(pull => pull.get('user'));
 
-      let users = await all(fetchRequests);
-      users = this.identifyUsers(users);
-      users = this.sortUsers(users);
+    let users = await all(fetchRequests);
+    users = this.identifyUsers(users);
+    users = this.sortUsers(users);
 
-      this.updateContributorsList(users);
-    }
-  },
+    this.updateContributorsList(users);
+  }
 
   identifyUsers(users) {
     // Remove users that are bots or appeared more than once
@@ -37,7 +37,7 @@ export default Controller.extend({
     }, new Map());
 
     return Array.from(uniqueUsers.values());
-  },
+  }
 
   sortUsers(users) {
     return users.sort((a, b) => {
@@ -48,7 +48,7 @@ export default Controller.extend({
       if (value1 < value2) return -1;
       return 0;
     });
-  },
+  }
 
   updateContributorsList(users) {
     const contributorsList = users
@@ -60,4 +60,4 @@ export default Controller.extend({
 
     this.set('contributorsList', contributorsList);
   }
-});
+}

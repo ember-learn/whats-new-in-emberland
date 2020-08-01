@@ -1,6 +1,9 @@
 <span class="copy-field">{{yield}}</span>
+{{!-- TODO:: Move action to `on` --}}
+{{!-- template-lint-disable no-action --}}
 <button
-  class="button is-small is-primary {{buttonClass}}"
+  class="button is-small is-primary {{@buttonClass}}"
+  type="button"
   onclick={{action "copyText"}}
 >
   <span class="icon"><i class="fa fa-pencil"></i></span>

@@ -1,4 +1,6 @@
 <section class="overview-section">
+  {{!-- TODO:: Move action to `on` --}}
+  {{!-- template-lint-disable no-action --}}
   <button
     class="button"
     type="button"
@@ -9,9 +11,9 @@
 
   {{#if this.contributorsList}}
     <p class="contributors">
-      {{#copy-me buttonClass="fetch-contributors"}}
+      <CopyMe @buttonClass="fetch-contributors">
         {{this.contributorsList}}
-      {{/copy-me}}
+      </CopyMe>
     </p>
   {{/if}}
 </section>
@@ -20,26 +22,18 @@
   <h2>RFCs</h2>
 
   <h3>New This Week</h3>
-  {{pull-requests
-    pullRequests=model.newRfcs
-  }}
+  <PullRequests @pullRequests={{@model.newRfcs}} />
 
   <h3>Accepted This Week</h3>
-  {{pull-requests
-    pullRequests=model.mergedRfcs
-  }}
+  <PullRequests @pullRequests={{@model.mergedRfcs}} />
 </section>
 
 <section class="overview-section">
   <h2>Pull Requests</h2>
 
   <h3>Landed This Week</h3>
-  {{pull-requests
-    pullRequests=model.mergedPulls
-  }}
+  <PullRequests @pullRequests={{@model.mergedPulls}} />
 
   <h3>Opened This Week</h3>
-  {{pull-requests
-    pullRequests=model.newPulls
-  }}
+  <PullRequests @pullRequests={{@model.newPulls}} />
 </section>
