@@ -9,6 +9,6 @@ export default GithubRepositoryModel.extend({
     return moment().day(startIndex);
   }),
   isNewThisWeek: computed('updatedAt', 'startOfWeek', function() {
-    return this.get('updatedAt') > this.get('startOfWeek');
+    return this.updatedAt > this.startOfWeek;
   }),
 });

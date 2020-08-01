@@ -1,9 +1,9 @@
-import DS from 'ember-data';
+import Model, { attr } from '@ember-data/model';
 
-export default DS.Model.extend({
-  number: DS.attr('number'),
-  title: DS.attr('string'),
-  body: DS.attr('string'),
+export default Model.extend({
+  number: attr('number'),
+  title: attr('string'),
+  body: attr('string'),
 //   user: DS.belongsTo('githubUser', {
 //     async: true,
 //     inverse: null

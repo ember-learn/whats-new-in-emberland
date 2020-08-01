@@ -10,7 +10,7 @@ export default Component.extend({
   },
   actions: {
     copyText() {
-      const field = this.get('element').querySelector(`.copy-field`);
+      const field = this.element.querySelector(`.copy-field`);
       this.selectElementContents(field);
       document.execCommand('copy');
     },

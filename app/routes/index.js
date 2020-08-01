@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
 import CONSTANTS from 'whats-new-in-emberland/constants';
 import { all, hash } from 'rsvp';
@@ -10,18 +10,18 @@ export default Route.extend({
   githubSession: service(),
 
   dateKey: null, // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
-  currentDate: computed(function() {
-    let dateValue = this.get('dateKey');
+  currentDate: computed('dateKey', function() {
+    let dateValue = this.dateKey;
     return isPresent(dateValue) ? moment(dateValue) : moment();
   }),
-  startOfWeek: computed(function() {
-    let currentDate = this.get('currentDate');
+  startOfWeek: computed('currentDate', function() {
+    let currentDate = this.currentDate;
     let dayIndex = currentDate.day() < 6 ? -1 : 6;
-    return this.get('currentDate').day(dayIndex);
+    return this.currentDate.day(dayIndex);
   }),
   async model() {
-    const store = this.get('store');
-    const startOfWeek = this.get('startOfWeek');
+    const store = this.store;
+    const startOfWeek = this.startOfWeek;
 
     const projectFetches = CONSTANTS.REPOS.map((repo) => {
       return store.findRecord('github-organization', repo);
@@ -32,7 +32,7 @@ export default Route.extend({
     const prFetches = orgs.map((org) => {
       return fetch(`https://api.github.com/search/issues?q=is:pr+org:${org.id}+created:>=${moment(startOfWeek).format('YYYY-MM-DD')}`, {
         headers: {
-          'Authorization': `token ${get(this, 'githubSession.githubAccessToken')}`,
+          'Authorization': `token ${this.githubSession.githubAccessToken}`,
         },
       })
       .then((response) => response.json())
