@@ -22,10 +22,10 @@ export default Controller.extend({
     const uniqueUsers = users.reduce((accumulator, user) => {
       const { htmlUrl, login: username, type } = user;
 
-      const isNotBot = (type === 'User');
+      const isUser = (type === 'User');
       const isNotDuplicate = !accumulator.has(username);
 
-      if (isNotBot && isNotDuplicate) {
+      if (isUser && isNotDuplicate) {
         accumulator.set(username, {
           handle: `@${username}`,
           profileLink: htmlUrl
@@ -41,8 +41,11 @@ export default Controller.extend({
 
   sortUsers(users) {
     return users.sort((a, b) => {
-      if (a.handle > b.handle) return 1;
-      if (a.handle < b.handle) return -1;
+      const value1 = a.handle.toLowerCase();
+      const value2 = b.handle.toLowerCase();
+
+      if (value1 > value2) return 1;
+      if (value1 < value2) return -1;
       return 0;
     });
   },
