@@ -17,6 +17,7 @@ export default class IndexController extends Controller {
     let users = await all(fetchRequests);
     users = this.identifyUsers(users);
     users = this.sortUsers(users);
+    users = await this.fetchAdditionalUserDetails(users);
 
     this.updateContributorsList(users);
   }
@@ -24,7 +25,7 @@ export default class IndexController extends Controller {
   identifyUsers(users) {
     // Remove users that are bots or appeared more than once
     const uniqueUsers = users.reduce((accumulator, user) => {
-      const { htmlUrl, login: username, type } = user;
+      const { htmlUrl, login: username, type, url } = user;
 
       const isUser = (type === 'User');
       const isNotDuplicate = !accumulator.has(username);
@@ -32,7 +33,8 @@ export default class IndexController extends Controller {
       if (isUser && isNotDuplicate) {
         accumulator.set(username, {
           handle: `@${username}`,
-          profileLink: htmlUrl
+          profileLink: htmlUrl,
+          url
         });
       }
 
@@ -54,11 +56,26 @@ export default class IndexController extends Controller {
     });
   }
 
+  async fetchAdditionalUserDetails(users) {
+    let userPromises = [];
+    users.forEach((user) => {
+      userPromises.push(fetch(user.url).then((response) => response.json()));
+    });
+
+    let userDataResponses = await all(userPromises);
+
+    return users.map((user, index) => ({
+      ...user,
+      name: userDataResponses[index].name || "",
+    }));
+  }
+
   updateContributorsList(users) {
     const contributorsList = users
       .map(user => {
-        const { handle, profileLink } = user;
-        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${handle}</a>`;
+        const { handle, profileLink, name } = user;
+
+        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${name} (${handle})</a>`;
       })
       .join(', ');
 
