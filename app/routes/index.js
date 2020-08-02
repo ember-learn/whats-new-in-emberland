@@ -39,14 +39,8 @@ export default class IndexRoute extends Route {
     const store = this.store;
     const startOfWeek = this.startOfWeek;
 
-    const projectFetches = ORGANIZATIONS.map(organization => {
-      return store.findRecord('github-organization', organization);
-    });
-
-    let orgs = await all(projectFetches);
-
-    const prFetches = orgs.map((org) => {
-      return fetch(`https://api.github.com/search/issues?q=is:pr+org:${org.id}+created:>=${moment(startOfWeek).format('YYYY-MM-DD')}`, {
+    const prFetches = ORGANIZATIONS.map(organization => {
+      return fetch(`https://api.github.com/search/issues?q=is:pr+org:${organization}+created:>=${moment(startOfWeek).format('YYYY-MM-DD')}`, {
         headers: {
           'Authorization': `token ${this.githubSession.githubAccessToken}`,
         },
@@ -84,7 +78,6 @@ export default class IndexRoute extends Route {
     }).reduce((previousValue, item) => previousValue.concat(item), []);
 
     return hash({
-      orgs,
       mergedPulls,
       newPulls,
       mergedRfcs,
