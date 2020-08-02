@@ -17,6 +17,11 @@ const ORGANIZATIONS = [
   'glimmerjs',
 ];
 
+const REPOS_FOR_RFCS = [
+  'ember-cli/rfcs',
+  'emberjs/rfcs',
+];
+
 export default class IndexRoute extends Route {
   @service
   githubSession;
@@ -36,16 +41,10 @@ export default class IndexRoute extends Route {
   }
 
   async model() {
-    const store = this.store;
     const startOfWeek = this.startOfWeek;
 
     const pulls = await this.fetchPRs();
-
-    const rfcFetches = ['ember-cli/rfcs', 'emberjs/rfcs'].map((repo) => {
-      return store.query('github-pull', { repo, state: 'all' });
-    });
-
-    let rfcSets = await all(rfcFetches);
+    const rfcs = await this.fetchRFCs();
 
     let mergedPulls = pulls.filter((pull) => {
       return moment(pull.get('mergedAt')) > moment(startOfWeek);
@@ -55,16 +54,12 @@ export default class IndexRoute extends Route {
       return moment(pull.get('createdAt')) > moment(startOfWeek) && !pull.get('mergedAt');
     }).reduce((previousValue, item) => previousValue.concat(item), []);
 
-    let newRfcs = rfcSets.map((pulls) => {
-      return pulls.filter((pull) => {
-        return moment(pull.get('createdAt')) > moment(startOfWeek);
-      });
+    let newRfcs = rfcs.filter((pull) => {
+      return moment(pull.get('createdAt')) > moment(startOfWeek);
     }).reduce((previousValue, item) => previousValue.concat(item), []);
 
-    let mergedRfcs = rfcSets.map((pulls) => {
-      return pulls.filter((pull) => {
-        return moment(pull.get('mergedAt')) > moment(startOfWeek);
-      });
+    let mergedRfcs = rfcs.filter((pull) => {
+      return moment(pull.get('mergedAt')) > moment(startOfWeek);
     }).reduce((previousValue, item) => previousValue.concat(item), []);
 
     return hash({
@@ -106,5 +101,25 @@ export default class IndexRoute extends Route {
     const createdSince = moment(this.startOfWeek).format('YYYY-MM-DD');
 
     return `https://api.github.com/search/issues?q=is:pr+org:${organization}+created:>=${createdSince}`;
+  }
+
+
+  async fetchRFCs() {
+    const fetchRequests = REPOS_FOR_RFCS.map(repo => {
+      return this.store.query('github-pull', {
+        repo,
+        state: 'all'
+      });
+    });
+
+    const pullRequestsByRepo = await all(fetchRequests);
+
+    // Return an array of `github-pull` model class instances
+    return pullRequestsByRepo.reduce((accumulator, pullRequests) => {
+      accumulator.push(...pullRequests.toArray());
+
+      return accumulator;
+
+    }, []);
   }
 }
