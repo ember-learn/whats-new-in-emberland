@@ -5,7 +5,17 @@ import { isPresent } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
 import moment from 'moment';
 import { all, hash } from 'rsvp';
-import CONSTANTS from 'whats-new-in-emberland/constants';
+
+// Check pull requests made to repos at these organizations
+const ORGANIZATIONS = [
+  'adopted-ember-addons',
+  'ember-cli',
+  'ember-codemods',
+  'ember-fastboot',
+  'ember-learn',
+  'emberjs',
+  'glimmerjs',
+];
 
 export default class IndexRoute extends Route {
   @service
@@ -29,8 +39,8 @@ export default class IndexRoute extends Route {
     const store = this.store;
     const startOfWeek = this.startOfWeek;
 
-    const projectFetches = CONSTANTS.REPOS.map((repo) => {
-      return store.findRecord('github-organization', repo);
+    const projectFetches = ORGANIZATIONS.map(organization => {
+      return store.findRecord('github-organization', organization);
     });
 
     let orgs = await all(projectFetches);
