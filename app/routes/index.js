@@ -39,22 +39,12 @@ export default class IndexRoute extends Route {
     const store = this.store;
     const startOfWeek = this.startOfWeek;
 
-    const prFetches = ORGANIZATIONS.map(organization => {
-      return fetch(`https://api.github.com/search/issues?q=is:pr+org:${organization}+created:>=${moment(startOfWeek).format('YYYY-MM-DD')}`, {
-        headers: {
-          'Authorization': `token ${this.githubSession.githubAccessToken}`,
-        },
-      })
-      .then((response) => response.json())
-      .then((pulls) => this.store.pushPayload('github-pull', { githubPull: pulls.items }));
-    });
+    const pulls = await this.fetchPRs();
 
     const rfcFetches = ['ember-cli/rfcs', 'emberjs/rfcs'].map((repo) => {
       return store.query('github-pull', { repo, state: 'all' });
     });
 
-    await all(prFetches);
-    let pulls = this.store.peekAll('github-pull').toArray();
     let rfcSets = await all(rfcFetches);
 
     let mergedPulls = pulls.filter((pull) => {
@@ -83,5 +73,38 @@ export default class IndexRoute extends Route {
       mergedRfcs,
       newRfcs
     });
+  }
+
+
+  async fetchPRs() {
+    const fetchRequests = ORGANIZATIONS.map(organization => {
+      return this.fetchPRsAtOrganization(organization);
+    });
+
+    await all(fetchRequests);
+
+    return this.store.peekAll('github-pull').toArray();
+  }
+
+  async fetchPRsAtOrganization(organization) {
+    const url = this.buildUrlForSearchingPRs(organization);
+
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `token ${this.githubSession.githubAccessToken}`
+      }
+    });
+
+    const { items } = await response.json();
+
+    this.store.pushPayload('github-pull', {
+      githubPull: items
+    });
+  }
+
+  buildUrlForSearchingPRs(organization) {
+    const createdSince = moment(this.startOfWeek).format('YYYY-MM-DD');
+
+    return `https://api.github.com/search/issues?q=is:pr+org:${organization}+created:>=${createdSince}`;
   }
 }
