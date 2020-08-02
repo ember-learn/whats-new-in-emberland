@@ -1,11 +1,11 @@
-import { tracked } from '@glimmer/tracking';
 import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import { isPresent } from '@ember/utils';
-import CONSTANTS from 'whats-new-in-emberland/constants';
-import { all, hash } from 'rsvp';
+import { tracked } from '@glimmer/tracking';
 import moment from 'moment';
+import { all, hash } from 'rsvp';
+import CONSTANTS from 'whats-new-in-emberland/constants';
 
 export default class IndexRoute extends Route {
   @service
