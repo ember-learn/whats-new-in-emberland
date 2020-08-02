@@ -1,9 +1,6 @@
-import { computed } from '@ember/object';
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { isPresent } from '@ember/utils';
-import { tracked } from '@glimmer/tracking';
-import moment from 'moment';
+import { buildUrlForSearchingPRs } from 'whats-new-in-emberland/utils/pull-request';
 import { all, hash } from 'rsvp';
 
 // Check pull requests made to repos at these organizations
@@ -23,23 +20,7 @@ const REPOS_FOR_RFCS = [
 ];
 
 export default class IndexRoute extends Route {
-  @service
-  githubSession;
-
-  @tracked dateKey = null; // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
-
-  @computed('dateKey')
-  get currentDate() {
-    let dateValue = this.dateKey;
-    return isPresent(dateValue) ? moment(dateValue) : moment();
-  }
-
-  @computed('currentDate')
-  get startOfWeek() {
-    let currentDate = this.currentDate;
-    let dayIndex = currentDate.day() < 6 ? -1 : 6;
-    return this.currentDate.day(dayIndex);
-  }
+  @service githubSession;
 
   model() {
     return hash({
@@ -90,7 +71,7 @@ export default class IndexRoute extends Route {
   }
 
   async fetchPRsAtOrganization(organization) {
-    const url = this.buildUrlForSearchingPRs(organization);
+    const url = buildUrlForSearchingPRs(organization);
 
     const response = await fetch(url, {
       headers: {
@@ -103,12 +84,6 @@ export default class IndexRoute extends Route {
     this.store.pushPayload('github-pull', {
       githubPull: items
     });
-  }
-
-  buildUrlForSearchingPRs(organization) {
-    const createdSince = moment(this.startOfWeek).format('YYYY-MM-DD');
-
-    return `https://api.github.com/search/issues?q=is:pr+org:${organization}+created:>=${createdSince}`;
   }
 
 

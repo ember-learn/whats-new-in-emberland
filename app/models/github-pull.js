@@ -1,11 +1,6 @@
 import { attr } from '@ember-data/model';
 import GithubPullModel from 'ember-data-github/models/github-pull';
-import moment from 'moment';
-
-// Find the most recent Saturday, the day after we publish a Times issue
-const currentDay = moment().day();
-const index = (currentDay < 6) ? -1 : 6;
-const beginningOfSaturday = moment().day(index).startOf('day');
+import { beginningOfSaturday } from 'whats-new-in-emberland/utils/pull-request';
 
 export default class GithubPull extends GithubPullModel {
   // PR title
