@@ -34,6 +34,7 @@ export default class IndexRoute extends Route {
     return isPresent(dateValue) ? moment(dateValue) : moment();
   }
 
+  @computed('currentDate')
   get startOfWeek() {
     let currentDate = this.currentDate;
     let dayIndex = currentDate.day() < 6 ? -1 : 6;
@@ -52,21 +53,29 @@ export default class IndexRoute extends Route {
 
     const { pulls, rfcs } = model;
 
-    controller.mergedPulls = pulls.filter((pull) => {
-      return moment(pull.get('mergedAt')) > moment(this.startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
+    controller.mergedPulls = pulls.filter(pull => {
+      const { isMadeByUser, isMergedThisWeek } = pull;
 
-    controller.newPulls = pulls.filter((pull) => {
-      return moment(pull.get('createdAt')) > moment(this.startOfWeek) && !pull.get('mergedAt');
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
+      return isMadeByUser && isMergedThisWeek;
+    });
 
-    controller.mergedRfcs = rfcs.filter((pull) => {
-      return moment(pull.get('mergedAt')) > moment(this.startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
+    controller.newPulls = pulls.filter(pull => {
+      const { isMadeByUser, isMergedThisWeek, isNewThisWeek } = pull;
 
-    controller.newRfcs = rfcs.filter((pull) => {
-      return moment(pull.get('createdAt')) > moment(this.startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
+      return isMadeByUser && isNewThisWeek && !isMergedThisWeek;
+    });
+
+    controller.mergedRfcs = rfcs.filter(pull => {
+      const { isMadeByUser, isMergedThisWeek } = pull;
+
+      return isMadeByUser && isMergedThisWeek;
+    });
+
+    controller.newRfcs = rfcs.filter(pull => {
+      const { isMadeByUser, isMergedThisWeek, isNewThisWeek } = pull;
+
+      return isMadeByUser && isNewThisWeek && !isMergedThisWeek;
+    });
   }
 
 

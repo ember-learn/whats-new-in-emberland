@@ -8,9 +8,13 @@ module('Integration | Component | pull-requests/card', function(hooks) {
 
   test('it renders', async function(assert) {
     this.pr = {
-      title: 'Upgraded app to Ember Octane',
       htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/37',
-      userLogin: 'zoey'
+      repositoryName: 'ember-learn/whats-new-in-emberland',
+      repositoryUrl: 'https://github.com/ember-learn/whats-new-in-emberland',
+      title: 'Upgraded app to Ember Octane',
+      user: {
+        login: 'zoey'
+      }
     };
 
     await render(hbs`

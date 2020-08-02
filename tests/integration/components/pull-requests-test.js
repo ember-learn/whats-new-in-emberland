@@ -9,14 +9,22 @@ module('Integration | Component | pull-requests', function(hooks) {
   test('it renders', async function(assert) {
     this.pullRequests = [
       {
-        title: 'Upgraded app to Ember Octane',
         htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/37',
-        userLogin: 'zoey'
+        repositoryName: 'ember-learn/whats-new-in-emberland',
+        repositoryUrl: 'https://github.com/ember-learn/whats-new-in-emberland',
+        title: 'Upgraded app to Ember Octane',
+        user: {
+          login: 'zoey'
+        }
       },
       {
-        title: 'Documented how to locally run the app',
         htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/39',
-        userLogin: 'tomster'
+        repositoryName: 'ember-learn/whats-new-in-emberland',
+        repositoryUrl: 'https://github.com/ember-learn/whats-new-in-emberland',
+        title: 'Documented how to locally run the app',
+        user: {
+          login: 'tomster'
+        }
       }
     ];
 
