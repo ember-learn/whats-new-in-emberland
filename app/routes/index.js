@@ -40,34 +40,33 @@ export default class IndexRoute extends Route {
     return this.currentDate.day(dayIndex);
   }
 
-  async model() {
-    const startOfWeek = this.startOfWeek;
-
-    const pulls = await this.fetchPRs();
-    const rfcs = await this.fetchRFCs();
-
-    let mergedPulls = pulls.filter((pull) => {
-      return moment(pull.get('mergedAt')) > moment(startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
-    let newPulls = pulls.filter((pull) => {
-      return moment(pull.get('createdAt')) > moment(startOfWeek) && !pull.get('mergedAt');
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
-    let newRfcs = rfcs.filter((pull) => {
-      return moment(pull.get('createdAt')) > moment(startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
-    let mergedRfcs = rfcs.filter((pull) => {
-      return moment(pull.get('mergedAt')) > moment(startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
+  model() {
     return hash({
-      mergedPulls,
-      newPulls,
-      mergedRfcs,
-      newRfcs
+      pulls: this.fetchPRs(),
+      rfcs: this.fetchRFCs()
     });
+  }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+
+    const { pulls, rfcs } = model;
+
+    controller.mergedPulls = pulls.filter((pull) => {
+      return moment(pull.get('mergedAt')) > moment(this.startOfWeek);
+    }).reduce((previousValue, item) => previousValue.concat(item), []);
+
+    controller.newPulls = pulls.filter((pull) => {
+      return moment(pull.get('createdAt')) > moment(this.startOfWeek) && !pull.get('mergedAt');
+    }).reduce((previousValue, item) => previousValue.concat(item), []);
+
+    controller.mergedRfcs = rfcs.filter((pull) => {
+      return moment(pull.get('mergedAt')) > moment(this.startOfWeek);
+    }).reduce((previousValue, item) => previousValue.concat(item), []);
+
+    controller.newRfcs = rfcs.filter((pull) => {
+      return moment(pull.get('createdAt')) > moment(this.startOfWeek);
+    }).reduce((previousValue, item) => previousValue.concat(item), []);
   }
 
 
