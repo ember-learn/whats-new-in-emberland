@@ -4,15 +4,15 @@ import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 
 export default class IndexController extends Controller {
-  @tracked mergedPulls = [];
-  @tracked newPulls = [];
-  @tracked mergedRfcs = [];
-  @tracked newRfcs = [];
+  @tracked mergedPRs = [];
+  @tracked newPRs = [];
+  @tracked mergedRFCs = [];
+  @tracked newRFCs = [];
   @tracked contributorsList = '';
 
   @action
   async getContributors() {
-    const fetchRequests = this.mergedPulls.map(pull => pull.user);
+    const fetchRequests = this.mergedPRs.map(pullRequest => pullRequest.user);
 
     let users = await all(fetchRequests);
     users = this.identifyUsers(users);

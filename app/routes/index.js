@@ -34,10 +34,10 @@ export default class IndexRoute extends Route {
 
     const { prs, rfcs } = model;
 
-    controller.mergedPulls = filterMerged(prs);
-    controller.newPulls = filterNew(prs);
-    controller.mergedRfcs = filterMerged(rfcs);
-    controller.newRfcs = filterNew(rfcs);
+    controller.mergedPRs = filterMerged(prs);
+    controller.newPRs = filterNew(prs);
+    controller.mergedRFCs = filterMerged(rfcs);
+    controller.newRFCs = filterNew(rfcs);
   }
 
 
