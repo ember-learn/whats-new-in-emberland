@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import { buildUrlForSearchingPRs } from 'whats-new-in-emberland/utils/pull-request';
+import { buildUrlForSearchingPRs, filterMerged, filterNew } from 'whats-new-in-emberland/utils/pull-request';
 import { all, hash } from 'rsvp';
 
 // Check pull requests made to repos at these organizations
@@ -24,7 +24,7 @@ export default class IndexRoute extends Route {
 
   model() {
     return hash({
-      pulls: this.fetchPRs(),
+      prs: this.fetchPRs(),
       rfcs: this.fetchRFCs()
     });
   }
@@ -32,31 +32,12 @@ export default class IndexRoute extends Route {
   setupController(controller, model) {
     super.setupController(controller, model);
 
-    const { pulls, rfcs } = model;
+    const { prs, rfcs } = model;
 
-    controller.mergedPulls = pulls.filter(pull => {
-      const { isMadeByUser, isMergedThisWeek } = pull;
-
-      return isMadeByUser && isMergedThisWeek;
-    });
-
-    controller.newPulls = pulls.filter(pull => {
-      const { isMadeByUser, isMergedThisWeek, isNewThisWeek } = pull;
-
-      return isMadeByUser && isNewThisWeek && !isMergedThisWeek;
-    });
-
-    controller.mergedRfcs = rfcs.filter(pull => {
-      const { isMadeByUser, isMergedThisWeek } = pull;
-
-      return isMadeByUser && isMergedThisWeek;
-    });
-
-    controller.newRfcs = rfcs.filter(pull => {
-      const { isMadeByUser, isMergedThisWeek, isNewThisWeek } = pull;
-
-      return isMadeByUser && isNewThisWeek && !isMergedThisWeek;
-    });
+    controller.mergedPulls = filterMerged(prs);
+    controller.newPulls = filterNew(prs);
+    controller.mergedRfcs = filterMerged(rfcs);
+    controller.newRfcs = filterNew(rfcs);
   }
 
 
