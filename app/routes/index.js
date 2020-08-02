@@ -1,84 +1,89 @@
-import { tracked } from '@glimmer/tracking';
-import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
 import Route from '@ember/routing/route';
-import { isPresent } from '@ember/utils';
-import CONSTANTS from 'whats-new-in-emberland/constants';
+import { inject as service } from '@ember/service';
+import { buildUrlForSearchingPRs, filterMerged, filterNew } from 'whats-new-in-emberland/utils/pull-request';
 import { all, hash } from 'rsvp';
-import moment from 'moment';
+
+// Check pull requests made to repos at these organizations
+const ORGANIZATIONS = [
+  'adopted-ember-addons',
+  'ember-cli',
+  'ember-codemods',
+  'ember-fastboot',
+  'ember-learn',
+  'emberjs',
+  'glimmerjs',
+];
+
+const REPOS_FOR_RFCS = [
+  'ember-cli/rfcs',
+  'emberjs/rfcs',
+];
 
 export default class IndexRoute extends Route {
-  @service
-  githubSession;
+  @service githubSession;
 
-  @tracked dateKey = null; // set this to another date to load PRs from a previous week, e.g. dateKey: "2018-11-01"
-
-  @computed('dateKey')
-  get currentDate() {
-    let dateValue = this.dateKey;
-    return isPresent(dateValue) ? moment(dateValue) : moment();
-  }
-
-  get startOfWeek() {
-    let currentDate = this.currentDate;
-    let dayIndex = currentDate.day() < 6 ? -1 : 6;
-    return this.currentDate.day(dayIndex);
-  }
-
-  async model() {
-    const store = this.store;
-    const startOfWeek = this.startOfWeek;
-
-    const projectFetches = CONSTANTS.REPOS.map((repo) => {
-      return store.findRecord('github-organization', repo);
-    });
-
-    let orgs = await all(projectFetches);
-
-    const prFetches = orgs.map((org) => {
-      return fetch(`https://api.github.com/search/issues?q=is:pr+org:${org.id}+created:>=${moment(startOfWeek).format('YYYY-MM-DD')}`, {
-        headers: {
-          'Authorization': `token ${this.githubSession.githubAccessToken}`,
-        },
-      })
-      .then((response) => response.json())
-      .then((pulls) => this.store.pushPayload('github-pull', { githubPull: pulls.items }));
-    });
-
-    const rfcFetches = ['ember-cli/rfcs', 'emberjs/rfcs'].map((repo) => {
-      return store.query('github-pull', { repo, state: 'all' });
-    });
-
-    await all(prFetches);
-    let pulls = this.store.peekAll('github-pull').toArray();
-    let rfcSets = await all(rfcFetches);
-
-    let mergedPulls = pulls.filter((pull) => {
-      return moment(pull.get('mergedAt')) > moment(startOfWeek);
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
-    let newPulls = pulls.filter((pull) => {
-      return moment(pull.get('createdAt')) > moment(startOfWeek) && !pull.get('mergedAt');
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
-    let newRfcs = rfcSets.map((pulls) => {
-      return pulls.filter((pull) => {
-        return moment(pull.get('createdAt')) > moment(startOfWeek);
-      });
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
-    let mergedRfcs = rfcSets.map((pulls) => {
-      return pulls.filter((pull) => {
-        return moment(pull.get('mergedAt')) > moment(startOfWeek);
-      });
-    }).reduce((previousValue, item) => previousValue.concat(item), []);
-
+  model() {
     return hash({
-      orgs,
-      mergedPulls,
-      newPulls,
-      mergedRfcs,
-      newRfcs
+      prs: this.fetchPRs(),
+      rfcs: this.fetchRFCs()
     });
+  }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+
+    const { prs, rfcs } = model;
+
+    controller.mergedPRs = filterMerged(prs);
+    controller.newPRs = filterNew(prs);
+    controller.mergedRFCs = filterMerged(rfcs);
+    controller.newRFCs = filterNew(rfcs);
+  }
+
+
+  async fetchPRs() {
+    const fetchRequests = ORGANIZATIONS.map(organization => {
+      return this.fetchPRsAtOrganization(organization);
+    });
+
+    await all(fetchRequests);
+
+    return this.store.peekAll('github-pull').toArray();
+  }
+
+  async fetchPRsAtOrganization(organization) {
+    const url = buildUrlForSearchingPRs(organization);
+
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `token ${this.githubSession.githubAccessToken}`
+      }
+    });
+
+    const { items } = await response.json();
+
+    this.store.pushPayload('github-pull', {
+      githubPull: items
+    });
+  }
+
+
+  async fetchRFCs() {
+    const fetchRequests = REPOS_FOR_RFCS.map(repo => {
+      return this.store.query('github-pull', {
+        repo,
+        state: 'all'
+      });
+    });
+
+    const pullRequestsByRepo = await all(fetchRequests);
+
+    // Return an array of `github-pull` model class instances
+    return pullRequestsByRepo.reduce((accumulator, pullRequests) => {
+      accumulator.push(...pullRequests.toArray());
+
+      return accumulator;
+
+    }, []);
   }
 }

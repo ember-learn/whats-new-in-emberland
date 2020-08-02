@@ -19,21 +19,21 @@
 </section>
 
 <section class="overview-section">
-  <h2>RFCs</h2>
+  <h2>Pull Requests</h2>
+
+  <h3>Merged This Week</h3>
+  <PullRequests @pullRequests={{this.mergedPRs}} />
 
   <h3>New This Week</h3>
-  <PullRequests @pullRequests={{@model.newRfcs}} />
-
-  <h3>Accepted This Week</h3>
-  <PullRequests @pullRequests={{@model.mergedRfcs}} />
+  <PullRequests @pullRequests={{this.newPRs}} />
 </section>
 
 <section class="overview-section">
-  <h2>Pull Requests</h2>
+  <h2>RFCs</h2>
 
-  <h3>Landed This Week</h3>
-  <PullRequests @pullRequests={{@model.mergedPulls}} />
+  <h3>Merged This Week</h3>
+  <PullRequests @pullRequests={{this.mergedRFCs}} />
 
-  <h3>Opened This Week</h3>
-  <PullRequests @pullRequests={{@model.newPulls}} />
+  <h3>New This Week</h3>
+  <PullRequests @pullRequests={{this.newRFCs}} />
 </section>

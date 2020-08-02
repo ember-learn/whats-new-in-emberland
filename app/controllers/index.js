@@ -1,14 +1,18 @@
-import { action } from '@ember/object';
 import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 
 export default class IndexController extends Controller {
-  contributorsList = '';
+  @tracked mergedPRs = [];
+  @tracked newPRs = [];
+  @tracked mergedRFCs = [];
+  @tracked newRFCs = [];
+  @tracked contributorsList = '';
 
   @action
   async getContributors() {
-    const { mergedPulls } = this.model;
-    const fetchRequests = mergedPulls.map(pull => pull.get('user'));
+    const fetchRequests = this.mergedPRs.map(pullRequest => pullRequest.user);
 
     let users = await all(fetchRequests);
     users = this.identifyUsers(users);

@@ -15,24 +15,24 @@
   <span>
     by
     <a
-      href="https://github.com/{{@pr.userLogin}}"
+      href="https://github.com/{{@pr.user.login}}"
       data-test-field="Author"
       rel="noopener noreferrer"
       target="_blank"
     >
-      @{{@pr.userLogin}}
+      @{{@pr.user.login}}
     </a>
   </span>
 
   <span>
     in
     <a
-      href={{@pr.head.repo.html_url}}
+      href={{@pr.repositoryUrl}}
       data-test-field="Repo"
       rel="noopener noreferrer"
       target="_blank"
     >
-      {{@pr.head.repo.name}}
+      {{@pr.repositoryName}}
     </a>
   </span>
 </li>

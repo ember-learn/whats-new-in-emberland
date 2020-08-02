@@ -1,32 +1,45 @@
-import { computed } from '@ember/object';
 import { attr } from '@ember-data/model';
 import GithubPullModel from 'ember-data-github/models/github-pull';
-import moment from 'moment';
+import { beginningOfSaturday } from 'whats-new-in-emberland/utils/pull-request';
 
 export default class GithubPull extends GithubPullModel {
-  @attr('string')
-  body;
+  // PR title
+  @attr('string') title;
 
-  @attr('string')
-  commentsUrl;
+  // PR description
+  @attr('string') body;
 
-  @computed
-  get startOfWeek() {
-    const currentDay = moment().day();
-    const startIndex = currentDay < 6 ? -2 : 5;
-    return moment().day(startIndex);
+  // PR state
+  @attr('string') state;
+  @attr('boolean') draft;
+  @attr('boolean') locked;
+
+  // Links
+  @attr('string') htmlUrl;
+  @attr('string') repositoryUrl;
+
+  // Timestamps
+  @attr('date') createdAt;
+  @attr('date') updatedAt;
+  @attr('date') closedAt;
+
+  // Relationships
+  @attr user;
+
+  // Getters
+  get isMadeByUser() {
+    return this.user.type === 'User';
   }
 
-  @computed('updatedAt', 'startOfWeek')
+  get isMergedThisWeek() {
+    return this.closedAt >= beginningOfSaturday;
+  }
+ 
   get isNewThisWeek() {
-    return this.updatedAt > this.startOfWeek;
+    return this.updatedAt >= beginningOfSaturday;
   }
 
-  @computed('mergedAt', 'startOfWeek')
-  get landedThisWeek() {
-    return this.mergedAt > this.startOfWeek;
+  get repositoryName() {
+    return (this.repositoryUrl ?? '').replace('https://api.github.com/repos/', '');
   }
-
-  @attr()
-  head;
 }
