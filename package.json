@@ -2,8 +2,11 @@
   "name": "whats-new-in-emberland",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for whats-new-in-emberland goes here",
-  "repository": "",
+  "description": "Find who contributed to Ember repos for The Ember Times",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ember-learn/whats-new-in-emberland.git"
+  },
   "license": "MIT",
   "author": "",
   "directories": {
@@ -16,7 +19,7 @@
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "npm-run-all lint:* test:*",
+    "test": "npm-run-all test:*",
     "test:ember": "ember test"
   },
   "devDependencies": {
