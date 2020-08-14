@@ -1,4 +1,6 @@
-# whats-new-in-emberland
+[![This project uses GitHub Actions for continuous integration.](https://github.com/ember-learn/whats-new-in-emberland/workflows/CI/badge.svg)](https://github.com/ember-learn/whats-new-in-emberland/actions?query=workflow%3ACI)
+
+# What's New in Emberland
 
 This is an overview app of Ember-related Github activity used by the investigative folks over at [The Ember Times](https://twitter.com/embertimes) to find new, relevant topics for the newsletter.
 
