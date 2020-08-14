@@ -5,9 +5,6 @@ on:
     branches:
       - master
   pull_request:
-  schedule:
-    # Run the workflow every Monday at 6 am CST
-    - cron: '0 11 * * MON'
 
 env:
   NODE_VERSION: 12.18
