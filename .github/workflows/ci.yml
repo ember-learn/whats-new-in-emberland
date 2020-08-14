@@ -1,10 +1,9 @@
 name: CI
 
 on: 
-  push:
+  pull_request:
     branches:
       - master
-  pull_request:
 
 env:
   NODE_VERSION: 12.18
