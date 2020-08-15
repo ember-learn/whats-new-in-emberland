@@ -12,49 +12,57 @@ module('Unit | Controller | index', function(hooks) {
       {
         htmlUrl: 'https://github.com/zoey',
         login: 'zoey',
-        type: 'User'
+        type: 'User',
+        url: 'https://api.github.com/zoey',
       },
 
       {
         htmlUrl: 'https://github.com/apps/renovate',
         login: 'renovate[bot]',
-        type: 'Bot'
+        type: 'Bot',
+        url: 'https://api.github.com/renovate',
       },
 
       {
         htmlUrl: 'https://github.com/apps/dependabot',
         login: 'dependabot[bot]',
-        type: 'Bot'
+        type: 'Bot',
+        url: 'https://api.github.com/dependabot',
       },
 
       {
         htmlUrl: 'https://github.com/tomster',
         login: 'tomster',
-        type: 'User'
+        type: 'User',
+        url: 'https://api.github.com/tomster',
       },
 
       {
         htmlUrl: 'https://github.com/apps/dependabot-preview',
         login: 'dependabot-preview[bot]',
-        type: 'Bot'
+        type: 'Bot',
+        url: 'https://api.github.com/dependabot-preview',
       },
 
       {
         htmlUrl: 'https://github.com/zoey',
         login: 'zoey',
-        type: 'User'
+        type: 'User',
+        url: 'https://api.github.com/zoey',
       },
 
       {
         htmlUrl: 'https://github.com/apps/github-actions',
         login: 'github-actions[bot]',
-        type: 'Bot'
+        type: 'Bot',
+        url: 'https://api.github.com/github-actions',
       },
 
       {
         htmlUrl: 'https://github.com/emberjs',
         login: 'emberjs',
-        type: 'User'
+        type: 'User',
+        url: 'https://api.github.com/emberjs',
       },
     ]);
 
@@ -63,17 +71,20 @@ module('Unit | Controller | index', function(hooks) {
       [
         {
           handle: '@zoey',
-          profileLink: 'https://github.com/zoey'
+          profileLink: 'https://github.com/zoey',
+          url: 'https://api.github.com/zoey',
         },
 
         {
           handle: '@tomster',
-          profileLink: 'https://github.com/tomster'
+          profileLink: 'https://github.com/tomster',
+          url: 'https://api.github.com/tomster',
         },
 
         {
           handle: '@emberjs',
-          profileLink: 'https://github.com/emberjs'
+          profileLink: 'https://github.com/emberjs',
+          url: 'https://api.github.com/emberjs',
         },
       ],
       'We can identify a unique list of users.'
@@ -140,6 +151,7 @@ module('Unit | Controller | index', function(hooks) {
 
       {
         handle: '@zoey',
+        name: 'Zoey',
         profileLink: 'https://github.com/zoey'
       },
     ]);
@@ -147,9 +159,9 @@ module('Unit | Controller | index', function(hooks) {
     assert.strictEqual(
       controller.contributorsList,
       [
-        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>',
-        '<a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>',
-        '<a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">@zoey</a>'
+        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">(@emberjs)</a>',
+        '<a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">(@tomster)</a>',
+        '<a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>'
       ].join(', '),
       'We can update the contributors list.'
     );

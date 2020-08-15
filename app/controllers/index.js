@@ -75,7 +75,9 @@ export default class IndexController extends Controller {
       .map(user => {
         const { handle, profileLink, name } = user;
 
-        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${name} (${handle})</a>`;
+        const constructedName = name ? `${name} ` : '';
+
+        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${constructedName}(${handle})</a>`;
       })
       .join(', ');
 
