@@ -10,56 +10,56 @@ module('Unit | Controller | index', function(hooks) {
 
     const users = controller.identifyUsers([
       {
-        htmlUrl: 'https://github.com/zoey',
+        html_url: 'https://github.com/zoey',
         login: 'zoey',
         type: 'User',
         url: 'https://api.github.com/zoey',
       },
 
       {
-        htmlUrl: 'https://github.com/apps/renovate',
+        html_url: 'https://github.com/apps/renovate',
         login: 'renovate[bot]',
         type: 'Bot',
         url: 'https://api.github.com/renovate',
       },
 
       {
-        htmlUrl: 'https://github.com/apps/dependabot',
+        html_url: 'https://github.com/apps/dependabot',
         login: 'dependabot[bot]',
         type: 'Bot',
         url: 'https://api.github.com/dependabot',
       },
 
       {
-        htmlUrl: 'https://github.com/tomster',
+        html_url: 'https://github.com/tomster',
         login: 'tomster',
         type: 'User',
         url: 'https://api.github.com/tomster',
       },
 
       {
-        htmlUrl: 'https://github.com/apps/dependabot-preview',
+        html_url: 'https://github.com/apps/dependabot-preview',
         login: 'dependabot-preview[bot]',
         type: 'Bot',
         url: 'https://api.github.com/dependabot-preview',
       },
 
       {
-        htmlUrl: 'https://github.com/zoey',
+        html_url: 'https://github.com/zoey',
         login: 'zoey',
         type: 'User',
         url: 'https://api.github.com/zoey',
       },
 
       {
-        htmlUrl: 'https://github.com/apps/github-actions',
+        html_url: 'https://github.com/apps/github-actions',
         login: 'github-actions[bot]',
         type: 'Bot',
         url: 'https://api.github.com/github-actions',
       },
 
       {
-        htmlUrl: 'https://github.com/emberjs',
+        html_url: 'https://github.com/emberjs',
         login: 'emberjs',
         type: 'User',
         url: 'https://api.github.com/emberjs',
