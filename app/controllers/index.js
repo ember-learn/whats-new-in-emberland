@@ -66,7 +66,7 @@ export default class IndexController extends Controller {
 
     return users.map((user, index) => ({
       ...user,
-      name: userDataResponses[index].name || "",
+      name: userDataResponses[index].name,
     }));
   }
 
@@ -74,10 +74,15 @@ export default class IndexController extends Controller {
     const contributorsList = users
       .map(user => {
         const { handle, profileLink, name } = user;
+        let displayName;
 
-        const constructedName = name ? `${name} ` : '';
+        if (name) {
+          displayName = `${name} (${handle})`;
+        } else {
+          displayName = handle;
+        }
 
-        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${constructedName}(${handle})</a>`;
+        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a>`;
       })
       .join(', ');
 
