@@ -159,8 +159,8 @@ module('Unit | Controller | index', function(hooks) {
     assert.strictEqual(
       controller.contributorsList,
       [
-        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">(@emberjs)</a>',
-        '<a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">(@tomster)</a>',
+        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>',
+        '<a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>',
         '<a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>'
       ].join(', '),
       'We can update the contributors list.'
