@@ -25,7 +25,7 @@ export default class IndexController extends Controller {
   identifyUsers(users) {
     // Remove users that are bots or appeared more than once
     const uniqueUsers = users.reduce((accumulator, user) => {
-      const { htmlUrl, login: username, type, url } = user;
+      const { html_url: htmlUrl, login: username, type, url } = user;
 
       const isUser = (type === 'User');
       const isNotDuplicate = !accumulator.has(username);

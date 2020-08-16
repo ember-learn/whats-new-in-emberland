@@ -1,10 +1,8 @@
 <section class="overview-section">
-  {{!-- TODO:: Move action to `on` --}}
-  {{!-- template-lint-disable no-action --}}
   <button
     class="button"
     type="button"
-    {{action "getContributors" bubbles=false}}
+    {{on "click" this.getContributors}}
   >
     Get Contributors List
   </button>
