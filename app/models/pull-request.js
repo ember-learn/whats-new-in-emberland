@@ -1,8 +1,9 @@
-import { attr } from '@ember-data/model';
-import GithubPullModel from 'ember-data-github/models/github-pull';
+import Model, { attr } from '@ember-data/model';
 import { beginningOfSaturday } from 'whats-new-in-emberland/utils/pull-request';
 
-export default class GithubPull extends GithubPullModel {
+const GITHUB_URL = 'https://github.com';
+
+export default class PullRequestModel extends Model {
   // PR title
   @attr('string') title;
 
@@ -16,7 +17,6 @@ export default class GithubPull extends GithubPullModel {
 
   // Links
   @attr('string') htmlUrl;
-  @attr('string') repositoryUrl;
 
   // Timestamps
   @attr('date') createdAt;
@@ -40,6 +40,18 @@ export default class GithubPull extends GithubPullModel {
   }
 
   get repositoryName() {
-    return (this.repositoryUrl ?? '').replace('https://api.github.com/repos/', '');
+    const routeNames = (this.htmlUrl ?? '').replace(`${GITHUB_URL}/`, '').split('/');
+
+    if (routeNames.length < 2) {
+      return '';
+    }
+
+    const [ organizationName, repositoryName ] = routeNames;
+
+    return `${organizationName}/${repositoryName}`;
+  }
+
+  get repositoryUrl() {
+    return `${GITHUB_URL}/${this.repositoryName}`;
   }
 }
