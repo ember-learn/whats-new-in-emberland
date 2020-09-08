@@ -10,9 +10,7 @@ export default class IndexController extends Controller {
 
   @action
   async getContributors() {
-    const fetchRequests = this.mergedPRs.map(pullRequest => pullRequest.user);
-
-    let users = await all(fetchRequests);
+    let users = this.mergedPRs.map(({ user }) => user);
     users = this.identifyUsers(users);
     users = this.sortUsers(users);
     users = await this.fetchAdditionalUserDetails(users);
@@ -55,9 +53,8 @@ export default class IndexController extends Controller {
   }
 
   async fetchAdditionalUserDetails(users) {
-    let userPromises = [];
-    users.forEach((user) => {
-      userPromises.push(fetch(user.url).then((response) => response.json()));
+    let userPromises = users.map((user) => {
+      return fetch(user.url).then((response) => response.json());
     });
 
     let userDataResponses = await all(userPromises);
@@ -84,6 +81,6 @@ export default class IndexController extends Controller {
       })
       .join(', ');
 
-    this.set('contributorsList', contributorsList);
+    this.contributorsList = contributorsList;
   }
 }
