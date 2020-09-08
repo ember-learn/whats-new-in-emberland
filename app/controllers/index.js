@@ -6,8 +6,6 @@ import { all } from 'rsvp';
 export default class IndexController extends Controller {
   @tracked mergedPRs = [];
   @tracked newPRs = [];
-  @tracked mergedRFCs = [];
-  @tracked newRFCs = [];
   @tracked contributorsList = '';
 
   @action
