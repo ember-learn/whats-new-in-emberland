@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 
-export default class IndexController extends Controller {
+export default class PullRequestsController extends Controller {
   @tracked mergedPRs = [];
   @tracked newPRs = [];
   @tracked contributorsList = '';

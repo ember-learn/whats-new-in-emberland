@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { all } from 'rsvp';
 import { filterMerged, filterNew } from 'whats-new-in-emberland/utils/pull-request';
 
-export default class IndexRoute extends Route {
+export default class PullRequestsRoute extends Route {
   model() {
     return this.fetchPRs([
       'adopted-ember-addons',

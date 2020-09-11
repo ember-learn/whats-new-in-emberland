@@ -1,12 +1,12 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Controller | index', function(hooks) {
+module('Unit | Controller | pull-requests', function(hooks) {
   setupTest(hooks);
 
 
   test('identifyUsers works', function(assert) {
-    const controller = this.owner.lookup('controller:index');
+    const controller = this.owner.lookup('controller:pull-requests');
 
     const users = controller.identifyUsers([
       {
@@ -93,7 +93,7 @@ module('Unit | Controller | index', function(hooks) {
 
 
   test('sortUsers works', function(assert) {
-    const controller = this.owner.lookup('controller:index');
+    const controller = this.owner.lookup('controller:pull-requests');
 
     const users = controller.sortUsers([
       {
@@ -136,7 +136,7 @@ module('Unit | Controller | index', function(hooks) {
 
 
   test('updateContributorsList works', function(assert) {
-    const controller = this.owner.lookup('controller:index');
+    const controller = this.owner.lookup('controller:pull-requests');
 
     controller.updateContributorsList([
       {
