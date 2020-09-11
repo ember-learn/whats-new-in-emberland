@@ -4,6 +4,8 @@ import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 
 export default class PullRequestsController extends Controller {
+  queryParams = ['mergedSince'];
+
   @tracked mergedPRs = [];
   @tracked newPRs = [];
   @tracked contributorsList = '';

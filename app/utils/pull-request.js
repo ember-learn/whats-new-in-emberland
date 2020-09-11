@@ -14,32 +14,37 @@ export const mostRecentSaturday = moment().day(index).startOf('day');
   https://docs.github.com/rest/reference/search#search-issues-and-pull-requests
   https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests
 */
-export function buildUrlForSearchingPRs(organization, createdSince = mostRecentSaturday) {
+export function buildUrlForSearchingPRs(organization, createdSince) {
   const qualifiers = [
     'is:pr',
     `org:${organization}`,
-    `created:>=${createdSince.format('YYYY-MM-DD')}`,
+    `created:>=${createdSince}`,
   ];
 
-  return `https://api.github.com/search/issues?q=${qualifiers.join('+')}&sort=created&order=desc`;
+  return `https://api.github.com/search/issues?q=${qualifiers.join('+')}&sort=created&order=desc&per_page=100`;
 }
 
 
 /*
   Define pull requests that are merged or new
 */
-export function filterMerged(pullRequests) {
-  return pullRequests.filter(pullRequest => {
-    const { isMadeByUser, isMergedThisWeek } = pullRequest;
+export function filterMerged({ pullRequests, mergedSince }) {
+  const startDate = moment(mergedSince);
 
-    return isMadeByUser && isMergedThisWeek;
+  return pullRequests.filter(pullRequest => {
+    const isMergedRecently = (pullRequest.closedAt >= startDate);
+
+    return pullRequest.isMadeByUser && isMergedRecently;
   });
 }
 
-export function filterNew(pullRequests) {
-  return pullRequests.filter(pullRequest => {
-    const { isMadeByUser, isMergedThisWeek, isNewThisWeek } = pullRequest;
+export function filterNew({ pullRequests, mergedSince }) {
+  const startDate = moment(mergedSince);
 
-    return isMadeByUser && isNewThisWeek && !isMergedThisWeek;
+  return pullRequests.filter(pullRequest => {
+    const isMergedRecently = (pullRequest.closedAt >= startDate);
+    const isUpdatedRecently = (pullRequest.updatedAt >= startDate);
+
+    return pullRequest.isMadeByUser && !isMergedRecently && isUpdatedRecently;
   });
 }
