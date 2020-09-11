@@ -8,8 +8,23 @@ const index = (currentDay < 6) ? -1 : 6;
 
 export const beginningOfSaturday = moment().day(index).startOf('day');
 
+
+/*
+  `GET /search/issues` searches issues and pull requests.
+
+  It returns up to 100 results per page.
+
+  https://docs.github.com/rest/reference/search#search-issues-and-pull-requests
+  https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests
+*/
 export function buildUrlForSearchingPRs(organization, createdSince = beginningOfSaturday) {
-  return `https://api.github.com/search/issues?q=is:pr+org:${organization}+created:>=${createdSince.format('YYYY-MM-DD')}`;
+  const qualifiers = [
+    'is:pr',
+    `org:${organization}`,
+    `created:>=${createdSince.format('YYYY-MM-DD')}`,
+  ];
+
+  return `https://api.github.com/search/issues?q=${qualifiers.join('+')}&sort=created&order=desc`;
 }
 
 

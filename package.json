@@ -45,8 +45,6 @@
     "ember-concurrency-test-waiter": "^0.3.1",
     "ember-data": "~3.20.0",
     "ember-data-factory-guy": "^3.4.0",
-    "ember-data-github": "^0.8.1",
-    "ember-data-has-many-query": "^0.2.0",
     "ember-export-application-global": "^2.0.1",
     "ember-fetch": "^8.0.1",
     "ember-font-awesome": "^4.0.0-alpha.10",
