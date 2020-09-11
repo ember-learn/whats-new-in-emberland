@@ -1,12 +1,9 @@
 import moment from 'moment';
 
-/*
-  Find the most recent Saturday, the day after we publish a Times issue
-*/
 const currentDay = moment().day();
 const index = (currentDay < 6) ? -1 : 6;
 
-export const beginningOfSaturday = moment().day(index).startOf('day');
+export const mostRecentSaturday = moment().day(index).startOf('day');
 
 
 /*
@@ -17,7 +14,7 @@ export const beginningOfSaturday = moment().day(index).startOf('day');
   https://docs.github.com/rest/reference/search#search-issues-and-pull-requests
   https://docs.github.com/github/searching-for-information-on-github/searching-issues-and-pull-requests
 */
-export function buildUrlForSearchingPRs(organization, createdSince = beginningOfSaturday) {
+export function buildUrlForSearchingPRs(organization, createdSince = mostRecentSaturday) {
   const qualifiers = [
     'is:pr',
     `org:${organization}`,
