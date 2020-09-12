@@ -1,5 +1,4 @@
 import Model, { attr } from '@ember-data/model';
-import { beginningOfSaturday } from 'whats-new-in-emberland/utils/pull-request';
 
 const GITHUB_URL = 'https://github.com';
 
@@ -29,14 +28,6 @@ export default class PullRequestModel extends Model {
   // Getters
   get isMadeByUser() {
     return this.user.type === 'User';
-  }
-
-  get isMergedThisWeek() {
-    return this.closedAt >= beginningOfSaturday;
-  }
- 
-  get isNewThisWeek() {
-    return this.updatedAt >= beginningOfSaturday;
   }
 
   get repositoryName() {

@@ -4,7 +4,7 @@ module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'whats-new-in-emberland',
     environment,
-    rootURL: '/overview/',
+    rootURL: '/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {

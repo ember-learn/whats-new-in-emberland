@@ -13,11 +13,11 @@ export default class PullRequestAdapter extends RESTAdapter {
   }
 
   urlForQuery(query) {
-    const { organization, updatedSince } = query;
+    const { organization, createdSince } = query;
 
     delete query.organization;
-    delete query.updatedSince;
+    delete query.createdSince;
 
-    return buildUrlForSearchingPRs(organization, updatedSince);
+    return buildUrlForSearchingPRs(organization, createdSince);
   }
 }

@@ -1,0 +1,25 @@
+<form
+  class="search-form"
+  data-test-form="Search PRs"
+  {{on "submit" this.submitForm}}
+>
+  <label>
+    Search for PRs merged since:
+
+    <input
+      data-test-field="Merged Since"
+      required
+      type="date"
+      value={{this.mergedSince}}
+      {{on "input" this.updateMergedSince}}
+    />
+  </label>
+
+  <button
+    class="button"
+    data-test-button="Search"
+    type="submit"
+  >
+    Search
+  </button>
+</form>

@@ -73,6 +73,16 @@ h3 {
   margin-bottom: 2em;
 }
 
+.search-form {
+  display: flex;
+  flex-direction: column;
+
+  button[type="submit"] {
+    max-width: 10em;
+    margin-top: 0.5em;
+  }
+}
+
 .pr-card {
   list-style-type: circle;
   margin-bottom: 0.5em;

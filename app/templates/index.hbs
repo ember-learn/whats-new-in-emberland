@@ -1,27 +1,3 @@
-<section class="overview-section">
-  <button
-    class="button"
-    type="button"
-    {{on "click" this.getContributors}}
-  >
-    Get Contributors List
-  </button>
-
-  {{#if this.contributorsList}}
-    <p class="contributors">
-      <CopyMe @buttonClass="fetch-contributors">
-        {{this.contributorsList}}
-      </CopyMe>
-    </p>
-  {{/if}}
-</section>
-
-<section class="overview-section">
-  <h2>Pull Requests</h2>
-
-  <h3>Merged This Week</h3>
-  <PullRequests @pullRequests={{this.mergedPRs}} />
-
-  <h3>New This Week</h3>
-  <PullRequests @pullRequests={{this.newPRs}} />
-</section>
+<SearchForm
+  @onSubmit={{this.fetchPullRequests}}
+/>
