@@ -26,7 +26,7 @@ export function buildUrlForSearchingPRs(organization, createdSince) {
 
 
 /*
-  Define pull requests that are merged or new
+  Find pull requests that were merged or updated since some date
 */
 export function filterMerged({ pullRequests, mergedSince }) {
   const startDate = moment(mergedSince);
@@ -38,7 +38,7 @@ export function filterMerged({ pullRequests, mergedSince }) {
   });
 }
 
-export function filterNew({ pullRequests, mergedSince }) {
+export function filterUpdated({ pullRequests, mergedSince }) {
   const startDate = moment(mergedSince);
 
   return pullRequests.filter(pullRequest => {

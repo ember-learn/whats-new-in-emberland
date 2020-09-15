@@ -17,11 +17,11 @@
 </section>
 
 <section class="overview-section">
-  <h2>Pull Requests</h2>
+  <h2>Pull requests since {{this.mergedSince}}</h2>
 
-  <h3>Merged This Week</h3>
+  <h3>Merged</h3>
   <PullRequests @pullRequests={{this.mergedPRs}} />
 
-  <h3>New This Week</h3>
-  <PullRequests @pullRequests={{this.newPRs}} />
+  <h3>Updated but not merged</h3>
+  <PullRequests @pullRequests={{this.updatedPRs}} />
 </section>
