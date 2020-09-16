@@ -1,6 +1,7 @@
 <section class="overview-section">
   <button
     class="button"
+    data-test-button="Get Contributors List"
     type="button"
     {{on "click" this.getContributors}}
   >
@@ -17,11 +18,23 @@
 </section>
 
 <section class="overview-section">
-  <h2>Pull requests since {{this.mergedSince}}</h2>
+  <h2 data-test-header>
+    Pull requests since {{this.mergedSince}}
+  </h2>
 
-  <h3>Merged</h3>
-  <PullRequests @pullRequests={{this.mergedPRs}} />
+  <div data-test-section="Merged PRs">
+    <h3>Merged</h3>
 
-  <h3>Updated but not merged</h3>
-  <PullRequests @pullRequests={{this.updatedPRs}} />
+    <PullRequests
+      @pullRequests={{this.mergedPRs}}
+    />
+  </div>
+
+  <div data-test-section="Updated PRs">
+    <h3>Updated but not merged</h3>
+
+    <PullRequests
+      @pullRequests={{this.updatedPRs}}
+    />
+  </div>
 </section>

@@ -1,7 +1,13 @@
-<span class="copy-field">{{yield}}</span>
+<span
+  class="copy-field"
+  data-test-clipboard-text
+>
+  {{yield}}
+</span>
 
 <button
   class="button is-small is-primary {{@buttonClass}}"
+  data-test-button="Copy to Clipboard"
   type="button"
   {{on "click" this.copyText}}
 >
