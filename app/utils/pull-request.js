@@ -48,3 +48,18 @@ export function filterUpdated({ pullRequests, mergedSince }) {
     return pullRequest.isMadeByUser && !isMergedRecently && isUpdatedRecently;
   });
 }
+
+
+export function sortPullRequests(pullRequests) {
+  return pullRequests.sort((a, b) => {
+    // Alphabetical order
+    if (a.repositoryName > b.repositoryName) return 1;
+    if (a.repositoryName < b.repositoryName) return -1;
+
+    // Reverse chronological order
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+
+    return 0;
+  });
+}
