@@ -2729,7 +2729,7 @@ babel-code-frame@^6.26.0:
     esutils "^2.0.2"
     js-tokens "^3.0.2"
 
-babel-core@^6.24.1, babel-core@^6.26.0, babel-core@^6.26.3:
+babel-core@^6.26.0, babel-core@^6.26.3:
   version "6.26.3"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.26.3.tgz#b2e2f09e342d0f0c88e2f02e067794125e75c207"
   integrity sha512-6jyFLuDmeidKmUEb3NM+/yawG0M2bDZ9Z1qbZP59cyHLz8kYGKYwpJP0UwUKKUiTRNvxfLesJnTedqczP7cTDA==
@@ -5914,22 +5914,6 @@ ember-compatibility-helpers@^1.1.2, ember-compatibility-helpers@^1.2.0:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-concurrency-test-waiter@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/ember-concurrency-test-waiter/-/ember-concurrency-test-waiter-0.3.1.tgz#9bdf83c532d17d913bbc29ee934266cd504f015a"
-  integrity sha512-luSu1/nSgkrDVAbIwHlyrJ4Bv3k++1jon3EV2v4+4vNGUPwWK7eRMbymI07YIxEbMf7MZ1e8fvj0jy6Pq/9Yzw==
-  dependencies:
-    ember-cli-babel "^6.6.0"
-
-ember-concurrency@^0.8.10:
-  version "0.8.27"
-  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-0.8.27.tgz#6dd1b9928cf5d13d5ae9c8cd3d5869f6ff81a9a9"
-  integrity sha512-2IujJ0Y79a+sHvEOPhUtZ7Ga8HDrwjbQqO7aZ88b0KCsXPro7birQFB508njQSQ0mxrsR9qzDv/KS5V67Cy5dA==
-  dependencies:
-    babel-core "^6.24.1"
-    ember-cli-babel "^6.8.2"
-    ember-maybe-import-regenerator "^0.1.5"
-
 ember-data@~3.20.0:
   version "3.20.0"
   resolved "https://registry.yarnpkg.com/ember-data/-/ember-data-3.20.0.tgz#613cfca5276b16b4f4bbfb35432e58f3e5a2d9f3"
@@ -6015,7 +5999,7 @@ ember-load-initializers@^2.1.1:
     ember-cli-babel "^7.11.0"
     ember-cli-typescript "^2.0.2"
 
-ember-maybe-import-regenerator@^0.1.5, ember-maybe-import-regenerator@^0.1.6:
+ember-maybe-import-regenerator@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/ember-maybe-import-regenerator/-/ember-maybe-import-regenerator-0.1.6.tgz#35d41828afa6d6a59bc0da3ce47f34c573d776ca"
   integrity sha1-NdQYKK+m1qWbwNo85H80xXPXdso=
