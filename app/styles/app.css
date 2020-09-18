@@ -28,12 +28,13 @@ body {
 
 .news-item {
   transition: all 0.3s ease-in;
-  &--is-done {
-    background-color: #efefef;
-    opacity: 0.5;
-    height: 60px;
-    overflow: hidden;
-  }
+}
+
+.news-item--is-done {
+  background-color: #efefef;
+  opacity: 0.5;
+  height: 60px;
+  overflow: hidden;
 }
 
 .spinner {
@@ -76,11 +77,11 @@ h3 {
 .search-form {
   display: flex;
   flex-direction: column;
+}
 
-  button[type="submit"] {
-    max-width: 10em;
-    margin-top: 0.5em;
-  }
+.search-form button[type="submit"] {
+  max-width: 10em;
+  margin-top: 0.5em;
 }
 
 .pr-card {
