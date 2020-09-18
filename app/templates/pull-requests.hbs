@@ -9,11 +9,11 @@
   </button>
 
   {{#if this.contributorsList}}
-    <p class="contributors">
-      <CopyMe @buttonClass="fetch-contributors">
+    <div class="contributors-list-container">
+      <CopyMe>
         {{this.contributorsList}}
       </CopyMe>
-    </p>
+    </div>
   {{/if}}
 </section>
 
