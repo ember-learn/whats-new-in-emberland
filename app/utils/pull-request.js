@@ -26,7 +26,7 @@ export function buildUrlForSearchingPRs(organization, createdSince) {
 
 
 /*
-  Define pull requests that are merged or new
+  Find pull requests that were merged or updated since some date
 */
 export function filterMerged({ pullRequests, mergedSince }) {
   const startDate = moment(mergedSince);
@@ -38,7 +38,7 @@ export function filterMerged({ pullRequests, mergedSince }) {
   });
 }
 
-export function filterNew({ pullRequests, mergedSince }) {
+export function filterUpdated({ pullRequests, mergedSince }) {
   const startDate = moment(mergedSince);
 
   return pullRequests.filter(pullRequest => {
@@ -46,5 +46,20 @@ export function filterNew({ pullRequests, mergedSince }) {
     const isUpdatedRecently = (pullRequest.updatedAt >= startDate);
 
     return pullRequest.isMadeByUser && !isMergedRecently && isUpdatedRecently;
+  });
+}
+
+
+export function sortPullRequests(pullRequests) {
+  return pullRequests.sort((a, b) => {
+    // Alphabetical order
+    if (a.repositoryName > b.repositoryName) return 1;
+    if (a.repositoryName < b.repositoryName) return -1;
+
+    // Reverse chronological order
+    if (a.createdAt < b.createdAt) return 1;
+    if (a.createdAt > b.createdAt) return -1;
+
+    return 0;
   });
 }

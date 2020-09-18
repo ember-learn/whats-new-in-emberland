@@ -8,7 +8,7 @@ export default class PullRequestsController extends Controller {
   queryParams = ['mergedSince'];
 
   @tracked mergedPRs = [];
-  @tracked newPRs = [];
+  @tracked updatedPRs = [];
   @tracked contributorsList = '';
 
   @service githubSession;

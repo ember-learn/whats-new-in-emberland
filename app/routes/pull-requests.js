@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import moment from 'moment';
 import { all } from 'rsvp';
-import { filterMerged, filterNew } from 'whats-new-in-emberland/utils/pull-request';
+import { filterMerged, filterUpdated, sortPullRequests } from 'whats-new-in-emberland/utils/pull-request';
 
 export default class PullRequestsRoute extends Route {
   queryParams = {
@@ -33,15 +33,15 @@ export default class PullRequestsRoute extends Route {
   setupController(controller, model) {
     super.setupController(controller, model);
 
-    controller.mergedPRs = filterMerged({
+    controller.mergedPRs = sortPullRequests(filterMerged({
       pullRequests: model,
       mergedSince: this.mergedSince,
-    });
+    }));
 
-    controller.newPRs = filterNew({
+    controller.updatedPRs = sortPullRequests(filterUpdated({
       pullRequests: model,
       mergedSince: this.mergedSince,
-    });
+    }));
   }
 
   async fetchPRs(organizations) {
