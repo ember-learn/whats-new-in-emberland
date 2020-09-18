@@ -5983,11 +5983,6 @@ ember-template-recast@^4.1.4:
     tmp "^0.2.1"
     workerpool "^6.0.0"
 
-ember-test-helpers@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/ember-test-helpers/-/ember-test-helpers-0.6.3.tgz#f864cdf6f4e75f3f8768d6537785b5ab6e82d907"
-  integrity sha1-+GTN9vTnXz+HaNZTd4W1q26C2Qc=
-
 ember-test-selectors@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ember-test-selectors/-/ember-test-selectors-2.1.0.tgz#faebdf06702aaa0bc510d55eb721ce54d2e85793"
