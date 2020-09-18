@@ -1,9 +1,9 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
-const currentDay = moment().day();
+const currentDay = dayjs().day();
 const index = (currentDay < 6) ? -1 : 6;
 
-export const mostRecentSaturday = moment().day(index).startOf('day');
+export const mostRecentSaturday = dayjs().day(index).startOf('day');
 
 
 /*
@@ -29,7 +29,7 @@ export function buildUrlForSearchingPRs(organization, createdSince) {
   Find pull requests that were merged or updated since some date
 */
 export function filterMerged({ pullRequests, mergedSince }) {
-  const startDate = moment(mergedSince);
+  const startDate = dayjs(mergedSince);
 
   return pullRequests.filter(pullRequest => {
     const isMergedRecently = (pullRequest.closedAt >= startDate);
@@ -39,7 +39,7 @@ export function filterMerged({ pullRequests, mergedSince }) {
 }
 
 export function filterUpdated({ pullRequests, mergedSince }) {
-  const startDate = moment(mergedSince);
+  const startDate = dayjs(mergedSince);
 
   return pullRequests.filter(pullRequest => {
     const isMergedRecently = (pullRequest.closedAt >= startDate);
