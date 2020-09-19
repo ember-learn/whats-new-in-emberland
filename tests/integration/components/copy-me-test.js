@@ -7,20 +7,22 @@ module('Integration | Component | copy me', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-
-    await render(hbs`{{copy-me}}`);
-
-    assert.dom('*').hasText('');
-
-    // Template block usage:
     await render(hbs`
-      {{#copy-me}}
-        template block text
-      {{/copy-me}}
+      <CopyMe>
+        Lorem ipsum
+      </CopyMe>
     `);
 
-    assert.dom('*').hasText('template block text');
+    assert.dom('[data-test-clipboard-text]')
+      .hasText(
+        'Lorem ipsum',
+        'We see the correct clipboard text.'
+      );
+
+    assert.dom('[data-test-button="Copy to Clipboard"]')
+      .hasText(
+        'Copy to Clipboard',
+        'We see the correct label for Copy to Clipboard button.'
+      );
   });
 });

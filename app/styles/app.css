@@ -1,0 +1,55 @@
+body {
+  background-color: #efefef;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.spinner {
+  display: block;
+  width: 20%;
+  margin: 8em auto 2em;
+}
+
+.contributors-list-container {
+  margin-top: 1em;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+.overview-section {
+  margin-bottom: 2em;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-form button[type="submit"] {
+  max-width: 10em;
+  margin-top: 0.5em;
+}
+
+.pr-card {
+  list-style-type: circle;
+  margin-bottom: 0.5em;
+}
+
+.pr-title {
+  font-weight: 700;
+}

@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { all } from 'rsvp';
 import { filterMerged, filterUpdated, sortPullRequests } from 'whats-new-in-emberland/utils/pull-request';
 
@@ -45,7 +45,7 @@ export default class PullRequestsRoute extends Route {
   }
 
   async fetchPRs(organizations) {
-    const createdSince = moment(this.mergedSince).subtract(2, 'weeks').format('YYYY-MM-DD');
+    const createdSince = dayjs(this.mergedSince).subtract(2, 'weeks').format('YYYY-MM-DD');
 
     const fetchRequests = organizations.map(organization => {
       return this.store.query('pull-request', {
