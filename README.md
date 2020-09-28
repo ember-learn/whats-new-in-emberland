@@ -15,20 +15,35 @@ You will need the following things properly installed on your computer.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
-* `cd whats-new-in-emberland`
-* `yarn`
-* if you do not have one yet, please create a valid Github API Token [here](https://github.com/settings/tokens).
-Each token you're generating already comes with the suitable set of permissions to read all the public repository info that is required to run this app. There's no need for you to tick any of the additional permissions scope options in the token generation wizard.
-* Set your token in your `~/.bashrc` file as follows:
+This project uses `yarn` to manage npm packages. To check whether you have installed `yarn` already, run the following command in a terminal:
+
 ```bash
-export GITHUB_API_KEY="my-key-id"
+# Try running:
+yarn --version
+
+# Output may look something like:
+1.22.5
 ```
-* run `source ~/.bashrc` to give your current terminal window access to the updated env variables
+
+If you get an error message instead, please try [installing yarn](https://classic.yarnpkg.com/en/docs/install) to see if it fixes the error.
+
+### Setup
+
+After forking this repo on GitHub, please try the following steps:
+
+- `git clone <your-forked-repository-url>`
+- `cd whats-new-in-emberland`
+- `yarn install`
+- You will need to [create a GitHub personal access token](https://github.com/settings/tokens). Each token that you create already comes with a suitable set of permissions to read public repos. This set of permissions is enough to run `whats-new-in-emberland`. There's no need for you to select additional permissions in the token generation wizard.
+- Pass your token when running the Ember app locally:
+
+    ```bash
+    GITHUB_API_KEY=<my-secret-token> ember serve
+    ```
 
 ## Running / Development
 
-* `ember serve`
+* `GITHUB_API_KEY=<my-secret-token> ember serve`
 * Visit your app at [http://localhost:4200/](http://localhost:4200/).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
@@ -38,19 +53,17 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 
-* `ember test`
+* `yarn test`
 * `ember test --server`
 
 ### Linting
 
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+* `yarn lint`
+* `yarn lint:js -- --fix`
 
 ### Building
 
-* `ember build` (development)
-* `ember build --environment production` (production)
+* `yarn build` (production)
 
 ### Deploying
 
