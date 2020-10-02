@@ -35,15 +35,11 @@ After forking this repo on GitHub, please try the following steps:
 - `cd whats-new-in-emberland`
 - `yarn install`
 - You will need to [create a GitHub personal access token](https://github.com/settings/tokens). Each token that you create already comes with a suitable set of permissions to read public repos. This set of permissions is enough to run `whats-new-in-emberland`. There's no need for you to select additional permissions in the token generation wizard.
-- Pass your token when running the Ember app locally:
-
-    ```bash
-    GITHUB_API_KEY=<my-secret-token> ember serve
-    ```
+- Create an `.env` file using the `.env-sample` included in the repo, then add your Github personal access token to the file.
 
 ## Running / Development
 
-* `GITHUB_API_KEY=<my-secret-token> ember serve`
+* `ember serve`
 * Visit your app at [http://localhost:4200/](http://localhost:4200/).
 * Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
