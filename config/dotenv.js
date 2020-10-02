@@ -1,6 +1,6 @@
-module.exports = function() {
+module.exports = function(/* env */) {
     return {
-      clientAllowedKeys: ['GITHUB_API_KEY'],
+      clientAllowedKeys: [],
       // Fail build when there is missing any of clientAllowedKeys environment variables.
       // By default false.
       failOnMissingKey: false
