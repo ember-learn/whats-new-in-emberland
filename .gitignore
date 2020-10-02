@@ -24,4 +24,4 @@
 /package.json.ember-try
 
 # Env files
-.env
+/.env
