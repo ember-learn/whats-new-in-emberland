@@ -78,7 +78,7 @@ export default class PullRequestsController extends Controller {
   }
 
   updateContributorsList(users) {
-    const contributorsList = users
+    let contributorsList = users
       .map(user => {
         const { handle, profileLink, name } = user;
         let displayName;
@@ -91,8 +91,11 @@ export default class PullRequestsController extends Controller {
 
         return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a>`;
       })
-      .join(', ');
 
-    this.contributorsList = contributorsList;
+    this.contributorsList = this.addOxfordComma(contributorsList)
+  }
+
+  addOxfordComma(contributors = []) {
+    return [contributors.slice(0, -1).join(', '), contributors.pop()].filter(contributor => contributor !== '').join(', and ');
   }
 }
