@@ -140,7 +140,7 @@ module('Acceptance | pull-requests', function(hooks) {
 
     assert.dom('[data-test-clipboard-text]')
       .hasText(
-        '<a href="https://github.com/bendemboski" rel="noopener noreferrer" target="_blank">Ben Demboski (@bendemboski)</a>, <a href="https://github.com/chadhietala" rel="noopener noreferrer" target="_blank">Chad Hietala (@chadhietala)</a>, <a href="https://github.com/cloke" rel="noopener noreferrer" target="_blank">Cory Loken (@cloke)</a>, <a href="https://github.com/rwjblue" rel="noopener noreferrer" target="_blank">Robert Jackson (@rwjblue)</a>',
+        '<a href="https://github.com/bendemboski" rel="noopener noreferrer" target="_blank">Ben Demboski (@bendemboski)</a>, <a href="https://github.com/chadhietala" rel="noopener noreferrer" target="_blank">Chad Hietala (@chadhietala)</a>, <a href="https://github.com/cloke" rel="noopener noreferrer" target="_blank">Cory Loken (@cloke)</a>, and <a href="https://github.com/rwjblue" rel="noopener noreferrer" target="_blank">Robert Jackson (@rwjblue)</a>',
         'We see the list of contributors.'
       );
   });
