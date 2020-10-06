@@ -96,6 +96,9 @@ export default class PullRequestsController extends Controller {
   }
 
   addOxfordComma(contributors = []) {
+    if (contributors.length === 2) {
+      return contributors.join(' and ');
+    }
     return [contributors.slice(0, -1).join(', '), contributors.pop()].filter(contributor => contributor !== '').join(', and ');
   }
 }
