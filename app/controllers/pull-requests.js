@@ -91,8 +91,15 @@ export default class PullRequestsController extends Controller {
 
         return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a>`;
       })
-      .join(', ');
 
-    this.contributorsList = contributorsList;
+    this.contributorsList = this.addOxfordComma(contributorsList)
+  }
+
+  addOxfordComma(words = []) {
+    if (words.length <= 2) {
+      return words.join(' and ');
+    }
+
+    return [...words.slice(0, -1), `and ${words[words.length - 1]}`].join(', ');
   }
 }
