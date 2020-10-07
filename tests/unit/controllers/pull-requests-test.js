@@ -179,6 +179,19 @@ module('Unit | Controller | pull-requests', function(hooks) {
       {
         handle: '@emberjs',
         profileLink: 'https://github.com/emberjs'
+      }
+    ]);
+    assert.strictEqual(
+      controller.contributorsList,
+        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>'
+      ,
+      'We don’t add a comma for a single contributor.'
+    );
+
+    controller.updateContributorsList([
+      {
+        handle: '@emberjs',
+        profileLink: 'https://github.com/emberjs'
       },
       {
         handle: '@tomster',
