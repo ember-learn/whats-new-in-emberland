@@ -170,8 +170,7 @@ module('Unit | Controller | pull-requests', function(hooks) {
     controller.updateContributorsList([]);
     assert.strictEqual(
       controller.contributorsList,
-        ''
-      ,
+      '',
       'We return an empty string for no contributors.'
     );
 
