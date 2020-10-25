@@ -47,7 +47,7 @@ export default class PullRequestsController extends Controller {
   }
 
   listUsersInRandomOrder(users) {
-    return users.sort((a, b) => Math.random() - 0.5);
+    return users.sort(() => Math.random() - 0.5);
   }
 
   async fetchAdditionalUserDetails(users) {
