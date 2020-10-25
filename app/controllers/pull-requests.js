@@ -17,7 +17,7 @@ export default class PullRequestsController extends Controller {
   async getContributors() {
     let users = this.mergedPRs.map(({ user }) => user);
     users = this.identifyUsers(users);
-    users = this.sortUsers(users);
+    users = this.listUsersInRandomOrder(users);
     users = await this.fetchAdditionalUserDetails(users);
 
     this.updateContributorsList(users);
@@ -46,15 +46,8 @@ export default class PullRequestsController extends Controller {
     return Array.from(uniqueUsers.values());
   }
 
-  sortUsers(users) {
-    return users.sort((a, b) => {
-      const value1 = a.handle.toLowerCase();
-      const value2 = b.handle.toLowerCase();
-
-      if (value1 > value2) return 1;
-      if (value1 < value2) return -1;
-      return 0;
-    });
+  listUsersInRandomOrder(users) {
+    return users.sort((a, b) => Math.random() - 0.5);
   }
 
   async fetchAdditionalUserDetails(users) {
