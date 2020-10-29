@@ -92,10 +92,10 @@ module('Unit | Controller | pull-requests', function(hooks) {
   });
 
 
-  test('sortUsers works', function(assert) {
+  test('listUsersInRandomOrder works', function(assert) {
     const controller = this.owner.lookup('controller:pull-requests');
 
-    const users = controller.sortUsers([
+    const users = controller.listUsersInRandomOrder([
       {
         handle: '@zoey',
         profileLink: 'https://github.com/zoey'
@@ -112,25 +112,14 @@ module('Unit | Controller | pull-requests', function(hooks) {
       },
     ]);
 
-    assert.deepEqual(
-      users,
-      [
-        {
-          handle: '@emberjs',
-          profileLink: 'https://github.com/emberjs'
-        },
+    const hasUsers = users.some( user => user['handle'] === '@zoey' ) 
+      && users.some( user => user['handle'] === '@tomster' ) 
+      && users.some( user => user['handle'] === '@emberjs' );
 
-        {
-          handle: '@tomster',
-          profileLink: 'https://github.com/tomster'
-        },
-
-        {
-          handle: '@zoey',
-          profileLink: 'https://github.com/zoey'
-        },
-      ],
-      'We can sort users by their handle.'
+    assert.strictEqual(
+      users.length === 3 && hasUsers === true,
+      true,
+      'All users are included in the shuffled list.'
     );
   });
 
