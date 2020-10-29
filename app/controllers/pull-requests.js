@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
+import { shuffle } from 'whats-new-in-emberland/utils/pull-request';
 
 export default class PullRequestsController extends Controller {
   queryParams = ['mergedSince'];
@@ -17,7 +18,7 @@ export default class PullRequestsController extends Controller {
   async getContributors() {
     let users = this.mergedPRs.map(({ user }) => user);
     users = this.identifyUsers(users);
-    users = this.listUsersInRandomOrder(users);
+    users = shuffle(users);
     users = await this.fetchAdditionalUserDetails(users);
 
     this.updateContributorsList(users);
@@ -44,10 +45,6 @@ export default class PullRequestsController extends Controller {
     }, new Map());
 
     return Array.from(uniqueUsers.values());
-  }
-
-  listUsersInRandomOrder(users) {
-    return users.sort(() => Math.random() - 0.5);
   }
 
   async fetchAdditionalUserDetails(users) {
