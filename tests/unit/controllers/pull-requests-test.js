@@ -92,38 +92,6 @@ module('Unit | Controller | pull-requests', function(hooks) {
   });
 
 
-  test('listUsersInRandomOrder works', function(assert) {
-    const controller = this.owner.lookup('controller:pull-requests');
-
-    const users = controller.listUsersInRandomOrder([
-      {
-        handle: '@zoey',
-        profileLink: 'https://github.com/zoey'
-      },
-
-      {
-        handle: '@tomster',
-        profileLink: 'https://github.com/tomster'
-      },
-
-      {
-        handle: '@emberjs',
-        profileLink: 'https://github.com/emberjs'
-      },
-    ]);
-
-    const hasUsers = users.some( user => user['handle'] === '@zoey' ) 
-      && users.some( user => user['handle'] === '@tomster' ) 
-      && users.some( user => user['handle'] === '@emberjs' );
-
-    assert.strictEqual(
-      users.length === 3 && hasUsers === true,
-      true,
-      'All users are included in the shuffled list.'
-    );
-  });
-
-
   test('updateContributorsList works', function(assert) {
     const controller = this.owner.lookup('controller:pull-requests');
 

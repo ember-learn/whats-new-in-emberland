@@ -63,3 +63,21 @@ export function sortPullRequests(pullRequests) {
     return 0;
   });
 }
+
+
+/*
+  Use Fisher-Yates shuffle to randomly order array elements.
+
+  Source: https://javascript.info/task/shuffle
+*/
+export function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    // Random index between 0 and i
+    const j = Math.floor((i + 1) * Math.random());
+
+    // Swap i-th and j-th elements
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
