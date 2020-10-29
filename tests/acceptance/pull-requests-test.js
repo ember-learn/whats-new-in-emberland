@@ -139,18 +139,9 @@ module('Acceptance | pull-requests', function(hooks) {
     await settled();
 
     assert.dom('[data-test-clipboard-text]')
-      .containsText(
-        '<a href="https://github.com/bendemboski" rel="noopener noreferrer" target="_blank">Ben Demboski (@bendemboski)</a>');
-    assert.dom('[data-test-clipboard-text]')
-      .containsText(
-        '<a href="https://github.com/chadhietala" rel="noopener noreferrer" target="_blank">Chad Hietala (@chadhietala)</a>');
-    assert.dom('[data-test-clipboard-text]')
-      .containsText(
-        '<a href="https://github.com/cloke" rel="noopener noreferrer" target="_blank">Cory Loken (@cloke)</a>');  
-    assert.dom('[data-test-clipboard-text]')
-      .containsText(
-        '<a href="https://github.com/rwjblue" rel="noopener noreferrer" target="_blank">Robert Jackson (@rwjblue)</a>',
-        'We see the list of contributors.'
-      );  
+      .includesText('Ben Demboski (@bendemboski)', 'We see Ben Demboski.')
+      .includesText('Chad Hietala (@chadhietala)', 'We see Chad Hietala.')
+      .includesText('Cory Loken (@cloke)', 'We see Cory Loken')
+      .includesText('Robert Jackson (@rwjblue)', 'We see Robert Jackson.');
   });
 });
