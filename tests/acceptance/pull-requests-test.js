@@ -136,6 +136,8 @@ module('Acceptance | pull-requests', function(hooks) {
   test('When we click the Get Contributors List button, we see the list of contributors', async function(assert) {
     await visit('/pull-requests?mergedSince=2020-09-14');
     await click('[data-test-button="Get Contributors List"]');
+
+    // eslint-disable-next-line ember/no-settled-after-test-helper
     await settled();
 
     assert.dom('[data-test-clipboard-text]')

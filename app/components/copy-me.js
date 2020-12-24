@@ -1,19 +1,18 @@
 import { action } from '@ember/object';
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 
-export default class CopyMe extends Component {
-  selectElementContents(el) {
-      var range = document.createRange();
-      range.selectNodeContents(el);
-      var sel = window.getSelection();
+export default class CopyMeComponent extends Component {
+  selectElementContents(element) {
+      let range = document.createRange();
+      range.selectNodeContents(element);
+      let sel = window.getSelection();
       sel.removeAllRanges();
       sel.addRange(range);
   }
 
-  @action
-  copyText() {
-    const field = this.element.querySelector(`.copy-field`);
-    this.selectElementContents(field);
+  @action copyText() {
+    const clipboard = document.getElementById('clipboard');
+    this.selectElementContents(clipboard);
     document.execCommand('copy');
   }
 }
