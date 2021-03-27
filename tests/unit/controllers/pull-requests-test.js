@@ -1,11 +1,10 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-module('Unit | Controller | pull-requests', function(hooks) {
+module('Unit | Controller | pull-requests', function (hooks) {
   setupTest(hooks);
 
-
-  test('identifyUsers works', function(assert) {
+  test('identifyUsers works', function (assert) {
     const controller = this.owner.lookup('controller:pull-requests');
 
     const users = controller.identifyUsers([
@@ -91,32 +90,30 @@ module('Unit | Controller | pull-requests', function(hooks) {
     );
   });
 
-
-  test('updateContributorsList works', function(assert) {
+  test('updateContributorsList works', function (assert) {
     const controller = this.owner.lookup('controller:pull-requests');
 
     controller.updateContributorsList([
       {
         handle: '@emberjs',
-        profileLink: 'https://github.com/emberjs'
+        profileLink: 'https://github.com/emberjs',
       },
 
       {
         handle: '@tomster',
-        profileLink: 'https://github.com/tomster'
+        profileLink: 'https://github.com/tomster',
       },
 
       {
         handle: '@zoey',
         name: 'Zoey',
-        profileLink: 'https://github.com/zoey'
+        profileLink: 'https://github.com/zoey',
       },
     ]);
 
     assert.strictEqual(
       controller.contributorsList,
-        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>, <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>, and <a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>'
-      ,
+      '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>, <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>, and <a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>',
       'We can update the contributors list.'
     );
   });
@@ -134,54 +131,50 @@ module('Unit | Controller | pull-requests', function(hooks) {
     controller.updateContributorsList([
       {
         handle: '@emberjs',
-        profileLink: 'https://github.com/emberjs'
-      }
+        profileLink: 'https://github.com/emberjs',
+      },
     ]);
     assert.strictEqual(
       controller.contributorsList,
-        '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>'
-      ,
+      '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>',
       'We don’t add a comma for a single contributor.'
     );
 
     controller.updateContributorsList([
       {
         handle: '@emberjs',
-        profileLink: 'https://github.com/emberjs'
+        profileLink: 'https://github.com/emberjs',
       },
       {
         handle: '@tomster',
-        profileLink: 'https://github.com/tomster'
+        profileLink: 'https://github.com/tomster',
       },
     ]);
     assert.strictEqual(
       controller.contributorsList,
-      '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a> and <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>'
-      ,
+      '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a> and <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>',
       'We don’t add an oxford comma for 2 contributors.'
     );
 
     controller.updateContributorsList([
       {
         handle: '@emberjs',
-        profileLink: 'https://github.com/emberjs'
+        profileLink: 'https://github.com/emberjs',
       },
       {
         handle: '@tomster',
-        profileLink: 'https://github.com/tomster'
+        profileLink: 'https://github.com/tomster',
       },
       {
         handle: '@zoey',
         name: 'Zoey',
-        profileLink: 'https://github.com/zoey'
-      }
+        profileLink: 'https://github.com/zoey',
+      },
     ]);
     assert.strictEqual(
       controller.contributorsList,
-      '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>, <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>, and <a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>'
-      ,
+      '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>, <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>, and <a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>',
       'We add an oxford comma for 3+ contributors.'
     );
-
-  })
+  });
 });

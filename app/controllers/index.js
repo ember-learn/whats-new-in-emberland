@@ -6,7 +6,7 @@ export default class IndexController extends Controller {
     this.transitionToRoute('pull-requests', {
       queryParams: {
         mergedSince,
-      }
+      },
     });
   }
 }

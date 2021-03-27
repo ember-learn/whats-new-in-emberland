@@ -1,11 +1,10 @@
 import { setupTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
-module('Unit | Model | pull-request', function(hooks) {
+module('Unit | Model | pull-request', function (hooks) {
   setupTest(hooks);
 
-
-  test('isMadeByUser', function(assert) {
+  test('isMadeByUser', function (assert) {
     const store = this.owner.lookup('service:store');
 
     const pullRequest1 = store.createRecord('pull-request', {
@@ -14,7 +13,7 @@ module('Unit | Model | pull-request', function(hooks) {
         login: 'zoey',
         type: 'User',
         url: 'https://api.github.com/zoey',
-      }
+      },
     });
 
     const pullRequest2 = store.createRecord('pull-request', {
@@ -23,32 +22,31 @@ module('Unit | Model | pull-request', function(hooks) {
         login: 'renovate[bot]',
         type: 'Bot',
         url: 'https://api.github.com/renovate',
-      }
+      },
     });
 
     assert.strictEqual(
       pullRequest1.isMadeByUser,
       true,
-      'returns true if the user\'s type is User.'
+      "returns true if the user's type is User."
     );
 
     assert.strictEqual(
       pullRequest2.isMadeByUser,
       false,
-      'returns false if the user\'s type is Bot.'
+      "returns false if the user's type is Bot."
     );
   });
 
-
-  test('repositoryName', function(assert) {
+  test('repositoryName', function (assert) {
     const store = this.owner.lookup('service:store');
 
     const pullRequest1 = store.createRecord('pull-request', {
-      htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/37'
+      htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/37',
     });
 
     const pullRequest2 = store.createRecord('pull-request', {
-      htmlUrl: undefined
+      htmlUrl: undefined,
     });
 
     assert.strictEqual(
@@ -60,20 +58,19 @@ module('Unit | Model | pull-request', function(hooks) {
     assert.strictEqual(
       pullRequest2.repositoryName,
       '',
-      'returns an empty string if htmlUrl can\'t be parsed.'
+      "returns an empty string if htmlUrl can't be parsed."
     );
   });
 
-
-  test('repositoryUrl', function(assert) {
+  test('repositoryUrl', function (assert) {
     const store = this.owner.lookup('service:store');
 
     const pullRequest1 = store.createRecord('pull-request', {
-      htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/37'
+      htmlUrl: 'https://github.com/ember-learn/whats-new-in-emberland/pull/37',
     });
 
     const pullRequest2 = store.createRecord('pull-request', {
-      htmlUrl: undefined
+      htmlUrl: undefined,
     });
 
     assert.strictEqual(
@@ -85,7 +82,7 @@ module('Unit | Model | pull-request', function(hooks) {
     assert.strictEqual(
       pullRequest2.repositoryUrl,
       'https://github.com/',
-      'returns GitHub homepage URL if htmlUrl can\'t be parsed.'
+      "returns GitHub homepage URL if htmlUrl can't be parsed."
     );
   });
 });

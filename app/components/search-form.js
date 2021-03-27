@@ -9,7 +9,7 @@ export default class SearchFormComponent extends Component {
   @action updateMergedSince(event) {
     this.mergedSince = event.target.value;
   }
-  
+
   @action submitForm(event) {
     event.preventDefault();
 

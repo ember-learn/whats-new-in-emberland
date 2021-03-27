@@ -4,22 +4,20 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import setupPullRequestAssertions from 'whats-new-in-emberland/tests/helpers/pull-requests';
 
-
-module('Acceptance | index', function(hooks) {
+module('Acceptance | index', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
   setupPullRequestAssertions(hooks);
 
-
-  test('When we visit the index route, we see the form for searching PRs', async function(assert) {
+  test('When we visit the index route, we see the form for searching PRs', async function (assert) {
     await visit('/');
 
-    assert.dom('[data-test-form="Search PRs"]')
+    assert
+      .dom('[data-test-form="Search PRs"]')
       .exists({ count: 1 }, 'We see the form for searching pull requests.');
   });
 
-
-  test('When we submit the form, we are redirected to the pull-requests route', async function(assert) {
+  test('When we submit the form, we are redirected to the pull-requests route', async function (assert) {
     /*
       For this test, we don't care if the pull-requests route displays data.
       This is why we overrode the endpoint and set `items` (pull requests)
@@ -54,21 +52,19 @@ module('Acceptance | index', function(hooks) {
     );
   });
 
-
-  test('When we submit the form, we see merged PRs and updated PRs', async function(assert) {
+  test('When we submit the form, we see merged PRs and updated PRs', async function (assert) {
     await visit('/');
     await fillIn('[data-test-field="Merged Since"]', '2020-09-14');
     await click('[data-test-button="Search"]');
 
-    assert.dom('[data-test-header]')
-      .hasText(
-        'Pull requests since 2020-09-14',
-        'We see the correct header.'
-      );
-
+    assert
+      .dom('[data-test-header]')
+      .hasText('Pull requests since 2020-09-14', 'We see the correct header.');
 
     // Check pull requests that have been merged
-    const mergedPRs = findAll('[data-test-section="Merged PRs"] [data-test-pull-request]');
+    const mergedPRs = findAll(
+      '[data-test-section="Merged PRs"] [data-test-pull-request]'
+    );
 
     assert.strictEqual(
       mergedPRs.length,
@@ -106,9 +102,10 @@ module('Acceptance | index', function(hooks) {
       },
     });
 
-
     // Check pull requests that have been updated (but not merged)
-    const updatedPRs = findAll('[data-test-section="Updated PRs"] [data-test-pull-request]');
+    const updatedPRs = findAll(
+      '[data-test-section="Updated PRs"] [data-test-pull-request]'
+    );
 
     assert.strictEqual(
       updatedPRs.length,
@@ -118,7 +115,8 @@ module('Acceptance | index', function(hooks) {
 
     assert.isPullRequestCorrect(updatedPRs[0], {
       title: {
-        href: 'https://github.com/adopted-ember-addons/ember-autoresize/pull/120',
+        href:
+          'https://github.com/adopted-ember-addons/ember-autoresize/pull/120',
         text: 'Use the native placeholder attribute if exists',
       },
       author: {

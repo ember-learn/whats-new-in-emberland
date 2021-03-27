@@ -1,12 +1,16 @@
 import Route from '@ember/routing/route';
 import dayjs from 'dayjs';
 import { all } from 'rsvp';
-import { filterMerged, filterUpdated, sortPullRequests } from 'whats-new-in-emberland/utils/pull-request';
+import {
+  filterMerged,
+  filterUpdated,
+  sortPullRequests,
+} from 'whats-new-in-emberland/utils/pull-request';
 
 export default class PullRequestsRoute extends Route {
   queryParams = {
     mergedSince: {
-      refreshModel: true
+      refreshModel: true,
     },
   };
 
@@ -33,21 +37,27 @@ export default class PullRequestsRoute extends Route {
   setupController(controller, model) {
     super.setupController(controller, model);
 
-    controller.mergedPRs = sortPullRequests(filterMerged({
-      pullRequests: model,
-      mergedSince: this.mergedSince,
-    }));
+    controller.mergedPRs = sortPullRequests(
+      filterMerged({
+        pullRequests: model,
+        mergedSince: this.mergedSince,
+      })
+    );
 
-    controller.updatedPRs = sortPullRequests(filterUpdated({
-      pullRequests: model,
-      mergedSince: this.mergedSince,
-    }));
+    controller.updatedPRs = sortPullRequests(
+      filterUpdated({
+        pullRequests: model,
+        mergedSince: this.mergedSince,
+      })
+    );
   }
 
   async fetchPRs(organizations) {
-    const createdSince = dayjs(this.mergedSince).subtract(2, 'weeks').format('YYYY-MM-DD');
+    const createdSince = dayjs(this.mergedSince)
+      .subtract(2, 'weeks')
+      .format('YYYY-MM-DD');
 
-    const fetchRequests = organizations.map(organization => {
+    const fetchRequests = organizations.map((organization) => {
       return this.store.query('pull-request', {
         organization,
         createdSince,

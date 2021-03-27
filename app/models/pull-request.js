@@ -31,13 +31,15 @@ export default class PullRequestModel extends Model {
   }
 
   get repositoryName() {
-    const routeNames = (this.htmlUrl ?? '').replace(`${GITHUB_URL}/`, '').split('/');
+    const routeNames = (this.htmlUrl ?? '')
+      .replace(`${GITHUB_URL}/`, '')
+      .split('/');
 
     if (routeNames.length < 2) {
       return '';
     }
 
-    const [ organizationName, repositoryName ] = routeNames;
+    const [organizationName, repositoryName] = routeNames;
 
     return `${organizationName}/${repositoryName}`;
   }

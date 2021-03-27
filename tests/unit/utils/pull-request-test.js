@@ -6,8 +6,8 @@ import {
   sortPullRequests,
 } from 'whats-new-in-emberland/utils/pull-request';
 
-module('Unit | Utility | pull-request', function() {
-  test('buildUrlForSearchingPRs works', function(assert) {
+module('Unit | Utility | pull-request', function () {
+  test('buildUrlForSearchingPRs works', function (assert) {
     assert.strictEqual(
       buildUrlForSearchingPRs('ember-learn', '2020-08-01'),
       'https://api.github.com/search/issues?q=is:pr+org:ember-learn+created:>=2020-08-01&sort=created&order=desc&per_page=100',
@@ -15,9 +15,8 @@ module('Unit | Utility | pull-request', function() {
     );
   });
 
-
-  module('Filtering and sorting pull requests', function(hooks) {
-    hooks.beforeEach(function() {
+  module('Filtering and sorting pull requests', function (hooks) {
+    hooks.beforeEach(function () {
       this.pullRequests = [
         {
           id: 1,
@@ -84,8 +83,7 @@ module('Unit | Utility | pull-request', function() {
       ];
     });
 
-
-    test('filterMerged works', function(assert) {
+    test('filterMerged works', function (assert) {
       const filteredPRs = filterMerged({
         pullRequests: this.pullRequests,
         mergedSince: '2020-09-01',
@@ -98,8 +96,7 @@ module('Unit | Utility | pull-request', function() {
       );
     });
 
-
-    test('filterUpdated works', function(assert) {
+    test('filterUpdated works', function (assert) {
       const filteredPRs = filterUpdated({
         pullRequests: this.pullRequests,
         mergedSince: '2020-09-01',
@@ -112,8 +109,7 @@ module('Unit | Utility | pull-request', function() {
       );
     });
 
-
-    test('sortPullRequests works', function(assert) {
+    test('sortPullRequests works', function (assert) {
       const sortedPRs = sortPullRequests(this.pullRequests);
 
       assert.deepEqual(
