@@ -8,9 +8,15 @@ export default class PullRequestSerializer extends RESTSerializer {
 
   normalizeQueryResponse(store, primaryModelClass, payload, id, requestType) {
     const newPayload = {
-      pullRequests: payload.items
+      pullRequests: payload.items,
     };
 
-    return super.normalizeQueryResponse(store, primaryModelClass, newPayload, id, requestType);
+    return super.normalizeQueryResponse(
+      store,
+      primaryModelClass,
+      newPayload,
+      id,
+      requestType
+    );
   }
 }

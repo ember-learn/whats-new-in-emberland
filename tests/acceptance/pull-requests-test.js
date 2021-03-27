@@ -4,25 +4,22 @@ import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import setupPullRequestAssertions from 'whats-new-in-emberland/tests/helpers/pull-requests';
 
-
-module('Acceptance | pull-requests', function(hooks) {
+module('Acceptance | pull-requests', function (hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
   setupPullRequestAssertions(hooks);
 
-
-  test('When we visit the pull-requests route without the query parameter mergedSince, we see 0 merged PRs and 0 updated PRs', async function(assert) {
+  test('When we visit the pull-requests route without the query parameter mergedSince, we see 0 merged PRs and 0 updated PRs', async function (assert) {
     await visit('/pull-requests');
 
-    assert.dom('[data-test-header]')
-      .hasText(
-        'Pull requests since',
-        'We see the correct header.'
-      );
-
+    assert
+      .dom('[data-test-header]')
+      .hasText('Pull requests since', 'We see the correct header.');
 
     // Check pull requests that have been merged
-    const mergedPRs = findAll('[data-test-section="Merged PRs"] [data-test-pull-request]');
+    const mergedPRs = findAll(
+      '[data-test-section="Merged PRs"] [data-test-pull-request]'
+    );
 
     assert.strictEqual(
       mergedPRs.length,
@@ -30,9 +27,10 @@ module('Acceptance | pull-requests', function(hooks) {
       'We see 0 pull requests that have been merged.'
     );
 
-
     // Check pull requests that have been updated (but not merged)
-    const updatedPRs = findAll('[data-test-section="Updated PRs"] [data-test-pull-request]');
+    const updatedPRs = findAll(
+      '[data-test-section="Updated PRs"] [data-test-pull-request]'
+    );
 
     assert.strictEqual(
       updatedPRs.length,
@@ -41,19 +39,17 @@ module('Acceptance | pull-requests', function(hooks) {
     );
   });
 
-
-  test('When we visit the pull-requests route with the query parameter mergedSince, we see merged PRs and updated PRs', async function(assert) {
+  test('When we visit the pull-requests route with the query parameter mergedSince, we see merged PRs and updated PRs', async function (assert) {
     await visit('/pull-requests?mergedSince=2020-09-14');
 
-    assert.dom('[data-test-header]')
-      .hasText(
-        'Pull requests since 2020-09-14',
-        'We see the correct header.'
-      );
-
+    assert
+      .dom('[data-test-header]')
+      .hasText('Pull requests since 2020-09-14', 'We see the correct header.');
 
     // Check pull requests that have been merged
-    const mergedPRs = findAll('[data-test-section="Merged PRs"] [data-test-pull-request]');
+    const mergedPRs = findAll(
+      '[data-test-section="Merged PRs"] [data-test-pull-request]'
+    );
 
     assert.strictEqual(
       mergedPRs.length,
@@ -91,9 +87,10 @@ module('Acceptance | pull-requests', function(hooks) {
       },
     });
 
-
     // Check pull requests that have been updated (but not merged)
-    const updatedPRs = findAll('[data-test-section="Updated PRs"] [data-test-pull-request]');
+    const updatedPRs = findAll(
+      '[data-test-section="Updated PRs"] [data-test-pull-request]'
+    );
 
     assert.strictEqual(
       updatedPRs.length,
@@ -103,7 +100,8 @@ module('Acceptance | pull-requests', function(hooks) {
 
     assert.isPullRequestCorrect(updatedPRs[0], {
       title: {
-        href: 'https://github.com/adopted-ember-addons/ember-autoresize/pull/120',
+        href:
+          'https://github.com/adopted-ember-addons/ember-autoresize/pull/120',
         text: 'Use the native placeholder attribute if exists',
       },
       author: {
@@ -132,15 +130,15 @@ module('Acceptance | pull-requests', function(hooks) {
     });
   });
 
-
-  test('When we click the Get Contributors List button, we see the list of contributors', async function(assert) {
+  test('When we click the Get Contributors List button, we see the list of contributors', async function (assert) {
     await visit('/pull-requests?mergedSince=2020-09-14');
     await click('[data-test-button="Get Contributors List"]');
 
     // eslint-disable-next-line ember/no-settled-after-test-helper
     await settled();
 
-    assert.dom('[data-test-clipboard-text]')
+    assert
+      .dom('[data-test-clipboard-text]')
       .includesText('Ben Demboski (@bendemboski)', 'We see Ben Demboski.')
       .includesText('Chad Hietala (@chadhietala)', 'We see Chad Hietala.')
       .includesText('Cory Loken (@cloke)', 'We see Cory Loken')

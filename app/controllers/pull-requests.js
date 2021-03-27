@@ -29,19 +29,18 @@ export default class PullRequestsController extends Controller {
     const uniqueUsers = users.reduce((accumulator, user) => {
       const { html_url: htmlUrl, login: username, type, url } = user;
 
-      const isUser = (type === 'User');
+      const isUser = type === 'User';
       const isNotDuplicate = !accumulator.has(username);
 
       if (isUser && isNotDuplicate) {
         accumulator.set(username, {
           handle: `@${username}`,
           profileLink: htmlUrl,
-          url
+          url,
         });
       }
 
       return accumulator;
-
     }, new Map());
 
     return Array.from(uniqueUsers.values());
@@ -52,11 +51,10 @@ export default class PullRequestsController extends Controller {
       return fetch(user.url, {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
-          'Authorization': `token ${this.githubSession.githubAccessToken}`,
-        }
-      })
-        .then((response) => response.json());
+          Accept: 'application/json',
+          Authorization: `token ${this.githubSession.githubAccessToken}`,
+        },
+      }).then((response) => response.json());
     });
 
     let userDataResponses = await all(userPromises);
@@ -68,21 +66,20 @@ export default class PullRequestsController extends Controller {
   }
 
   updateContributorsList(users) {
-    const contributorsList = users
-      .map(user => {
-        const { handle, profileLink, name } = user;
-        let displayName;
+    const contributorsList = users.map((user) => {
+      const { handle, profileLink, name } = user;
+      let displayName;
 
-        if (name) {
-          displayName = `${name} (${handle})`;
-        } else {
-          displayName = handle;
-        }
+      if (name) {
+        displayName = `${name} (${handle})`;
+      } else {
+        displayName = handle;
+      }
 
-        return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a>`;
-      })
+      return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a>`;
+    });
 
-    this.contributorsList = this.addOxfordComma(contributorsList)
+    this.contributorsList = this.addOxfordComma(contributorsList);
   }
 
   addOxfordComma(words = []) {

@@ -24,7 +24,7 @@ module.exports = function (environment) {
   };
 
   ENV['ember-cli-mirage'] = {
-    enabled: false
+    enabled: false,
   };
 
   if (environment === 'development') {
@@ -48,7 +48,7 @@ module.exports = function (environment) {
     ENV.APP.autoboot = false;
 
     ENV['ember-cli-mirage'] = {
-      enabled: true
+      enabled: true,
     };
   }
 

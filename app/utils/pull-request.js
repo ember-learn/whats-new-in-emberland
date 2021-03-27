@@ -1,10 +1,9 @@
 import dayjs from 'dayjs';
 
 const currentDay = dayjs().day();
-const index = (currentDay < 6) ? -1 : 6;
+const index = currentDay < 6 ? -1 : 6;
 
 export const mostRecentSaturday = dayjs().day(index).startOf('day');
-
 
 /*
   `GET /search/issues` searches issues and pull requests.
@@ -21,9 +20,10 @@ export function buildUrlForSearchingPRs(organization, createdSince) {
     `created:>=${createdSince}`,
   ];
 
-  return `https://api.github.com/search/issues?q=${qualifiers.join('+')}&sort=created&order=desc&per_page=100`;
+  return `https://api.github.com/search/issues?q=${qualifiers.join(
+    '+'
+  )}&sort=created&order=desc&per_page=100`;
 }
-
 
 /*
   Find pull requests that were merged or updated since some date
@@ -31,8 +31,8 @@ export function buildUrlForSearchingPRs(organization, createdSince) {
 export function filterMerged({ pullRequests, mergedSince }) {
   const startDate = dayjs(mergedSince);
 
-  return pullRequests.filter(pullRequest => {
-    const isMergedRecently = (pullRequest.closedAt >= startDate);
+  return pullRequests.filter((pullRequest) => {
+    const isMergedRecently = pullRequest.closedAt >= startDate;
 
     return pullRequest.isMadeByUser && isMergedRecently;
   });
@@ -41,14 +41,13 @@ export function filterMerged({ pullRequests, mergedSince }) {
 export function filterUpdated({ pullRequests, mergedSince }) {
   const startDate = dayjs(mergedSince);
 
-  return pullRequests.filter(pullRequest => {
-    const isMergedRecently = (pullRequest.closedAt >= startDate);
-    const isUpdatedRecently = (pullRequest.updatedAt >= startDate);
+  return pullRequests.filter((pullRequest) => {
+    const isMergedRecently = pullRequest.closedAt >= startDate;
+    const isUpdatedRecently = pullRequest.updatedAt >= startDate;
 
     return pullRequest.isMadeByUser && !isMergedRecently && isUpdatedRecently;
   });
 }
-
 
 export function sortPullRequests(pullRequests) {
   return pullRequests.sort((a, b) => {
@@ -63,7 +62,6 @@ export function sortPullRequests(pullRequests) {
     return 0;
   });
 }
-
 
 /*
   Use Fisher-Yates shuffle to randomly order array elements.

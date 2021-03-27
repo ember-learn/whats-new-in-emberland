@@ -7,9 +7,9 @@ export default class PullRequestAdapter extends RESTAdapter {
 
   get headers() {
     return {
-      'Accept': 'application/json',
-      'Authorization': `token ${this.githubSession.githubAccessToken}`,
-    }
+      Accept: 'application/json',
+      Authorization: `token ${this.githubSession.githubAccessToken}`,
+    };
   }
 
   urlForQuery(query) {
