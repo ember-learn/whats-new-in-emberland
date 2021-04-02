@@ -1,4 +1,5 @@
 import { click, findAll, settled, visit } from '@ember/test-helpers';
+import { a11yAudit } from 'ember-a11y-testing/test-support';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
@@ -143,5 +144,11 @@ module('Acceptance | pull-requests', function (hooks) {
       .includesText('Chad Hietala (@chadhietala)', 'We see Chad Hietala.')
       .includesText('Cory Loken (@cloke)', 'We see Cory Loken')
       .includesText('Robert Jackson (@rwjblue)', 'We see Robert Jackson.');
+  });
+
+  test('Accessibility audit', async function (assert) {
+    await visit('/pull-requests');
+    await a11yAudit();
+    assert.ok(true);
   });
 });

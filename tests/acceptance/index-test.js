@@ -1,4 +1,5 @@
 import { click, currentURL, fillIn, findAll, visit } from '@ember/test-helpers';
+import { a11yAudit } from 'ember-a11y-testing/test-support';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
@@ -143,5 +144,11 @@ module('Acceptance | index', function (hooks) {
         text: 'glimmerjs/glimmer-vm',
       },
     });
+  });
+
+  test('Accessibility audit', async function (assert) {
+    await visit('/');
+    await a11yAudit();
+    assert.ok(true);
   });
 });
