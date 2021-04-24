@@ -2192,10 +2192,10 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axe-core@^4.1.2:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.1.3.tgz#64a4c85509e0991f5168340edc4bedd1ceea6966"
-  integrity sha512-vwPpH4Aj4122EW38mxO/fxhGKtwWTMLDIJfZ1He0Edbtjcfna/R3YB67yVhezUMzqc3Jr3+Ii50KRntlENL4xQ==
+axe-core@^4.1.4:
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.1.4.tgz#f19cd99a84ee32a318b9c5b5bb8ed373ad94f143"
+  integrity sha512-Pdgfv6iP0gNx9ejRGa3zE7Xgkj/iclXqLfe7BnatdZz0QnLZ3jrRHUVH8wNSdN68w05Sk3ShGTb3ydktMTooig==
 
 babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -4490,10 +4490,10 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-and-time@^0.14.1:
-  version "0.14.2"
-  resolved "https://registry.yarnpkg.com/date-and-time/-/date-and-time-0.14.2.tgz#a4266c3dead460f6c231fe9674e585908dac354e"
-  integrity sha512-EFTCh9zRSEpGPmJaexg7HTuzZHh6cnJj1ui7IGCFNXzd2QdpsNh05Db5TF3xzJm30YN+A8/6xHSuRcQqoc3kFA==
+date-and-time@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/date-and-time/-/date-and-time-1.0.0.tgz#0062394bdf6f44e961f0db00511cb19cdf3cc0a5"
+  integrity sha512-477D7ypIiqlXBkxhU7YtG9wWZJEQ+RUpujt2quTfgf4+E8g5fNUkB0QIL0bVyP5/TKBg8y55Hfa1R/c4bt3dEw==
 
 date-fns@^2.19.0:
   version "2.19.0"
@@ -4767,18 +4767,16 @@ elliptic@^6.5.3:
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
 
-ember-a11y-testing@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/ember-a11y-testing/-/ember-a11y-testing-4.0.2.tgz#960ee9582bd315bd16d9dedbf450fd508d021d99"
-  integrity sha512-3pa+6bibbY4Vsl3uKFpD0OH4Mzd8NQUwenaWWWngiJo+R/U6AgJllxo/apORzRgvLxKtBCEpXVocUp/gkZ3rOQ==
+ember-a11y-testing@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/ember-a11y-testing/-/ember-a11y-testing-4.0.4.tgz#3a9c4958e057e510a7f0667dcc78ddd861797023"
+  integrity sha512-2XsyktfFBqZGcTFmk39bfw0Z+1hB4idObjkonFPW/PHDxHBoa7Wk0zRaWOKFkXv6SapJRBUHBuBSrTMV61rgXw==
   dependencies:
-    axe-core "^4.1.2"
+    axe-core "^4.1.4"
     body-parser "^1.19.0"
-    broccoli-funnel "^3.0.3"
-    broccoli-merge-trees "^4.2.0"
-    date-and-time "^0.14.1"
-    ember-auto-import "^1.10.1"
-    ember-cli-babel "^7.21.0"
+    date-and-time "^1.0.0"
+    ember-auto-import "^1.11.2"
+    ember-cli-babel "^7.26.3"
     ember-cli-typescript "^3.0.0"
     ember-cli-version-checker "^5.1.2"
     ember-destroyable-polyfill "^2.0.1"
@@ -4789,6 +4787,41 @@ ember-auto-import@^1.10.1, ember-auto-import@^1.11.2, ember-auto-import@^1.2.19:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.11.2.tgz#b6e9a0dddd88a10692830ffa4f5dfd8c137c8919"
   integrity sha512-Sm0x9qgAQEx+XSYeh5zeKj89Uo0c7XzULZxuziFPxbhtKy/G4pywhBuQ7EgDznTj8IZVxOdfe4ufcUxnJtbSgg==
+  dependencies:
+    "@babel/core" "^7.1.6"
+    "@babel/preset-env" "^7.10.2"
+    "@babel/traverse" "^7.1.6"
+    "@babel/types" "^7.1.6"
+    "@embroider/core" "^0.33.0"
+    babel-core "^6.26.3"
+    babel-loader "^8.0.6"
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+    babylon "^6.18.0"
+    broccoli-debug "^0.6.4"
+    broccoli-node-api "^1.7.0"
+    broccoli-plugin "^4.0.0"
+    broccoli-source "^3.0.0"
+    debug "^3.1.0"
+    ember-cli-babel "^7.0.0"
+    enhanced-resolve "^4.0.0"
+    fs-extra "^6.0.1"
+    fs-tree-diff "^2.0.0"
+    handlebars "^4.3.1"
+    js-string-escape "^1.0.1"
+    lodash "^4.17.19"
+    mkdirp "^0.5.1"
+    resolve-package-path "^3.1.0"
+    rimraf "^2.6.2"
+    semver "^7.3.4"
+    symlink-or-copy "^1.2.0"
+    typescript-memoize "^1.0.0-alpha.3"
+    walk-sync "^0.3.3"
+    webpack "^4.43.0"
+
+ember-auto-import@^1.11.3:
+  version "1.11.3"
+  resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.11.3.tgz#6e3384a7fbb163384a34546f2e902cd297b0e683"
+  integrity sha512-ekq/XCvsonESobFU30zjZ0I4XMy2E/2ZILCYWuQ1JdhcCSTYhnXDZcqRW8itUG7kbsPqAHT/XZ1LEZYm3seVwQ==
   dependencies:
     "@babel/core" "^7.1.6"
     "@babel/preset-env" "^7.10.2"
@@ -4852,7 +4885,7 @@ ember-cli-babel@^6.0.0-beta.4:
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.13.0, ember-cli-babel@^7.13.2, ember-cli-babel@^7.18.0, ember-cli-babel@^7.21.0, ember-cli-babel@^7.22.1, ember-cli-babel@^7.23.0, ember-cli-babel@^7.23.1, ember-cli-babel@^7.26.2, ember-cli-babel@^7.26.3, ember-cli-babel@^7.4.0, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.3:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.13.0, ember-cli-babel@^7.13.2, ember-cli-babel@^7.18.0, ember-cli-babel@^7.22.1, ember-cli-babel@^7.23.0, ember-cli-babel@^7.23.1, ember-cli-babel@^7.26.2, ember-cli-babel@^7.26.3, ember-cli-babel@^7.4.0, ember-cli-babel@^7.5.0, ember-cli-babel@^7.7.3:
   version "7.26.3"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.26.3.tgz#e93ce7ec458208894d10844cf76e41cc06fdbeb6"
   integrity sha512-ZCs0g99d3kYaHs1+HT33oMY7/K+nLCAAv7dCLxsMzg7cQf55O6Pq4ZKnWEr3IHVs33xbJFnEb9prt1up36QVnw==
@@ -5639,15 +5672,15 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-prettier@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.1.0.tgz#4ef1eaf97afe5176e6a75ddfb57c335121abc5a6"
-  integrity sha512-oKMhGv3ihGbCIimCAjqkdzx2Q+jthoqnXSP+d86M9tptwugycmTFdVR4IpLgq2c4SHifbwO90z2fQ8/Aio73yw==
+eslint-config-prettier@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.2.0.tgz#78de77d63bca8e9e59dae75a614b5299925bb7b3"
+  integrity sha512-dWV9EVeSo2qodOPi1iBYU/x6F6diHv8uujxbxr77xExs3zTAlNXvVZKiyLsQGNz7yPV2K49JY5WjPzNIuDc2Bw==
 
-eslint-plugin-ember@^10.3.0:
-  version "10.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-10.3.0.tgz#2e53ad334dc7f7f66f6cba890b9c01a64817d1c1"
-  integrity sha512-qmUQ6OYs8trr+4h3DPJz76fBgXBJEragLCD4RHV4bcnKd4vtgmJvFTF+UDlIsiZZVd03r5aYzpuQvVa+oH6JXg==
+eslint-plugin-ember@^10.4.1:
+  version "10.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-10.4.1.tgz#e1e13b92763740e996004dc51d44d58bc37e4d10"
+  integrity sha512-/vnDlFUzmzPdE8spi+P5XxHJaMfOkhW49teNgfm15z8UbjJL3toEGsmjDoV64CAqVctUvojMFWGQjsLvjefnbQ==
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
     css-tree "^1.0.0-alpha.39"
@@ -5676,10 +5709,10 @@ eslint-plugin-node@^11.1.0:
     resolve "^1.10.1"
     semver "^6.1.0"
 
-eslint-plugin-prettier@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.3.1.tgz#7079cfa2497078905011e6f82e8dd8453d1371b7"
-  integrity sha512-Rq3jkcFY8RYeQLgk2cCwuc0P7SEFwDravPhsJZOQ5N4YI4DSg50NyqJ/9gdZHzQlHf8MvafSesbNJCcP/FF6pQ==
+eslint-plugin-prettier@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.4.0.tgz#cdbad3bf1dbd2b177e9825737fe63b476a08f0c7"
+  integrity sha512-UDK6rJT6INSfcOo545jiaOwB701uAIt2/dR7WnFQoGCVl1/EMqdANBmwUaqqQ45aXprsTGzSa39LI1PyuRBxxw==
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
@@ -5716,10 +5749,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
 
-eslint@^7.23.0:
-  version "7.23.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.23.0.tgz#8d029d252f6e8cf45894b4bee08f5493f8e94325"
-  integrity sha512-kqvNVbdkjzpFy0XOszNwjkKzZ+6TcwCQ/h+ozlcIWwaimBBuhlQ4nN6kbiM2L+OjDcznkTJxzYfRFH92sx4a0Q==
+eslint@^7.25.0:
+  version "7.25.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.25.0.tgz#1309e4404d94e676e3e831b3a3ad2b050031eb67"
+  integrity sha512-TVpSovpvCNpLURIScDRB6g5CYu/ZFq9GfX2hLNIV4dSBKxIWojeDODvYl3t0k0VtMxYeR8OXPCFE5+oHMlGfhw==
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
@@ -7572,10 +7605,10 @@ jquery@^3.5.0:
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
-js-reporters@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/js-reporters/-/js-reporters-1.2.3.tgz#8febcab370539df62e09b95da133da04b11f6168"
-  integrity sha512-2YzWkHbbRu6LueEs5ZP3P1LqbECvAeUJYrjw3H4y1ofW06hqCS0AbzBtLwbr+Hke51bt9CUepJ/Fj1hlCRIF6A==
+js-reporters@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/js-reporters/-/js-reporters-2.0.0.tgz#62ad6a512f1740d3ab4686b0059dd9f57cc0708b"
+  integrity sha512-VJd/86niT7GzsaVc+Yxrs8QPrYl1orzv8bYZPuSOtxU6rk/pv8aOXTcIa7HaANvtvdLMTsZspAiucNQ6T2QFHw==
 
 js-string-escape@^1.0.1:
   version "1.0.1"
@@ -9548,13 +9581,13 @@ qunit-dom@^1.6.0:
     ember-cli-babel "^7.23.0"
     ember-cli-version-checker "^5.1.1"
 
-qunit@^2.14.1:
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.14.1.tgz#02ba25c108f0845fda411a42b5cbfca0f0319943"
-  integrity sha512-jtFw8bf8+GjzY8UpnwbjqTOdK/rvrjcafUFTNpRc6/9N4q5dBwcwSMlcC76kAn5BRiSFj5Ssn2dfHtEYvtsXSw==
+qunit@^2.15.0:
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.15.0.tgz#8ba3a3c5d13369ab1740337680600a98a7f8b591"
+  integrity sha512-9ZoOILeyRZzrdvy2m7M4S76bneGD75Bh4B2aot3uKRKZuoEvA9gevvzU339L805Ys0AN2C7cnAV9nIBD5t72IQ==
   dependencies:
     commander "7.1.0"
-    js-reporters "1.2.3"
+    js-reporters "2.0.0"
     node-watch "0.7.1"
     tiny-glob "0.2.8"
 
