@@ -1,5 +1,5 @@
 import { setupTest } from 'ember-qunit';
-import { module, skip, test } from 'qunit';
+import { module, test } from 'qunit';
 
 module('Unit | Serializer | pull-request', function (hooks) {
   setupTest(hooks);
@@ -10,10 +10,5 @@ module('Unit | Serializer | pull-request', function (hooks) {
     const serializer = store.serializerFor('pull-request');
 
     assert.ok(serializer);
-  });
-
-  // TODO: Use Mirage to fetch data
-  skip('normalizeQueryResponse works', function (assert) {
-    assert.ok(true);
   });
 });
