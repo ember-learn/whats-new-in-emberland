@@ -101,8 +101,7 @@ module('Acceptance | pull-requests', function (hooks) {
 
     assert.isPullRequestCorrect(updatedPRs[0], {
       title: {
-        href:
-          'https://github.com/adopted-ember-addons/ember-autoresize/pull/120',
+        href: 'https://github.com/adopted-ember-addons/ember-autoresize/pull/120',
         text: 'Use the native placeholder attribute if exists',
       },
       author: {

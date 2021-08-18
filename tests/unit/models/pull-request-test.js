@@ -25,15 +25,13 @@ module('Unit | Model | pull-request', function (hooks) {
       },
     });
 
-    assert.strictEqual(
+    assert.true(
       pullRequest1.isMadeByUser,
-      true,
       "returns true if the user's type is User."
     );
 
-    assert.strictEqual(
+    assert.false(
       pullRequest2.isMadeByUser,
-      false,
       "returns false if the user's type is Bot."
     );
   });
