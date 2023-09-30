@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { all } from 'rsvp';
 import { shuffle } from 'whats-new-in-emberland/utils/pull-request';
+import { htmlSafe } from '@ember/template';
 
 export default class PullRequestsController extends Controller {
   queryParams = ['mergedSince'];
@@ -13,6 +14,10 @@ export default class PullRequestsController extends Controller {
   @tracked contributorsList = '';
 
   @service githubSession;
+
+  get contributorsListRendered() {
+    return htmlSafe(this.contributorsList);
+  }
 
   @action
   async getContributors() {
@@ -62,12 +67,13 @@ export default class PullRequestsController extends Controller {
     return users.map((user, index) => ({
       ...user,
       name: userDataResponses[index].name,
+      avatarUrl: userDataResponses[index].avatar_url,
     }));
   }
 
   updateContributorsList(users) {
     const contributorsList = users.map((user) => {
-      const { handle, profileLink, name } = user;
+      const { handle, profileLink, name, avatarUrl } = user;
       let displayName;
 
       if (name) {
@@ -76,17 +82,11 @@ export default class PullRequestsController extends Controller {
         displayName = handle;
       }
 
-      return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a>`;
+      return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank"><img src="${avatarUrl}" alt="${displayName}"/>${displayName}</a>`;
     });
 
-    this.contributorsList = this.addOxfordComma(contributorsList);
-  }
-
-  addOxfordComma(words = []) {
-    if (words.length <= 2) {
-      return words.join(' and ');
-    }
-
-    return [...words.slice(0, -1), `and ${words[words.length - 1]}`].join(', ');
+    this.contributorsList = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); grid-gap: 1em; word-break: break-word;">
+      ${contributorsList.join('\n')}
+    </div>`;
   }
 }
