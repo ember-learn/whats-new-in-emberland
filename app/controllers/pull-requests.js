@@ -77,7 +77,7 @@ export default class PullRequestsController extends Controller {
       let displayName;
 
       if (name) {
-        displayName = `${name} (${handle})`;
+        displayName = name;
       } else {
         displayName = handle;
       }
