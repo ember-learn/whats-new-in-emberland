@@ -85,7 +85,7 @@ export default class PullRequestsController extends Controller {
       return `<a href="${profileLink}" rel="noopener noreferrer" target="_blank"><img src="${avatarUrl}" alt="${displayName}"/>${displayName}</a>`;
     });
 
-    this.contributorsList = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); grid-gap: 1em; word-break: break-word;">
+    this.contributorsList = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); grid-gap: 1em; word-break: break-word;">
       ${contributorsList.join('\n')}
     </div>`;
   }
