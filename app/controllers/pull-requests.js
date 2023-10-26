@@ -82,10 +82,10 @@ export default class PullRequestsController extends Controller {
         displayName = handle;
       }
 
-      return `<span><img src="${avatarUrl}" alt="${displayName}"/><a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}</a></span>`;
+      return `<span style="display: grid; grid-template-columns: 1fr 3fr; grid-gap: 0.75em;"><img src="${avatarUrl}" alt="${displayName}" style="border-radius: 0.5em; border: 1px solid #00000010;"/><div><a href="${profileLink}" rel="noopener noreferrer" target="_blank">${displayName}<br>(${handle})</a></div></span>`;
     });
 
-    this.contributorsList = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); grid-gap: 1em; word-break: break-word;">
+    this.contributorsList = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(172px, 1fr)); grid-gap: 1em;">
       ${contributorsList.join('\n')}
     </div>`;
   }
