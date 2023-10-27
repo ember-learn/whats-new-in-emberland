@@ -31,6 +31,9 @@ export default class PullRequestsRoute extends Route {
       'ember-learn',
       'emberjs',
       'glimmerjs',
+      'typed-ember',
+      'ember-template-imports',
+      'embroider-build',
     ]);
   }
 
