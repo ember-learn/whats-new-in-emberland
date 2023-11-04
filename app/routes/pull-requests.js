@@ -34,6 +34,7 @@ export default class PullRequestsRoute extends Route {
       'typed-ember',
       'ember-template-imports',
       'embroider-build',
+      'ember-polyfills',
     ]);
   }
 
