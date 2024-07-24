@@ -1,4 +1,4 @@
-import { click, findAll, settled, visit } from '@ember/test-helpers';
+import { click, findAll, settled, visit } from '@ember/ers';
 import { a11yAudit } from 'ember-a11y-testing/test-support';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
@@ -134,7 +134,7 @@ module('Acceptance | pull-requests', function (hooks) {
     await visit('/pull-requests?mergedSince=2020-09-14');
     await click('[data-test-button="Get Contributors List"]');
 
-    // eslint-disable-next-line ember/no-settled-after-test-helper
+    // eslint-disable-next-line ember/no-settled-after-er
     await settled();
 
     assert
