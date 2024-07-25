@@ -10,23 +10,9 @@ You will need the following things properly installed on your computer.
 
 - [Git](https://git-scm.com/)
 - [Node.js](https://nodejs.org/)
-- [Yarn](https://yarnpkg.com/)
+- [PNPM](https://pnpm.io)
 - [Ember CLI](https://cli.emberjs.com/release/)
 - [Google Chrome](https://google.com/chrome/)
-
-## Installation
-
-This project uses `yarn` to manage npm packages. To check whether you have installed `yarn` already, run the following command in a terminal:
-
-```bash
-# Try running:
-yarn --version
-
-# Output may look something like:
-1.22.5
-```
-
-If you get an error message instead, please try [installing yarn](https://classic.yarnpkg.com/en/docs/install) to see if it fixes the error.
 
 ### Setup
 
@@ -34,13 +20,13 @@ After forking this repo on GitHub, please try the following steps:
 
 - `git clone <your-forked-repository-url>`
 - `cd whats-new-in-emberland`
-- `yarn install`
+- `pnpm i`
 - You will need to [create a GitHub personal access token](https://github.com/settings/tokens). Each token that you create already comes with a suitable set of permissions to read public repos. This set of permissions is enough to run `whats-new-in-emberland`. There's no need for you to select additional permissions in the token generation wizard.
 - Create an `.env` file using the `.env-sample` included in the repo, then add your Github personal access token to the file.
 
 ## Running / Development
 
-- `yarn start`
+- `pnpm start`
 - Visit your app at [http://localhost:4200](http://localhost:4200).
 - Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
 
@@ -50,18 +36,18 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ### Running Tests
 
-- `yarn test`
-- `yarn test:ember --server`
+- `pnpm test`
+- `pnpm test:ember --server`
 
 ### Linting
 
-- `yarn lint`
-- `yarn lint:fix`
+- `pnpm lint`
+- `pnpm lint:fix`
 
 ### Building
 
-- `yarn ember build` (development)
-- `yarn build` (production)
+- `pnpm ember build` (development)
+- `pnpm build` (production)
 
 ### Deploying
 

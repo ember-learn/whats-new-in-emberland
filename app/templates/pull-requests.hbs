@@ -1,12 +1,7 @@
 <section class="overview-section">
-  <button
-    class="button"
-    data-test-button="Get Contributors List"
-    type="button"
-    {{on "click" this.getContributors}}
-  >
+  <EsButton @type="button" @onClicked={{this.getContributors}} data-test-button="Get Contributors List">
     Get Contributors List
-  </button>
+  </EsButton>
 
   {{#if this.contributorsList}}
     <div class="contributors-list-container">

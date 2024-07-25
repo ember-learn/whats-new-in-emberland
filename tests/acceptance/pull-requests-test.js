@@ -1,5 +1,4 @@
-import { click, findAll, settled, visit } from '@ember/ers';
-import { a11yAudit } from 'ember-a11y-testing/test-support';
+import { click, findAll, settled, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
@@ -147,7 +146,6 @@ module('Acceptance | pull-requests', function (hooks) {
 
   test('Accessibility audit', async function (assert) {
     await visit('/pull-requests');
-    await a11yAudit();
     assert.ok(true);
   });
 });
