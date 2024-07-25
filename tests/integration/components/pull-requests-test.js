@@ -44,14 +44,14 @@ module('Integration | Component | pull-requests', function (hooks) {
       .dom('[data-test-field="Title"]', pullRequests[0])
       .hasText(
         'Upgraded app to Ember Octane',
-        'We see the correct title for the 1st pull request.'
+        'We see the correct title for the 1st pull request.',
       );
 
     assert
       .dom('[data-test-field="Title"]', pullRequests[1])
       .hasText(
         'Documented how to locally run the app',
-        'We see the correct title for the 2nd pull request.'
+        'We see the correct title for the 2nd pull request.',
       );
   });
 });

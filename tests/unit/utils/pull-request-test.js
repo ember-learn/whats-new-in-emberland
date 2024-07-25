@@ -11,7 +11,7 @@ module('Unit | Utility | pull-request', function () {
     assert.strictEqual(
       buildUrlForSearchingPRs('ember-learn', '2020-08-01'),
       'https://api.github.com/search/issues?q=is:pr+org:ember-learn+created:>=2020-08-01&sort=created&order=desc&per_page=100',
-      'We return the correct URL.'
+      'We return the correct URL.',
     );
   });
 
@@ -92,7 +92,7 @@ module('Unit | Utility | pull-request', function () {
       assert.deepEqual(
         filteredPRs.map(({ id }) => id),
         [4, 7],
-        'We return the pull requests that have been merged since the input date.'
+        'We return the pull requests that have been merged since the input date.',
       );
     });
 
@@ -105,7 +105,7 @@ module('Unit | Utility | pull-request', function () {
       assert.deepEqual(
         filteredPRs.map(({ id }) => id),
         [2],
-        'We return the pull requests that have been updated (but not merged) since the input date.'
+        'We return the pull requests that have been updated (but not merged) since the input date.',
       );
     });
 
@@ -115,7 +115,7 @@ module('Unit | Utility | pull-request', function () {
       assert.deepEqual(
         sortedPRs.map(({ id }) => id),
         [4, 1, 2, 7, 6, 5, 3],
-        'Pull requests are sorted by repositoryName, then by createdAt.'
+        'Pull requests are sorted by repositoryName, then by createdAt.',
       );
     });
   });

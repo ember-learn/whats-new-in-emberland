@@ -48,14 +48,14 @@ export default class PullRequestsRoute extends Route {
       filterMerged({
         pullRequests: model,
         mergedSince: this.mergedSince,
-      })
+      }),
     );
 
     controller.updatedPRs = sortPullRequests(
       filterUpdated({
         pullRequests: model,
         mergedSince: this.mergedSince,
-      })
+      }),
     );
   }
 

@@ -12,11 +12,11 @@ function setupCustomAssertions(assert) {
       .hasAttribute(
         'href',
         title.href,
-        `We see the correct URL for the pull request title.`
+        `We see the correct URL for the pull request title.`,
       )
       .hasText(
         title.text,
-        `We see the correct text for the pull request title.`
+        `We see the correct text for the pull request title.`,
       );
 
     assert
@@ -24,11 +24,11 @@ function setupCustomAssertions(assert) {
       .hasAttribute(
         'href',
         author.href,
-        `We see the correct URL for the pull request author.`
+        `We see the correct URL for the pull request author.`,
       )
       .hasText(
         author.text,
-        `We see the correct text for the pull request author.`
+        `We see the correct text for the pull request author.`,
       );
 
     assert
@@ -36,7 +36,7 @@ function setupCustomAssertions(assert) {
       .hasAttribute(
         'href',
         repo.href,
-        `We see the correct URL for the pull request repo.`
+        `We see the correct URL for the pull request repo.`,
       )
       .hasText(repo.text, `We see the correct text for the pull request repo.`);
   };

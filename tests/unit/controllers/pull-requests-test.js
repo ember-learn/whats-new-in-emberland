@@ -86,7 +86,7 @@ module('Unit | Controller | pull-requests', function (hooks) {
           url: 'https://api.github.com/emberjs',
         },
       ],
-      'We can identify a unique list of users.'
+      'We can identify a unique list of users.',
     );
   });
 
@@ -114,7 +114,7 @@ module('Unit | Controller | pull-requests', function (hooks) {
     assert.strictEqual(
       controller.contributorsList,
       '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>, <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>, and <a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>',
-      'We can update the contributors list.'
+      'We can update the contributors list.',
     );
   });
 
@@ -125,7 +125,7 @@ module('Unit | Controller | pull-requests', function (hooks) {
     assert.strictEqual(
       controller.contributorsList,
       '',
-      'We return an empty string for no contributors.'
+      'We return an empty string for no contributors.',
     );
 
     controller.updateContributorsList([
@@ -137,7 +137,7 @@ module('Unit | Controller | pull-requests', function (hooks) {
     assert.strictEqual(
       controller.contributorsList,
       '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>',
-      'We don’t add a comma for a single contributor.'
+      'We don’t add a comma for a single contributor.',
     );
 
     controller.updateContributorsList([
@@ -153,7 +153,7 @@ module('Unit | Controller | pull-requests', function (hooks) {
     assert.strictEqual(
       controller.contributorsList,
       '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a> and <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>',
-      'We don’t add an oxford comma for 2 contributors.'
+      'We don’t add an oxford comma for 2 contributors.',
     );
 
     controller.updateContributorsList([
@@ -174,7 +174,7 @@ module('Unit | Controller | pull-requests', function (hooks) {
     assert.strictEqual(
       controller.contributorsList,
       '<a href="https://github.com/emberjs" rel="noopener noreferrer" target="_blank">@emberjs</a>, <a href="https://github.com/tomster" rel="noopener noreferrer" target="_blank">@tomster</a>, and <a href="https://github.com/zoey" rel="noopener noreferrer" target="_blank">Zoey (@zoey)</a>',
-      'We add an oxford comma for 3+ contributors.'
+      'We add an oxford comma for 3+ contributors.',
     );
   });
 });

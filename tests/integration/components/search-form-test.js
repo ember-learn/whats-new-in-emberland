@@ -20,7 +20,7 @@ module('Integration | Component | search-form', function (hooks) {
       .hasAttribute('type', 'date', 'The input field has the type of date.')
       .hasValue(
         mostRecentSaturday.format('YYYY-MM-DD'),
-        'The input field shows the default value.'
+        'The input field shows the default value.',
       );
 
     assert
@@ -30,13 +30,11 @@ module('Integration | Component | search-form', function (hooks) {
   });
 
   test('sends the default mergedSince when we submit form without change', async function (assert) {
-    assert.expect(1);
-
     this.onSubmit = ({ mergedSince }) => {
       assert.strictEqual(
         mergedSince,
         mostRecentSaturday.format('YYYY-MM-DD'),
-        'We get the correct value for mergedSince.'
+        'We get the correct value for mergedSince.',
       );
     };
 
@@ -50,13 +48,11 @@ module('Integration | Component | search-form', function (hooks) {
   });
 
   test('sends the updated mergedSince when we submit form after changing mergedSince', async function (assert) {
-    assert.expect(2);
-
     this.onSubmit = ({ mergedSince }) => {
       assert.strictEqual(
         mergedSince,
         '2020-08-29',
-        'We get the correct value for mergedSince.'
+        'We get the correct value for mergedSince.',
       );
     };
 

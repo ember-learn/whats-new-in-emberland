@@ -1,14 +1,23 @@
 # unconventional js
 /blueprints/*/files/
+/vendor/
 
 # compiled output
 /declarations/
 /dist/
+/tmp/
 
 # misc
 /coverage/
 !.*
 .*/
+.eslintcache
+
+# dependencies
+/node_modules/
 
 # ember-try
 /.node_modules.ember-try/
+
+# ember-cli-mirage
+/mirage/
