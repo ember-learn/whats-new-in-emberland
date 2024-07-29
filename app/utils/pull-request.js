@@ -21,7 +21,7 @@ export function buildUrlForSearchingPRs(organization, createdSince) {
   ];
 
   return `https://api.github.com/search/issues?q=${qualifiers.join(
-    '+'
+    '+',
   )}&sort=created&order=desc&per_page=100`;
 }
 

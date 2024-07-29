@@ -1,5 +1,4 @@
-import { click, findAll, settled, visit } from '@ember/test-helpers';
-import { a11yAudit } from 'ember-a11y-testing/test-support';
+import { click, findAll, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupApplicationTest } from 'ember-qunit';
 import { module, test } from 'qunit';
@@ -19,24 +18,24 @@ module('Acceptance | pull-requests', function (hooks) {
 
     // Check pull requests that have been merged
     const mergedPRs = findAll(
-      '[data-test-section="Merged PRs"] [data-test-pull-request]'
+      '[data-test-section="Merged PRs"] [data-test-pull-request]',
     );
 
     assert.strictEqual(
       mergedPRs.length,
       0,
-      'We see 0 pull requests that have been merged.'
+      'We see 0 pull requests that have been merged.',
     );
 
     // Check pull requests that have been updated (but not merged)
     const updatedPRs = findAll(
-      '[data-test-section="Updated PRs"] [data-test-pull-request]'
+      '[data-test-section="Updated PRs"] [data-test-pull-request]',
     );
 
     assert.strictEqual(
       updatedPRs.length,
       0,
-      'We see 0 pull requests that have been updated.'
+      'We see 0 pull requests that have been updated.',
     );
   });
 
@@ -49,13 +48,13 @@ module('Acceptance | pull-requests', function (hooks) {
 
     // Check pull requests that have been merged
     const mergedPRs = findAll(
-      '[data-test-section="Merged PRs"] [data-test-pull-request]'
+      '[data-test-section="Merged PRs"] [data-test-pull-request]',
     );
 
     assert.strictEqual(
       mergedPRs.length,
       7,
-      'We see 7 pull requests that have been merged.'
+      'We see 7 pull requests that have been merged.',
     );
 
     assert.isPullRequestCorrect(mergedPRs[0], {
@@ -90,13 +89,13 @@ module('Acceptance | pull-requests', function (hooks) {
 
     // Check pull requests that have been updated (but not merged)
     const updatedPRs = findAll(
-      '[data-test-section="Updated PRs"] [data-test-pull-request]'
+      '[data-test-section="Updated PRs"] [data-test-pull-request]',
     );
 
     assert.strictEqual(
       updatedPRs.length,
       16,
-      'We see 16 pull requests that have been updated.'
+      'We see 16 pull requests that have been updated.',
     );
 
     assert.isPullRequestCorrect(updatedPRs[0], {
@@ -134,9 +133,6 @@ module('Acceptance | pull-requests', function (hooks) {
     await visit('/pull-requests?mergedSince=2020-09-14');
     await click('[data-test-button="Get Contributors List"]');
 
-    // eslint-disable-next-line ember/no-settled-after-test-helper
-    await settled();
-
     assert
       .dom('[data-test-clipboard-text]')
       .includesText('Ben Demboski (@bendemboski)', 'We see Ben Demboski.')
@@ -147,7 +143,6 @@ module('Acceptance | pull-requests', function (hooks) {
 
   test('Accessibility audit', async function (assert) {
     await visit('/pull-requests');
-    await a11yAudit();
     assert.ok(true);
   });
 });

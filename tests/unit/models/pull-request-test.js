@@ -27,12 +27,12 @@ module('Unit | Model | pull-request', function (hooks) {
 
     assert.true(
       pullRequest1.isMadeByUser,
-      "returns true if the user's type is User."
+      "returns true if the user's type is User.",
     );
 
     assert.false(
       pullRequest2.isMadeByUser,
-      "returns false if the user's type is Bot."
+      "returns false if the user's type is Bot.",
     );
   });
 
@@ -50,13 +50,13 @@ module('Unit | Model | pull-request', function (hooks) {
     assert.strictEqual(
       pullRequest1.repositoryName,
       'ember-learn/whats-new-in-emberland',
-      'returns organization and repository names if htmlUrl can be parsed.'
+      'returns organization and repository names if htmlUrl can be parsed.',
     );
 
     assert.strictEqual(
       pullRequest2.repositoryName,
       '',
-      "returns an empty string if htmlUrl can't be parsed."
+      "returns an empty string if htmlUrl can't be parsed.",
     );
   });
 
@@ -74,13 +74,13 @@ module('Unit | Model | pull-request', function (hooks) {
     assert.strictEqual(
       pullRequest1.repositoryUrl,
       'https://github.com/ember-learn/whats-new-in-emberland',
-      'returns repository URL if htmlUrl can be parsed.'
+      'returns repository URL if htmlUrl can be parsed.',
     );
 
     assert.strictEqual(
       pullRequest2.repositoryUrl,
       'https://github.com/',
-      "returns GitHub homepage URL if htmlUrl can't be parsed."
+      "returns GitHub homepage URL if htmlUrl can't be parsed.",
     );
   });
 });

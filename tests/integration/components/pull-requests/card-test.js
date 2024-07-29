@@ -32,7 +32,7 @@ module('Integration | Component | pull-requests/card', function (hooks) {
       .hasAttribute(
         'href',
         'https://github.com/ember-learn/whats-new-in-emberland/pull/37',
-        'We see the correct link to the PR.'
+        'We see the correct link to the PR.',
       );
 
     assert
@@ -44,7 +44,7 @@ module('Integration | Component | pull-requests/card', function (hooks) {
       .hasAttribute(
         'href',
         'https://github.com/zoey',
-        "We see the correct link to the author's GitHub page."
+        "We see the correct link to the author's GitHub page.",
       );
   });
 });

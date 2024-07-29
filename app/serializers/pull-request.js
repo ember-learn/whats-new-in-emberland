@@ -16,7 +16,7 @@ export default class PullRequestSerializer extends RESTSerializer {
       primaryModelClass,
       newPayload,
       id,
-      requestType
+      requestType,
     );
   }
 }

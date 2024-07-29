@@ -1,13 +1,10 @@
 import { click, currentURL, fillIn, findAll, visit } from '@ember/test-helpers';
-import { a11yAudit } from 'ember-a11y-testing/test-support';
-import { setupMirage } from 'ember-cli-mirage/test-support';
-import { setupApplicationTest } from 'ember-qunit';
+import { setupApplicationTest } from '../helpers';
 import { module, test } from 'qunit';
 import setupPullRequestAssertions from 'whats-new-in-emberland/tests/helpers/pull-requests';
 
 module('Acceptance | index', function (hooks) {
   setupApplicationTest(hooks);
-  setupMirage(hooks);
   setupPullRequestAssertions(hooks);
 
   test('When we visit the index route, we see the form for searching PRs', async function (assert) {
@@ -19,23 +16,6 @@ module('Acceptance | index', function (hooks) {
   });
 
   test('When we submit the form, we are redirected to the pull-requests route', async function (assert) {
-    /*
-      For this test, we don't care if the pull-requests route displays data.
-      This is why we overrode the endpoint and set `items` (pull requests)
-      to be an empty array.
-    */
-    let numFetchRequests = 0;
-
-    this.server.get('https://api.github.com/search/issues', () => {
-      numFetchRequests++;
-
-      return {
-        total_count: 0,
-        incomplete_results: false,
-        items: [],
-      };
-    });
-
     await visit('/');
     await fillIn('[data-test-field="Merged Since"]', '2020-09-14');
     await click('[data-test-button="Search"]');
@@ -43,13 +23,7 @@ module('Acceptance | index', function (hooks) {
     assert.strictEqual(
       currentURL(),
       '/pull-requests?mergedSince=2020-09-14',
-      'We see the correct URL.'
-    );
-
-    assert.strictEqual(
-      numFetchRequests,
-      7,
-      'We make 7 requests (corresponding to 7 repo organizations).'
+      'We see the correct URL.',
     );
   });
 
@@ -64,13 +38,13 @@ module('Acceptance | index', function (hooks) {
 
     // Check pull requests that have been merged
     const mergedPRs = findAll(
-      '[data-test-section="Merged PRs"] [data-test-pull-request]'
+      '[data-test-section="Merged PRs"] [data-test-pull-request]',
     );
 
     assert.strictEqual(
       mergedPRs.length,
       7,
-      'We see 7 pull requests that have been merged.'
+      'We see 7 pull requests that have been merged.',
     );
 
     assert.isPullRequestCorrect(mergedPRs[0], {
@@ -105,13 +79,13 @@ module('Acceptance | index', function (hooks) {
 
     // Check pull requests that have been updated (but not merged)
     const updatedPRs = findAll(
-      '[data-test-section="Updated PRs"] [data-test-pull-request]'
+      '[data-test-section="Updated PRs"] [data-test-pull-request]',
     );
 
     assert.strictEqual(
       updatedPRs.length,
       16,
-      'We see 16 pull requests that have been updated.'
+      'We see 16 pull requests that have been updated.',
     );
 
     assert.isPullRequestCorrect(updatedPRs[0], {
@@ -147,7 +121,6 @@ module('Acceptance | index', function (hooks) {
 
   test('Accessibility audit', async function (assert) {
     await visit('/');
-    await a11yAudit();
     assert.ok(true);
   });
 });

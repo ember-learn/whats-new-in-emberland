@@ -2,11 +2,6 @@
   {{yield}}
 </span>
 
-<button
-  class="button is-small is-primary"
-  data-test-button="Copy to Clipboard"
-  type="button"
-  {{on "click" this.copyText}}
->
+<EsButton @type="button" @secondary={{true}} @onClicked={{this.copyText}} data-test-button="Copy to Clipboard">
   Copy to Clipboard
-</button>
+</EsButton>

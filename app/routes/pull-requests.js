@@ -6,8 +6,11 @@ import {
   filterUpdated,
   sortPullRequests,
 } from 'whats-new-in-emberland/utils/pull-request';
+import { inject as service } from '@ember/service';
 
 export default class PullRequestsRoute extends Route {
+  @service store;
+
   queryParams = {
     mergedSince: {
       refreshModel: true,
@@ -45,14 +48,14 @@ export default class PullRequestsRoute extends Route {
       filterMerged({
         pullRequests: model,
         mergedSince: this.mergedSince,
-      })
+      }),
     );
 
     controller.updatedPRs = sortPullRequests(
       filterUpdated({
         pullRequests: model,
         mergedSince: this.mergedSince,
-      })
+      }),
     );
   }
 

@@ -21,7 +21,7 @@ module('Integration | Component | copy me', function (hooks) {
       .dom('[data-test-button="Copy to Clipboard"]')
       .hasText(
         'Copy to Clipboard',
-        'We see the correct label for Copy to Clipboard button.'
+        'We see the correct label for Copy to Clipboard button.',
       );
   });
 });

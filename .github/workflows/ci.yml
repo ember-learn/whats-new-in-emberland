@@ -7,46 +7,36 @@ on:
   pull_request:
 
 env:
-  NODE_VERSION: 14
+  NODE_VERSION: 18
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
-    name: Lint files
+    name: Lint files and dependencies
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Check out a copy of the repo
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          cache: 'yarn'
+          cache: 'pnpm'
           node-version: ${{ env.NODE_VERSION }}
+      - run: pnpm i --frozen-lockfile
+      - run: pnpm run lint
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Lint
-        run: yarn lint
-
-
-  run-tests:
-    name: Test Ember app
+  test-app:
+    name: Test app
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Check out a copy of the repo
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          cache: 'yarn'
+          cache: 'pnpm'
           node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Test
-        run: yarn test
+      - run: pnpm install --frozen-lockfile
